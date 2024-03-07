@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="63a84d9c-174d-45e9-9e60-a23c02db0f63" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/antlr/br/com/dillmann/dynamicquery/core/grammar/dsl/DynamicQueryDsl.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/DynamicQuery.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/DynamicQueryException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/DynamicQueryFacade.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/grammar/GrammarErrorListener.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/grammar/GrammarParserFactory.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/GrammarConverter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/GrammarConverterContext.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/TreeNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/TreeNodeCompiler.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/TreeNodeType.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/grammar/exception/GrammarException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/grammar/exception/SyntaxException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/Specification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/SpecificationFactory.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/decorators/CaseInsensitive.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/decorators/RequireCollection.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/decorators/RequireString.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/exception/InvalidArgumentCountException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/exception/SpecificationException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/exception/UnknownAttributeNameException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/exception/UnsupportedValueTypeException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/FilterSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/FilterType.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/BinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/EqualsBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/EqualsIgnoreCaseBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/GreaterThanBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/GreaterThanOrEqualsBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/LessThanBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/LessThanOrEqualsBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/LikeBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/LikeCaseInsensitiveBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/NotEqualsBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/NotEqualsIgnoreCaseBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/NotLikeBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/binary/NotLikeCaseInsensitiveBinarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/collection/CollectionSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/collection/InCollectionSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/collection/NotInCollectionSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/negation/NegationSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/range/BetweenRangeSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/range/NotBetweenRangeSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/range/RangeSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/unary/IsEmptyUnarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/unary/IsNotEmptyUnarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/unary/IsNotNullUnarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/unary/IsNullUnarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/filter/unary/UnarySpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/group/AndGroupSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/group/GroupSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/group/LogicalOperatorType.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/group/OrGroupSpecification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/path/PathResolver.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/ValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/ValueParserComparator.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/ValueParsers.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/BigDecimalValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/BigIntegerValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/BooleanValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/ByteValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/CharArrayValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/DefaultValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/DoubleValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/FloatValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/IntValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/LocalDateTimeValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/LocalDateValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/LongValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/OffsetDateTimeValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/OffsetTimeValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/ShortValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/StringValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/UuidValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/default/ZonedDateTimeValueParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/exception/NoValueParserAvailableException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/exception/ParseFailedException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/valueparser/exception/ValueParseException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/test/kotlin/br/com/dillmann/dynamicquery/core/Artifacts.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/test/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/GrammarConverterContextUnitTests.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/test/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/GrammarConverterUnitTests.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/test/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/TreeNodeCompilerUnitTests.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/test/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/TreeNodeTypeUnitTests.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic-query-core/src/test/kotlin/br/com/dillmann/dynamicquery/core/grammar/converter/TreeNodeUnitTests.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="dynamic-query" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="dynamic-query" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="dynamic-query" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="dynamic-query" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="publishing" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Enum" />
+        <option value="Class" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Object" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Data Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2csOdAstJIwzDB86wp74gKr9Lrx" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build dynamic-jpa-query.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build dynamic-query.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GrammarConverterContextUnitTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GrammarConverterUnitTests.enterExpression should start a new filter node in the internal tree.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GrammarConverterUnitTests.enterGroup should start a new group node in the internal tree.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GrammarConverterUnitTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GrammarConverterUnitTests.exitExpression should close the current node in the internal tree.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GrammarConverterUnitTests.exitGroup should close the current node in the internal tree.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GrammarConverterUnitTests.exitParameterStringValue should append the received value in the current node parameter list without the surrounding quotes.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GrammarConverterUnitTests.specification should compile the internal tree from the root node and return the result.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GrammarConverterUnitTests.specification should compile the internal tree from the root node.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.NodeTypeUnitTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'dynamic-query.dynamic-query-core.test'.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.TreeNodeUnitTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.dynamic-jpa-query [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.dynamic-jpa-query [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.dynamic-jpa-query [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.dynamic-query [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.dynamic-query [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.dynamic-query [generatePomFileForMavenCentralPublication].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.dynamic-query [generatePomFileForMavenPublication].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.dynamic-query [publishMavenCentralPublicationToMavenLocal].executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.TestKt.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-1.8&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/lucas/Projects/dynamic-query/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/decorators&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dynamic-query-core/src/main/kotlin/br/com/dillmann/dynamicquery/core/specification/decorators" />
+      <recent name="$PROJECT_DIR$/dynamic-jpa-query-core/src/main/kotlin/br/com/dillmann/dynamicjpaquery/core/grammar" />
+      <recent name="$PROJECT_DIR$/dynamic-jpa-query-core/src/main/kotlin/br/com/dillmann/dynamicjpaquery/core/grammar/converter" />
+      <recent name="$PROJECT_DIR$/dynamic-jpa-query-core/src/main/kotlin/br/com/dillmann/dynamicjpaquery/core/jpa/filter/collection" />
+      <recent name="$PROJECT_DIR$/dynamic-jpa-query-core/src/main/kotlin/br/com/dillmann/dynamicjpaquery/core/jpa/filter/range" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dynamic-jpa-query-core/src/main/antlr/br/com/dillmann/dynamicquery/core/grammar/dsl" />
+      <recent name="$PROJECT_DIR$/dynamic-jpa-query-core/src/main/kotlin/br/com/dillmann/dynamicjpaquery/core/jpa/decorators" />
+      <recent name="$PROJECT_DIR$/dynamic-jpa-query-core/src/main" />
+      <recent name="$PROJECT_DIR$/dynamic-jpa-query-core/src/antlr/br/com/dillmann/dynamicjpaquery/core/grammar" />
+      <recent name="$PROJECT_DIR$/dynamic-jpa-query-core/src/antlr" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="br.com.dillmann.dynamicjpaquery.core.jpa.configuration" />
+      <recent name="br.com.dillmann.dynamicjpaquery.core.valueparser.exception" />
+      <recent name="br.com.dillmann.dynamicjpaquery.core" />
+      <recent name="br.com.dillmann.dynamicjpaquery.core.jpa" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="br.com.dillmann.dynamicjpaquery.core.jpa.exception" />
+      <recent name="br.com.dillmann.dynamicjpaquery.core.jpa.filter.unary" />
+      <recent name="br.com.dillmann.dynamicjpaquery.core.jpa.filter.range" />
+      <recent name="br.com.dillmann.dynamicjpaquery.core.jpa.filter.collection" />
+      <recent name="br.com.dillmann.dynamicjpaquery.core.jpa.filter.binary" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.dynamic-query [generatePomFileForMavenPublication]">
+    <configuration name="dynamic-query [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assemble" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="dynamic-query [generatePomFileForMavenCentralPublication]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="generatePomFileForMavenCentralPublication" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="dynamic-query [generatePomFileForMavenPublication]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="generatePomFileForMavenPublication" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="dynamic-query [publishMavenCentralPublicationToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="publishMavenCentralPublicationToMavenLocal" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TestKt" />
+      <module name="dynamic-query.dynamic-query-core.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.dynamic-query [generatePomFileForMavenPublication]" />
+        <item itemvalue="Gradle.dynamic-query [publishMavenCentralPublicationToMavenLocal]" />
+        <item itemvalue="Gradle.dynamic-query [generatePomFileForMavenCentralPublication]" />
+        <item itemvalue="Gradle.dynamic-query [assemble]" />
+        <item itemvalue="Kotlin.TestKt" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-11.0.22-corretto-11.0.22-4caba194b151-396cc1b2" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="63a84d9c-174d-45e9-9e60-a23c02db0f63" name="Changes" comment="" />
+      <created>1708896906396</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708896906396</updated>
+      <workItem from="1708896907467" duration="190000" />
+      <workItem from="1708897104338" duration="21632000" />
+      <workItem from="1709382436899" duration="467000" />
+      <workItem from="1709382937418" duration="9718000" />
+      <workItem from="1709498802285" duration="3179000" />
+      <workItem from="1709689655278" duration="1029000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/dynamic-jpa-query-core/src/test/kotlin/Test.kt</url>
+          <line>7</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/dynamic-jpa-query-core/src/main/kotlin/br/com/dillmann/dynamicjpaquery/core/grammar/GrammarErrorListener.kt</url>
+          <line>30</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/dynamic_query$Tests_in__dynamic_query_dynamic_query_core_test_.ic" NAME="Tests in 'dynamic-query.dynamic-query-core.test' Coverage Results" MODIFIED="1709425680407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
