@@ -64,36 +64,36 @@ class GrammarConverterUnitTests {
     }
 
     @Test
-    fun `enterGroup should start a new group node in the internal tree`() {
+    fun `enterExpression should start a new group node in the internal tree`() {
         // execution
-        converter.enterGroup(mockk())
+        converter.enterExpression(mockk())
 
         // validation
         verify { anyConstructed<GrammarConverterContext>().startNode(TreeNodeType.GROUP) }
     }
 
     @Test
-    fun `exitGroup should close the current node in the internal tree`() {
+    fun `exitExpression should close the current node in the internal tree`() {
         // execution
-        converter.exitGroup(mockk())
+        converter.exitExpression(mockk())
 
         // validation
         verify { anyConstructed<GrammarConverterContext>().endNode() }
     }
 
     @Test
-    fun `enterExpression should start a new filter node in the internal tree`() {
+    fun `enterPredicate should start a new filter node in the internal tree`() {
         // execution
-        converter.enterExpression(mockk())
+        converter.enterPredicate(mockk())
 
         // validation
-        verify { anyConstructed<GrammarConverterContext>().startNode(TreeNodeType.FILTER) }
+        verify { anyConstructed<GrammarConverterContext>().startNode(TreeNodeType.PREDICATE) }
     }
 
     @Test
-    fun `exitExpression should close the current node in the internal tree`() {
+    fun `exitPredicate should close the current node in the internal tree`() {
         // execution
-        converter.exitExpression(mockk())
+        converter.exitPredicate(mockk())
 
         // validation
         verify { anyConstructed<GrammarConverterContext>().endNode() }

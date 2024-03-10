@@ -24,9 +24,9 @@ class TreeNodeTypeUnitTests {
     }
 
     @Test
-    fun `FILTER option should have allowsChildren set to false`() {
+    fun `PREDICATE option should have allowsChildren set to false`() {
         assertFalse {
-            TreeNodeType.FILTER.allowsChildren
+            TreeNodeType.PREDICATE.allowsChildren
         }
     }
 

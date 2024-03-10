@@ -18,9 +18,9 @@ enum class TreeNodeType(val allowsChildren: Boolean) {
     GROUP(true),
 
     /**
-     * Filter expression
+     * Predicate expression
      */
-    FILTER(false),
+    PREDICATE(false),
 
     /**
      * Logical operator expression

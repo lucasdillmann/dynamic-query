@@ -3,12 +3,12 @@ grammar DynamicQueryDsl;
 package br.com.dillmann.dynamicquery.core.grammar.dsl;
 }
 
-root: groups EOF;
-groups: group (logicalOperator group)*;
-group: negation | expressions | '(' groups ')';
-negation: 'not(' groups ')';
+root: expressions EOF;
 expressions: expression (logicalOperator expression)*;
-expression: attributeName ':' operation ('[' parameters ']')?;
+expression: negation | predicates | '(' expressions ')';
+negation: 'not(' expressions ')';
+predicates: predicate (logicalOperator predicate)*;
+predicate: attributeName ':' operation ('[' parameters ']')?;
 attributeName: ATRIBUTE_NAME;
 operation
     : 'equals'

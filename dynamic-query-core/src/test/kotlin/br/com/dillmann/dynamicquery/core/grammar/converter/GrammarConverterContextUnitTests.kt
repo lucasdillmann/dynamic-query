@@ -48,7 +48,7 @@ class GrammarConverterContextUnitTests {
         context.startNode(TreeNodeType.GROUP)
         val expectedResult = context.currentNode
 
-        context.startNode(TreeNodeType.FILTER)
+        context.startNode(TreeNodeType.PREDICATE)
 
         // execution
         context.endNode()

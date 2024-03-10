@@ -23,12 +23,12 @@ class TreeNodeCompiler(private val rootNode: TreeNode) {
     private fun compile(node: TreeNode): Specification =
         when (node.type) {
             TreeNodeType.ROOT, TreeNodeType.GROUP -> compileChildren(node)
-            TreeNodeType.FILTER -> compileFilter(node)
+            TreeNodeType.PREDICATE -> compilePredicate(node)
             TreeNodeType.NEGATION -> compileNegation(node)
             TreeNodeType.LOGICAL_OPERATOR -> error("Logical operators should be compiled indirectly by groups")
         }
 
-    private fun compileFilter(node: TreeNode): FilterSpecification {
+    private fun compilePredicate(node: TreeNode): FilterSpecification {
         val filterType = FilterType.forIdentifier(node.operation!!)
         return SpecificationFactory.filter(filterType, node.attributeName!!, node.parameters ?: emptyList())
     }

@@ -14,17 +14,17 @@ class TreeNode(var type: TreeNodeType, val parent: TreeNode?) {
     val children = mutableListOf<TreeNode>()
 
     /**
-     * Target operation of the node (equals, between and alike) when the node is a [TreeNodeType.FILTER]
+     * Target operation of the node (equals, between and alike) when the node is a [TreeNodeType.PREDICATE]
      */
     var operation: String? = null
 
     /**
-     * Target name of the target attribute when the node is a [TreeNodeType.FILTER]
+     * Target name of the target attribute when the node is a [TreeNodeType.PREDICATE]
      */
     var attributeName: String? = null
 
     /**
-     * Relation of arguments (like the start and end of a between operation) when the node is a [TreeNodeType.FILTER]
+     * Relation of arguments (like the start and end of a between operation) when the node is a [TreeNodeType.PREDICATE]
      */
     var parameters: List<String>? = null
 

@@ -22,42 +22,42 @@ class GrammarConverter : DynamicQueryDslBaseListener() {
         TreeNodeCompiler(context.root).compile()
 
     /**
-     * Notifies about the navigation entering a group token. When called, starts a new group node in the internal
-     * predicate tree.
-     *
-     * @param parserContext Details about the group token that is starting
-     */
-    override fun enterGroup(parserContext: GroupContext) {
-        context.startNode(TreeNodeType.GROUP)
-    }
-
-    /**
-     * Notifies about the navigation exiting a group token. When called, closes the current node in the internal
-     * predicate tree.
-     *
-     * @param parserContext Details about the group token that is ending
-     */
-    override fun exitGroup(parserContext: GroupContext) {
-        context.endNode()
-    }
-
-    /**
-     * Notifies about the navigation entering a expression token. When called, starts a new filter node in the internal
+     * Notifies about the navigation entering an expression token. When called, starts a new group node in the internal
      * predicate tree.
      *
      * @param parserContext Details about the expression token that is starting
      */
     override fun enterExpression(parserContext: ExpressionContext) {
-        context.startNode(TreeNodeType.FILTER)
+        context.startNode(TreeNodeType.GROUP)
     }
 
     /**
-     * Notifies about the navigation exiting a expression token. When called, closes the current node in the internal
+     * Notifies about the navigation exiting an expression token. When called, closes the current node in the internal
      * predicate tree.
      *
      * @param parserContext Details about the expression token that is ending
      */
     override fun exitExpression(parserContext: ExpressionContext) {
+        context.endNode()
+    }
+
+    /**
+     * Notifies about the navigation entering a predicate token. When called, starts a new filter node in the internal
+     * predicate tree.
+     *
+     * @param parserContext Details about the predicate token that is starting
+     */
+    override fun enterPredicate(parserContext: PredicateContext) {
+        context.startNode(TreeNodeType.PREDICATE)
+    }
+
+    /**
+     * Notifies about the navigation exiting a predicate token. When called, closes the current node in the internal
+     * predicate tree.
+     *
+     * @param parserContext Details about the predicate token that is ending
+     */
+    override fun exitPredicate(parserContext: PredicateContext) {
         context.endNode()
     }
 
