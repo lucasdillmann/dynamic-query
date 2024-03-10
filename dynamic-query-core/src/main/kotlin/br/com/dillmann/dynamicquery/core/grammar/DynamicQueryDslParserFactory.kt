@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.CommonTokenStream
 /**
  * [DynamicQueryDslParser] instance factory
  */
-object GrammarParserFactory {
+object DynamicQueryDslParserFactory {
 
     /**
      * Builds and returns a [DynamicQueryDslParser] for the given input expression

@@ -21,7 +21,7 @@ class GrammarConverterContextUnitTests {
     @Test
     fun `startNode should start a new child node of the current node and set it as the new current node`() {
         // sccenario
-        val type = (TreeNodeType.entries - TreeNodeType.ROOT).random()
+        val type = TreeNodeType.entries.random()
 
         // execution
         context.startNode(type)
@@ -31,15 +31,6 @@ class GrammarConverterContextUnitTests {
         assertEquals(type, context.currentNode.type)
         assertEquals(context.root, context.currentNode.parent)
         assertTrue { context.currentNode in context.root.children }
-    }
-
-    @Test
-    fun `startNode should throw an error when asked to start a ROOT node`() {
-        // validation
-        assertThrows<IllegalArgumentException>("Cannot create child nodes of type ROOT") {
-            // execution
-            context.startNode(TreeNodeType.ROOT)
-        }
     }
 
     @Test
@@ -60,7 +51,7 @@ class GrammarConverterContextUnitTests {
     @Test
     fun `endNode should throw an error when asked to close the root node`() {
         // validation
-        assertThrows<IllegalStateException>("Cannot close root node") {
+        assertThrows<IllegalStateException>("Cannot close the root node") {
             // execution
             context.endNode()
         }

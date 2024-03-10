@@ -10,7 +10,7 @@ import kotlin.test.assertTrue
  */
 class TreeNodeUnitTests {
 
-    private val node = TreeNode(TreeNodeType.ROOT, null)
+    private val node = TreeNode(TreeNodeType.GROUP, null)
 
     @Test
     fun `addChild should store the given node as a child node`() {

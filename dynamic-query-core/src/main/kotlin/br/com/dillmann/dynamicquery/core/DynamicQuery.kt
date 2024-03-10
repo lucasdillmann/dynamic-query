@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.core
 
-import br.com.dillmann.dynamicquery.core.grammar.GrammarParserFactory
+import br.com.dillmann.dynamicquery.core.grammar.DynamicQueryDslParserFactory
 import br.com.dillmann.dynamicquery.core.grammar.converter.GrammarConverter
 import br.com.dillmann.dynamicquery.core.specification.Specification
 
@@ -20,7 +20,7 @@ object DynamicQuery {
     @JvmStatic
     fun parse(expression: String): Specification {
         val converter = GrammarConverter()
-        val parser = GrammarParserFactory.build(expression)
+        val parser = DynamicQueryDslParserFactory.build(expression)
 
         parser.addParseListener(converter)
         parser.root() // execute the parse from the root element

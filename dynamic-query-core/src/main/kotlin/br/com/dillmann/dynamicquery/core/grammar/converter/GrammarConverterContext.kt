@@ -10,7 +10,7 @@ class GrammarConverterContext {
     /**
      * Root of the tree
      */
-    val root = TreeNode(TreeNodeType.ROOT, null)
+    val root = TreeNode(TreeNodeType.GROUP, null)
 
     /**
      * Currently open/active node
@@ -24,7 +24,6 @@ class GrammarConverterContext {
      * @param type Type of the new node
      */
     fun startNode(type: TreeNodeType) {
-        require(type != TreeNodeType.ROOT) { "Cannot create child nodes of type ROOT" }
         val newNode = TreeNode(type, currentNode)
         currentNode.addChild(newNode)
         currentNode = newNode
@@ -36,7 +35,7 @@ class GrammarConverterContext {
      * @throws IllegalStateException when called for the root node
      */
     fun endNode() {
-        check(currentNode.parent != null) { "Cannot close root node" }
+        check(currentNode.parent != null) { "Cannot close the root node" }
         currentNode = currentNode.parent!!
     }
 }

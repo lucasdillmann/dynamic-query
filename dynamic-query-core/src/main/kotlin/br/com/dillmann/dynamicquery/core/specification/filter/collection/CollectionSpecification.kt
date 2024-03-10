@@ -1,12 +1,12 @@
 package br.com.dillmann.dynamicquery.core.specification.filter.collection
 
-import br.com.dillmann.dynamicquery.core.specification.filter.FilterSpecification
+import br.com.dillmann.dynamicquery.core.specification.filter.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.specification.path.PathResolver
 import br.com.dillmann.dynamicquery.core.valueparser.ValueParsers
 import javax.persistence.criteria.*
 
 /**
- * [FilterSpecification] specialization for collection filter expressions
+ * [PredicateSpecification] specialization for collection filter expressions
  *
  * @param attributeName Full path of the attribute
  * @param values Values to be compared to
@@ -16,7 +16,7 @@ abstract class CollectionSpecification(
     private val attributeName: String,
     private val values: List<String>,
     private val negateResults: Boolean,
-): FilterSpecification {
+): PredicateSpecification {
 
     /**
      * Produces a JPA-compliant predicate using the given criteria

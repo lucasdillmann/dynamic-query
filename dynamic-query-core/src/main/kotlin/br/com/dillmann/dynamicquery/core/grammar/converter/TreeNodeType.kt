@@ -8,11 +8,6 @@ package br.com.dillmann.dynamicquery.core.grammar.converter
 enum class TreeNodeType(val allowsChildren: Boolean) {
 
     /**
-     * Tree root node
-     */
-    ROOT(true),
-
-    /**
      * Group of expressions
      */
     GROUP(true),

@@ -1,5 +1,7 @@
 package br.com.dillmann.dynamicquery.core.grammar.converter
 
+import java.util.*
+
 /**
  * Conversion tree node definition
  *
@@ -11,7 +13,7 @@ class TreeNode(var type: TreeNodeType, val parent: TreeNode?) {
     /**
      * Relation of child nodes
      */
-    val children = mutableListOf<TreeNode>()
+    val children: MutableList<TreeNode> = LinkedList<TreeNode>()
 
     /**
      * Target operation of the node (equals, between and alike) when the node is a [TreeNodeType.PREDICATE]

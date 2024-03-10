@@ -1,12 +1,12 @@
 package br.com.dillmann.dynamicquery.core.specification.filter.range
 
-import br.com.dillmann.dynamicquery.core.specification.filter.FilterSpecification
+import br.com.dillmann.dynamicquery.core.specification.filter.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.specification.path.PathResolver
 import br.com.dillmann.dynamicquery.core.valueparser.ValueParsers
 import javax.persistence.criteria.*
 
 /**
- * [FilterSpecification] specialization for ranges filter expressions
+ * [PredicateSpecification] specialization for ranges filter expressions
  *
  * @param attributeName Name of the attribute
  * @param rangeStartValue Left (start) value of the range
@@ -18,7 +18,7 @@ abstract class RangeSpecification(
     private val rangeStartValue: String,
     private val rangeEndValue: String,
     private val negateResults: Boolean,
-): FilterSpecification {
+): PredicateSpecification {
 
     /**
      * Produces a JPA-compliant predicate using the given criteria

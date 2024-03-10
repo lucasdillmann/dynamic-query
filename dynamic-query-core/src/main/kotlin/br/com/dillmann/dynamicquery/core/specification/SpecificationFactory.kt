@@ -1,9 +1,9 @@
 package br.com.dillmann.dynamicquery.core.specification
 
 import br.com.dillmann.dynamicquery.core.specification.exception.InvalidArgumentCountException
-import br.com.dillmann.dynamicquery.core.specification.filter.FilterSpecification
-import br.com.dillmann.dynamicquery.core.specification.filter.FilterType
-import br.com.dillmann.dynamicquery.core.specification.filter.FilterType.*
+import br.com.dillmann.dynamicquery.core.specification.filter.PredicateSpecification
+import br.com.dillmann.dynamicquery.core.specification.filter.PredicateType
+import br.com.dillmann.dynamicquery.core.specification.filter.PredicateType.*
 import br.com.dillmann.dynamicquery.core.specification.filter.binary.*
 import br.com.dillmann.dynamicquery.core.specification.filter.collection.InCollectionSpecification
 import br.com.dillmann.dynamicquery.core.specification.filter.collection.NotInCollectionSpecification
@@ -25,7 +25,7 @@ import br.com.dillmann.dynamicquery.core.specification.group.OrGroupSpecificatio
 object SpecificationFactory {
 
     /**
-     * Builds and returns a [FilterSpecification] instance for a filter operation
+     * Builds and returns a [PredicateSpecification] instance for a filter operation
      *
      * @param type Type of the filter
      * @param attributeName Name of the attribute on where the operation will be performed
@@ -34,7 +34,7 @@ object SpecificationFactory {
      */
     @JvmStatic
     @JvmOverloads
-    fun filter(type: FilterType, attributeName: String, arguments: List<String> = emptyList()): FilterSpecification {
+    fun filter(type: PredicateType, attributeName: String, arguments: List<String> = emptyList()): PredicateSpecification {
         val argumentCountRange = type.argumentCountRange
         if (argumentCountRange.isEmpty() && arguments.isNotEmpty())
             throw InvalidArgumentCountException(attributeName, type.identifier, arguments.size, 0, 0)

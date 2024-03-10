@@ -1,12 +1,12 @@
 package br.com.dillmann.dynamicquery.core.specification.filter
 
 /**
- * Relation of supported filter types
+ * Relation of supported predicate types
  *
  * @param identifier Unique identifier of the type
  * @param argumentCountRange Range of accepted argument count
  */
-enum class FilterType(val identifier: String, val argumentCountRange: IntRange) {
+enum class PredicateType(val identifier: String, val argumentCountRange: IntRange) {
 
     // Unary
     IS_NULL("isNull", IntRange.EMPTY),

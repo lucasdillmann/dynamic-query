@@ -15,6 +15,12 @@ val randomLong: Long
     get() = (Long.MIN_VALUE..Long.MAX_VALUE).random()
 
 /**
+ * Produces and returns a random [Int] between the maximum and minimum values that the type can hold
+ */
+val randomInt: Int
+    get() = (Int.MIN_VALUE..Int.MAX_VALUE).random()
+
+/**
  * Produces and returns a random [Boolean]
  */
 val randomBoolean: Boolean

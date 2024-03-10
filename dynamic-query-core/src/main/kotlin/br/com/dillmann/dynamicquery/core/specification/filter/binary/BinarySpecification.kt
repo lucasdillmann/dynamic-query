@@ -1,12 +1,12 @@
 package br.com.dillmann.dynamicquery.core.specification.filter.binary
 
-import br.com.dillmann.dynamicquery.core.specification.filter.FilterSpecification
+import br.com.dillmann.dynamicquery.core.specification.filter.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.specification.path.PathResolver
 import br.com.dillmann.dynamicquery.core.valueparser.ValueParsers
 import javax.persistence.criteria.*
 
 /**
- * [FilterSpecification] specialization for binary filter expressions
+ * [PredicateSpecification] specialization for binary filter expressions
  *
  * @param attributeName Full path of the attribute
  * @param value Value to be compared to
@@ -16,7 +16,7 @@ abstract class BinarySpecification(
     private val attributeName: String,
     private val value: String,
     private val builderFunction: CriteriaBuilder.(Path<Comparable<Any>>, Comparable<Any>) -> Predicate,
-): FilterSpecification {
+): PredicateSpecification {
 
     /**
      * Produces a JPA-compliant predicate using the given criteria

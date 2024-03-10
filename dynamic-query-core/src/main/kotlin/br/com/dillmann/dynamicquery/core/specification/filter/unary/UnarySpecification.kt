@@ -1,11 +1,11 @@
 package br.com.dillmann.dynamicquery.core.specification.filter.unary
 
-import br.com.dillmann.dynamicquery.core.specification.filter.FilterSpecification
+import br.com.dillmann.dynamicquery.core.specification.filter.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.specification.path.PathResolver
 import javax.persistence.criteria.*
 
 /**
- * [FilterSpecification] specialization for unary filter expressions
+ * [PredicateSpecification] specialization for unary filter expressions
  *
  * @param attributeName Name of the attribute
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
@@ -13,7 +13,7 @@ import javax.persistence.criteria.*
 abstract class UnarySpecification(
     private val attributeName: String,
     private val builderFunction: CriteriaBuilder.(Expression<out Any>) -> Predicate,
-): FilterSpecification {
+): PredicateSpecification {
 
     /**
      * Produces a JPA-compliant predicate using the given criteria

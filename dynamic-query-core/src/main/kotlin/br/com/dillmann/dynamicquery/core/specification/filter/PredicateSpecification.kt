@@ -3,6 +3,6 @@ package br.com.dillmann.dynamicquery.core.specification.filter
 import br.com.dillmann.dynamicquery.core.specification.Specification
 
 /**
- * [Specification] specialization for filter operations
+ * [Specification] specialization for predicate operations
  */
-interface FilterSpecification: Specification
+interface PredicateSpecification: Specification

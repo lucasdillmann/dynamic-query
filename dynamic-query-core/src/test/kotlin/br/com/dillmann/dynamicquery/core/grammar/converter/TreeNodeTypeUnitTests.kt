@@ -10,13 +10,6 @@ import kotlin.test.assertFalse
 class TreeNodeTypeUnitTests {
 
     @Test
-    fun `ROOT option should have allowsChildren set to true`() {
-        assertTrue {
-            TreeNodeType.ROOT.allowsChildren
-        }
-    }
-
-    @Test
     fun `GROUP option should have allowsChildren set to true`() {
         assertTrue {
             TreeNodeType.GROUP.allowsChildren
