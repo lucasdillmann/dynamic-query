@@ -2,9 +2,9 @@ package br.com.dillmann.dynamicquery.core.grammar.converter
 
 import br.com.dillmann.dynamicquery.core.randomString
 import br.com.dillmann.dynamicquery.core.specification.SpecificationFactory
-import br.com.dillmann.dynamicquery.core.specification.filter.PredicateType
-import br.com.dillmann.dynamicquery.core.specification.filter.PredicateSpecification
-import br.com.dillmann.dynamicquery.core.specification.filter.negation.NegationSpecification
+import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateType
+import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
+import br.com.dillmann.dynamicquery.core.specification.predicate.negation.NegationSpecification
 import br.com.dillmann.dynamicquery.core.specification.group.GroupSpecification
 import br.com.dillmann.dynamicquery.core.specification.group.LogicalOperatorType
 import io.mockk.*

@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.core.specification.exception
 
-import br.com.dillmann.dynamicquery.core.specification.filter.PredicateType
+import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateType
 
 
 /**

@@ -6,19 +6,17 @@ plugins {
 }
 
 allprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "maven-publish")
+    apply(plugin = "java-library")
+    apply(plugin = "signing")
+
     group = "br.com.dillmann.dynamicquery"
     version = "1.0.0"
 
     repositories {
         mavenCentral()
     }
-}
-
-allprojects {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin = "maven-publish")
-    apply(plugin = "java-library")
-    apply(plugin = "signing")
 
     dependencies {
         testImplementation("org.jetbrains.kotlin:kotlin-test")
