@@ -13,8 +13,8 @@ import javax.persistence.criteria.*
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
  */
 abstract class BinarySpecification(
-    private val attributeName: String,
-    private val value: String,
+    val attributeName: String,
+    val value: String,
     private val builderFunction: CriteriaBuilder.(Path<Comparable<Any>>, Comparable<Any>) -> Predicate,
 ): PredicateSpecification {
 

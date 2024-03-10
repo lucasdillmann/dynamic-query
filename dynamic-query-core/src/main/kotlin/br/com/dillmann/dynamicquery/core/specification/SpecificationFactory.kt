@@ -34,15 +34,12 @@ object SpecificationFactory {
      */
     @JvmStatic
     @JvmOverloads
-    fun filter(type: PredicateType, attributeName: String, arguments: List<String> = emptyList()): PredicateSpecification {
+    fun predicate(type: PredicateType, attributeName: String, arguments: List<String> = emptyList()): PredicateSpecification {
         val argumentCountRange = type.argumentCountRange
-        if (argumentCountRange.isEmpty() && arguments.isNotEmpty())
-            throw InvalidArgumentCountException(attributeName, type.identifier, arguments.size, 0, 0)
-
         if (arguments.size !in argumentCountRange)
             throw InvalidArgumentCountException(
                 attributeName,
-                type.identifier,
+                type,
                 arguments.size,
                 argumentCountRange.first,
                 argumentCountRange.last,

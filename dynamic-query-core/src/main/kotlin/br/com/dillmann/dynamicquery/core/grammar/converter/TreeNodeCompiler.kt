@@ -30,7 +30,7 @@ class TreeNodeCompiler(private val rootNode: TreeNode) {
 
     private fun compilePredicate(node: TreeNode): PredicateSpecification {
         val predicateType = PredicateType.forIdentifier(node.operation!!)
-        return SpecificationFactory.filter(predicateType, node.attributeName!!, node.parameters ?: emptyList())
+        return SpecificationFactory.predicate(predicateType, node.attributeName!!, node.parameters ?: emptyList())
     }
 
     private fun compileNegation(node: TreeNode): PredicateSpecification {

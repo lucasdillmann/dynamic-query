@@ -14,9 +14,9 @@ import javax.persistence.criteria.*
  * @param negateResults Defines if the predicate should be negated or not
  */
 abstract class RangeSpecification(
-    private val attributeName: String,
-    private val rangeStartValue: String,
-    private val rangeEndValue: String,
+    val attributeName: String,
+    val rangeStartValue: String,
+    val rangeEndValue: String,
     private val negateResults: Boolean,
 ): PredicateSpecification {
 

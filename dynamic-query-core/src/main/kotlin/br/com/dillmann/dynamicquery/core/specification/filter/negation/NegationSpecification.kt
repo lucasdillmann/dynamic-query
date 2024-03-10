@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root
  *
  * @param negatedExpression Expression to be inverted/negated
  */
-class NegationSpecification(private val negatedExpression: Specification): PredicateSpecification {
+class NegationSpecification(val negatedExpression: Specification): PredicateSpecification {
 
     /**
      * Produces a JPA-compliant predicate using the given criteria

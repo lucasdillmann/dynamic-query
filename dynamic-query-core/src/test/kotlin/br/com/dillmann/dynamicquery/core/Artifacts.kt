@@ -6,7 +6,7 @@ private val ASCII_CHARS = (32..126).map(Int::toChar)
  * Produces and returns a [String] with random size and contents
  */
 val randomString: String
-    get() = (1..50).random().downTo(0).joinToString(separator = "") { ASCII_CHARS.random().toString() }
+    get() = randomListOf(minimumSize = 1, maximumSize = 50) { ASCII_CHARS.random() }.joinToString(separator = "")
 
 /**
  * Produces and returns a random [Long] between the maximum and minimum values that the type can hold
@@ -35,4 +35,5 @@ val randomBoolean: Boolean
  * @param valueProvider Function to be called to produce each position of the list
  */
 fun <T: Any?> randomListOf(minimumSize: Int = 1, maximumSize: Int = 10, valueProvider: (Int) -> T): List<T> =
-    (minimumSize..maximumSize).random().downTo(0).map(valueProvider)
+    if (maximumSize == 0) emptyList()
+    else (minimumSize..maximumSize).random().downTo(1).map(valueProvider)

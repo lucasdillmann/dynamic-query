@@ -13,8 +13,8 @@ import javax.persistence.criteria.*
  * @param negateResults Defines if the predicate should be negated or not
  */
 abstract class CollectionSpecification(
-    private val attributeName: String,
-    private val values: List<String>,
+    val attributeName: String,
+    val values: List<String>,
     private val negateResults: Boolean,
 ): PredicateSpecification {
 

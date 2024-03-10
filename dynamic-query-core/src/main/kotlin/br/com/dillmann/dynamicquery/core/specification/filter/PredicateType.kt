@@ -1,5 +1,7 @@
 package br.com.dillmann.dynamicquery.core.specification.filter
 
+private val EMPTY_RANGE = 0..0
+
 /**
  * Relation of supported predicate types
  *
@@ -9,10 +11,10 @@ package br.com.dillmann.dynamicquery.core.specification.filter
 enum class PredicateType(val identifier: String, val argumentCountRange: IntRange) {
 
     // Unary
-    IS_NULL("isNull", IntRange.EMPTY),
-    IS_NOT_NULL("isNotNull", IntRange.EMPTY),
-    IS_EMPTY("isEmpty", IntRange.EMPTY),
-    IS_NOT_EMPTY("isNotEmpty", IntRange.EMPTY),
+    IS_NULL("isNull", EMPTY_RANGE),
+    IS_NOT_NULL("isNotNull", EMPTY_RANGE),
+    IS_EMPTY("isEmpty", EMPTY_RANGE),
+    IS_NOT_EMPTY("isNotEmpty", EMPTY_RANGE),
 
     // Range
     BETWEEN("between", 2..2),

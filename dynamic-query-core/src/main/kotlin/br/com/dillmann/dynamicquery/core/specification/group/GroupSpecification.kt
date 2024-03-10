@@ -11,8 +11,8 @@ import javax.persistence.criteria.*
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
  */
 abstract class GroupSpecification(
-    private val leftExpression: Specification,
-    private val rightExpression: Specification,
+    val leftExpression: Specification,
+    val rightExpression: Specification,
     private val builderFunction: CriteriaBuilder.(Predicate, Predicate) -> Predicate,
 ): Specification {
 

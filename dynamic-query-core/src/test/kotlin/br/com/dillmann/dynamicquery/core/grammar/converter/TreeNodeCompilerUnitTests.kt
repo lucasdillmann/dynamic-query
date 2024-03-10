@@ -38,7 +38,7 @@ class TreeNodeCompilerUnitTests {
     @BeforeEach
     fun setUp() {
         every { SpecificationFactory.negate(any()) } returns negationSpecification
-        every { SpecificationFactory.filter(any(), any(), any()) } returns predicateSpecification
+        every { SpecificationFactory.predicate(any(), any(), any()) } returns predicateSpecification
         every { SpecificationFactory.group(any(), any(), any()) } returns groupSpecification
     }
 
@@ -56,7 +56,7 @@ class TreeNodeCompilerUnitTests {
         val result = TreeNodeCompiler(predicate).compile()
 
         // validation
-        verify { SpecificationFactory.filter(type, predicate.attributeName!!, predicate.parameters!!) }
+        verify { SpecificationFactory.predicate(type, predicate.attributeName!!, predicate.parameters!!) }
         assertEquals(predicateSpecification, result)
     }
 
@@ -81,18 +81,18 @@ class TreeNodeCompilerUnitTests {
         group.addChild(secondLogicalOperator)
         group.addChild(thirdPredicate)
 
-        every { SpecificationFactory.filter(any(), firstPredicate.attributeName!!, any()) } returns firstSpecification
-        every { SpecificationFactory.filter(any(), secondPredicate.attributeName!!, any()) } returns secondSpecification
-        every { SpecificationFactory.filter(any(), thirdPredicate.attributeName!!, any()) } returns thirdSpecification
+        every { SpecificationFactory.predicate(any(), firstPredicate.attributeName!!, any()) } returns firstSpecification
+        every { SpecificationFactory.predicate(any(), secondPredicate.attributeName!!, any()) } returns secondSpecification
+        every { SpecificationFactory.predicate(any(), thirdPredicate.attributeName!!, any()) } returns thirdSpecification
         every { SpecificationFactory.group(any(), any(), any()) } returnsMany listOf(firstGroup, secondGroup)
 
         // execution
         val result = TreeNodeCompiler(group).compile()
 
         // validation
-        verify { SpecificationFactory.filter(PredicateType.IS_NOT_NULL, firstPredicate.attributeName!!) }
-        verify { SpecificationFactory.filter(PredicateType.IS_NULL, secondPredicate.attributeName!!) }
-        verify { SpecificationFactory.filter(PredicateType.IS_EMPTY, thirdPredicate.attributeName!!) }
+        verify { SpecificationFactory.predicate(PredicateType.IS_NOT_NULL, firstPredicate.attributeName!!) }
+        verify { SpecificationFactory.predicate(PredicateType.IS_NULL, secondPredicate.attributeName!!) }
+        verify { SpecificationFactory.predicate(PredicateType.IS_EMPTY, thirdPredicate.attributeName!!) }
         verify { SpecificationFactory.group(LogicalOperatorType.AND, firstSpecification, secondSpecification) }
         verify { SpecificationFactory.group(LogicalOperatorType.OR, firstGroup, thirdSpecification) }
         assertEquals(secondGroup, result)
@@ -109,7 +109,7 @@ class TreeNodeCompilerUnitTests {
         val result = TreeNodeCompiler(negation).compile()
 
         // validation
-        verify { SpecificationFactory.filter(PredicateType.IS_NULL, predicate.attributeName!!) }
+        verify { SpecificationFactory.predicate(PredicateType.IS_NULL, predicate.attributeName!!) }
         verify { SpecificationFactory.negate(predicateSpecification) }
         assertEquals(negationSpecification, result)
     }

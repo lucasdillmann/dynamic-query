@@ -11,7 +11,7 @@ import javax.persistence.criteria.*
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
  */
 abstract class UnarySpecification(
-    private val attributeName: String,
+    val attributeName: String,
     private val builderFunction: CriteriaBuilder.(Expression<out Any>) -> Predicate,
 ): PredicateSpecification {
 
