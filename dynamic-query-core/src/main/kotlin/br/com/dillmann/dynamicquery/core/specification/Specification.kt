@@ -6,7 +6,7 @@ import javax.persistence.criteria.Predicate
 import javax.persistence.criteria.Root
 
 /**
- * Base representation of the Specification pattern (from the Domain Driven Design) for a JPA-based query
+ * Base representation of the Specification pattern for a JPA-based query
  */
 interface Specification {
 
