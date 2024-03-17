@@ -5,7 +5,7 @@ import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Predicate
 import jakarta.persistence.criteria.Root
 import org.springframework.data.jpa.domain.Specification
-import br.com.dillmann.dynamicquery.core.specification.Specification as DynamicQuerySpecification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 
 /**
  * [Specification] adapter for the Dynamic Query's [Specification]

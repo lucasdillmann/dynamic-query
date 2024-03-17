@@ -2,7 +2,7 @@ package br.com.dillmann.dynamicquery.core
 
 import br.com.dillmann.dynamicquery.core.grammar.DynamicQueryDslParserFactory
 import br.com.dillmann.dynamicquery.core.grammar.converter.GrammarConverter
-import br.com.dillmann.dynamicquery.core.specification.Specification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 
 /**
  * Facade class for the Dynamic Query library
@@ -14,11 +14,11 @@ object DynamicQuery {
      * as a JPA-based specification
      *
      * @param expression Expression to be parsed
-     * @return Parsed result as a [Specification]
+     * @return Parsed result as a [DynamicQuerySpecification]
      * @throws DynamicQueryException when an error happens while parsing the given expression
      */
     @JvmStatic
-    fun parse(expression: String): Specification {
+    fun parse(expression: String): DynamicQuerySpecification {
         val converter = GrammarConverter()
         val parser = DynamicQueryDslParserFactory.build(expression)
 

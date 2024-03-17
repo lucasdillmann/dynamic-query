@@ -5,7 +5,7 @@ import br.com.dillmann.dynamicquery.core.randomBoolean
 import br.com.dillmann.dynamicquery.core.randomListOf
 import br.com.dillmann.dynamicquery.core.randomLong
 import br.com.dillmann.dynamicquery.core.randomString
-import br.com.dillmann.dynamicquery.core.specification.Specification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 import io.mockk.*
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -18,7 +18,7 @@ import kotlin.test.assertEquals
  */
 class GrammarConverterUnitTests {
 
-    private val specification = mockk<Specification>()
+    private val specification = mockk<DynamicQuerySpecification>()
     private val currentNode = mockk<TreeNode>()
     private val rootNode = mockk<TreeNode>()
     private lateinit var converter: GrammarConverter

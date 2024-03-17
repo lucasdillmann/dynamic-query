@@ -23,9 +23,15 @@ allprojects {
     }
 
     dependencies {
+        // Kotlin
         testImplementation("org.jetbrains.kotlin:kotlin-test")
+
+        // MockK
         testImplementation("io.mockk:mockk:1.13.10")
+
+        // JUnit
         testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
 
     tasks.test {

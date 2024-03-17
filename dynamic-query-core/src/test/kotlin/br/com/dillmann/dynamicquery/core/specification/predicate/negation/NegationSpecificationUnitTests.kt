@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.negation
 
-import br.com.dillmann.dynamicquery.core.specification.Specification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -22,7 +22,7 @@ class NegationSpecificationUnitTests {
     private val root = mockk<Root<Any>>()
     private val query = mockk<CriteriaQuery<Any>>()
     private val builder = mockk<CriteriaBuilder>()
-    private val childSpecification = mockk<Specification>()
+    private val childSpecification = mockk<DynamicQuerySpecification>()
     private val specification = NegationSpecification(childSpecification)
 
     @BeforeEach

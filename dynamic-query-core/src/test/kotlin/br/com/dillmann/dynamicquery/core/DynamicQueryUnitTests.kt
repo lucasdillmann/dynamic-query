@@ -3,7 +3,7 @@ package br.com.dillmann.dynamicquery.core
 import br.com.dillmann.dynamicquery.core.grammar.DynamicQueryDslParserFactory
 import br.com.dillmann.dynamicquery.core.grammar.converter.GrammarConverter
 import br.com.dillmann.dynamicquery.core.grammar.dsl.DynamicQueryDslParser
-import br.com.dillmann.dynamicquery.core.specification.Specification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 import io.mockk.*
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -17,7 +17,7 @@ import kotlin.test.assertEquals
 class DynamicQueryUnitTests {
 
     private val parser = mockk<DynamicQueryDslParser>()
-    private val specification = mockk<Specification>()
+    private val specification = mockk<DynamicQuerySpecification>()
 
     companion object {
         @BeforeAll

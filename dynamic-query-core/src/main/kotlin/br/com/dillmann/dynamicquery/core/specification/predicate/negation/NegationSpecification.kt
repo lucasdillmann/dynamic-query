@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.negation
 
-import br.com.dillmann.dynamicquery.core.specification.Specification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
@@ -12,7 +12,7 @@ import jakarta.persistence.criteria.Root
  *
  * @property negatedExpression Expression to be inverted/negated
  */
-class NegationSpecification(val negatedExpression: Specification): PredicateSpecification {
+class NegationSpecification(val negatedExpression: DynamicQuerySpecification): PredicateSpecification {
 
     /**
      * Produces a JPA-compliant predicate using the given criteria

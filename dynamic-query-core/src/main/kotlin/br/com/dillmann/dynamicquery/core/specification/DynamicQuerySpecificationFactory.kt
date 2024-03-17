@@ -20,9 +20,9 @@ import br.com.dillmann.dynamicquery.core.specification.predicate.unary.IsNotNull
 import br.com.dillmann.dynamicquery.core.specification.predicate.unary.IsNullUnarySpecification
 
 /**
- * [Specification] factory
+ * [DynamicQuerySpecification] factory
  */
-object SpecificationFactory {
+object DynamicQuerySpecificationFactory {
 
     /**
      * Builds and returns a [PredicateSpecification] instance for a filter operation
@@ -85,16 +85,16 @@ object SpecificationFactory {
     }
 
     /**
-     * Builds and returns a [Specification] instance for a negation/inversion expression
+     * Builds and returns a [DynamicQuerySpecification] instance for a negation/inversion expression
      *
      * @param specification Expression to be negated
      */
     @JvmStatic
-    fun negate(specification: Specification): NegationSpecification =
+    fun negate(specification: DynamicQuerySpecification): NegationSpecification =
         NegationSpecification(specification)
 
     /**
-     * Builds and returns a [Specification] instance for a group (logic expression) operation
+     * Builds and returns a [DynamicQuerySpecification] instance for a group (logic expression) operation
      *
      * @param type Type of the logic operator
      * @param leftExpression Left side expression of the operator
@@ -103,8 +103,8 @@ object SpecificationFactory {
     @JvmStatic
     fun group(
         type: LogicalOperatorType,
-        leftExpression: Specification,
-        rightExpression: Specification
+        leftExpression: DynamicQuerySpecification,
+        rightExpression: DynamicQuerySpecification
     ): GroupSpecification =
         when (type) {
             LogicalOperatorType.AND -> AndGroupSpecification(leftExpression, rightExpression)

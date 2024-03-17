@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.core.specification.group
 
-import br.com.dillmann.dynamicquery.core.specification.Specification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -17,8 +17,8 @@ class AndGroupSpecificationUnitTests {
     private val root = mockk<Root<*>>()
     private val query = mockk<CriteriaQuery<*>>()
     private val builder = mockk<CriteriaBuilder>()
-    private val leftSpecification = mockk<Specification>()
-    private val rightSpecification = mockk<Specification>()
+    private val leftSpecification = mockk<DynamicQuerySpecification>()
+    private val rightSpecification = mockk<DynamicQuerySpecification>()
     private val leftPredicate = mockk<Predicate>()
     private val rightPredicate = mockk<Predicate>()
     private val andPredicate = mockk<Predicate>()

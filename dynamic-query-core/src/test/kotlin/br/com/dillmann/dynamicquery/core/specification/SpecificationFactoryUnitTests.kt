@@ -25,7 +25,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
- * [SpecificationFactory] unit tests
+ * [DynamicQuerySpecificationFactory] unit tests
  */
 class SpecificationFactoryUnitTests {
 
@@ -112,10 +112,10 @@ class SpecificationFactoryUnitTests {
     @Test
     fun `negate should return the expected specification`() {
         // scenario
-        val specification = mockk<Specification>()
+        val specification = mockk<DynamicQuerySpecification>()
 
         // execution
-        val result = SpecificationFactory.negate(specification)
+        val result = DynamicQuerySpecificationFactory.negate(specification)
 
         // validation
         assertEquals(specification, result.negatedExpression)
@@ -124,11 +124,11 @@ class SpecificationFactoryUnitTests {
     @Test
     fun `group should return the expected specification when called with the AND logical operator`() {
         // scenario
-        val left = mockk<Specification>()
-        val right = mockk<Specification>()
+        val left = mockk<DynamicQuerySpecification>()
+        val right = mockk<DynamicQuerySpecification>()
 
         // execution
-        val result = SpecificationFactory.group(LogicalOperatorType.AND, left, right)
+        val result = DynamicQuerySpecificationFactory.group(LogicalOperatorType.AND, left, right)
 
         // validation
         assertTrue { result is AndGroupSpecification }
@@ -139,11 +139,11 @@ class SpecificationFactoryUnitTests {
     @Test
     fun `group should return the expected specification when called with the OR logical operator`() {
         // scenario
-        val left = mockk<Specification>()
-        val right = mockk<Specification>()
+        val left = mockk<DynamicQuerySpecification>()
+        val right = mockk<DynamicQuerySpecification>()
 
         // execution
-        val result = SpecificationFactory.group(LogicalOperatorType.OR, left, right)
+        val result = DynamicQuerySpecificationFactory.group(LogicalOperatorType.OR, left, right)
 
         // validation
         assertTrue { result is OrGroupSpecification }
@@ -165,7 +165,7 @@ class SpecificationFactoryUnitTests {
         val arguments = randomListOf(minimumSize = 0, maximumSize = range.first - 1) { randomString }
 
         // execution
-        val result = runCatching { SpecificationFactory.predicate(predicateType, attributeName, arguments) }
+        val result = runCatching { DynamicQuerySpecificationFactory.predicate(predicateType, attributeName, arguments) }
 
         // validation
         assertInvalidArgumentCountException(result, predicateType, attributeName, arguments.size)
@@ -182,7 +182,7 @@ class SpecificationFactoryUnitTests {
         val arguments = randomListOf(minimumSize = range.last + 1, maximumSize = range.last + 10) { randomString }
 
         // execution
-        val result = runCatching { SpecificationFactory.predicate(predicateType, attributeName, arguments) }
+        val result = runCatching { DynamicQuerySpecificationFactory.predicate(predicateType, attributeName, arguments) }
 
         // validation
         assertInvalidArgumentCountException(result, predicateType, attributeName, arguments.size)
@@ -193,7 +193,7 @@ class SpecificationFactoryUnitTests {
         val attributeName = randomString
 
         // execution
-        val result = SpecificationFactory.predicate(type, attributeName)
+        val result = DynamicQuerySpecificationFactory.predicate(type, attributeName)
 
         // validation
         val specification = result as? T
@@ -207,7 +207,7 @@ class SpecificationFactoryUnitTests {
         val arguments = listOf(randomString, randomString)
 
         // execution
-        val result = SpecificationFactory.predicate(type, attributeName, arguments)
+        val result = DynamicQuerySpecificationFactory.predicate(type, attributeName, arguments)
 
         // validation
         val specification = result as? T
@@ -223,7 +223,7 @@ class SpecificationFactoryUnitTests {
         val arguments = randomListOf(minimumSize = 1) { randomString }
 
         // execution
-        val result = SpecificationFactory.predicate(type, attributeName, arguments)
+        val result = DynamicQuerySpecificationFactory.predicate(type, attributeName, arguments)
 
         // validation
         val specification = result as? T
@@ -238,7 +238,7 @@ class SpecificationFactoryUnitTests {
         val argument = randomString
 
         // execution
-        val result = SpecificationFactory.predicate(type, attributeName, listOf(argument))
+        val result = DynamicQuerySpecificationFactory.predicate(type, attributeName, listOf(argument))
 
         // validation
         val specification = result as? T

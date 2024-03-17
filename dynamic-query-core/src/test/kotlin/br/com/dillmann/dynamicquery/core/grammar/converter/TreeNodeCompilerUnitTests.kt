@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.core.grammar.converter
 
 import br.com.dillmann.dynamicquery.core.randomString
-import br.com.dillmann.dynamicquery.core.specification.SpecificationFactory
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecificationFactory
 import br.com.dillmann.dynamicquery.core.specification.group.GroupSpecification
 import br.com.dillmann.dynamicquery.core.specification.group.LogicalOperatorType
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
@@ -25,8 +25,8 @@ class TreeNodeCompilerUnitTests {
         @BeforeAll
         @JvmStatic
         fun beforeAll() {
-            mockkObject(SpecificationFactory)
-            mockkStatic(SpecificationFactory::class)
+            mockkObject(DynamicQuerySpecificationFactory)
+            mockkStatic(DynamicQuerySpecificationFactory::class)
         }
 
         @AfterAll
@@ -38,9 +38,9 @@ class TreeNodeCompilerUnitTests {
 
     @BeforeEach
     fun setUp() {
-        every { SpecificationFactory.negate(any()) } returns negationSpecification
-        every { SpecificationFactory.predicate(any(), any(), any()) } returns predicateSpecification
-        every { SpecificationFactory.group(any(), any(), any()) } returns groupSpecification
+        every { DynamicQuerySpecificationFactory.negate(any()) } returns negationSpecification
+        every { DynamicQuerySpecificationFactory.predicate(any(), any(), any()) } returns predicateSpecification
+        every { DynamicQuerySpecificationFactory.group(any(), any(), any()) } returns groupSpecification
     }
 
     @Test
@@ -57,7 +57,7 @@ class TreeNodeCompilerUnitTests {
         val result = TreeNodeCompiler(predicate).compile()
 
         // validation
-        verify { SpecificationFactory.predicate(type, predicate.attributeName!!, predicate.parameters!!) }
+        verify { DynamicQuerySpecificationFactory.predicate(type, predicate.attributeName!!, predicate.parameters!!) }
         assertEquals(predicateSpecification, result)
     }
 
@@ -82,20 +82,20 @@ class TreeNodeCompilerUnitTests {
         group.addChild(secondLogicalOperator)
         group.addChild(thirdPredicate)
 
-        every { SpecificationFactory.predicate(any(), firstPredicate.attributeName!!, any()) } returns firstSpecification
-        every { SpecificationFactory.predicate(any(), secondPredicate.attributeName!!, any()) } returns secondSpecification
-        every { SpecificationFactory.predicate(any(), thirdPredicate.attributeName!!, any()) } returns thirdSpecification
-        every { SpecificationFactory.group(any(), any(), any()) } returnsMany listOf(firstGroup, secondGroup)
+        every { DynamicQuerySpecificationFactory.predicate(any(), firstPredicate.attributeName!!, any()) } returns firstSpecification
+        every { DynamicQuerySpecificationFactory.predicate(any(), secondPredicate.attributeName!!, any()) } returns secondSpecification
+        every { DynamicQuerySpecificationFactory.predicate(any(), thirdPredicate.attributeName!!, any()) } returns thirdSpecification
+        every { DynamicQuerySpecificationFactory.group(any(), any(), any()) } returnsMany listOf(firstGroup, secondGroup)
 
         // execution
         val result = TreeNodeCompiler(group).compile()
 
         // validation
-        verify { SpecificationFactory.predicate(PredicateType.IS_NOT_NULL, firstPredicate.attributeName!!) }
-        verify { SpecificationFactory.predicate(PredicateType.IS_NULL, secondPredicate.attributeName!!) }
-        verify { SpecificationFactory.predicate(PredicateType.IS_EMPTY, thirdPredicate.attributeName!!) }
-        verify { SpecificationFactory.group(LogicalOperatorType.AND, firstSpecification, secondSpecification) }
-        verify { SpecificationFactory.group(LogicalOperatorType.OR, firstGroup, thirdSpecification) }
+        verify { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_NOT_NULL, firstPredicate.attributeName!!) }
+        verify { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_NULL, secondPredicate.attributeName!!) }
+        verify { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_EMPTY, thirdPredicate.attributeName!!) }
+        verify { DynamicQuerySpecificationFactory.group(LogicalOperatorType.AND, firstSpecification, secondSpecification) }
+        verify { DynamicQuerySpecificationFactory.group(LogicalOperatorType.OR, firstGroup, thirdSpecification) }
         assertEquals(secondGroup, result)
     }
 
@@ -110,8 +110,8 @@ class TreeNodeCompilerUnitTests {
         val result = TreeNodeCompiler(negation).compile()
 
         // validation
-        verify { SpecificationFactory.predicate(PredicateType.IS_NULL, predicate.attributeName!!) }
-        verify { SpecificationFactory.negate(predicateSpecification) }
+        verify { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_NULL, predicate.attributeName!!) }
+        verify { DynamicQuerySpecificationFactory.negate(predicateSpecification) }
         assertEquals(negationSpecification, result)
     }
 

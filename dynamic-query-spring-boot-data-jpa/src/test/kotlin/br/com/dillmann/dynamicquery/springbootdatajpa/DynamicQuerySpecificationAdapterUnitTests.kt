@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.springbootdatajpa
 
-import br.com.dillmann.dynamicquery.core.specification.Specification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -21,7 +21,7 @@ class DynamicQuerySpecificationAdapterUnitTests {
     private val query = mockk<CriteriaQuery<Any>>()
     private val builder = mockk<CriteriaBuilder>()
     private val predicate = mockk<Predicate>()
-    private val delegate = mockk<Specification>()
+    private val delegate = mockk<DynamicQuerySpecification>()
     private val adapter = DynamicQuerySpecificationAdapter<Any>(delegate)
 
     @BeforeEach

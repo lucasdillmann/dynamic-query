@@ -1,26 +1,26 @@
 package br.com.dillmann.dynamicquery.core.grammar.converter
 
-import br.com.dillmann.dynamicquery.core.specification.Specification
-import br.com.dillmann.dynamicquery.core.specification.SpecificationFactory
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecificationFactory
 import br.com.dillmann.dynamicquery.core.specification.group.GroupSpecification
 import br.com.dillmann.dynamicquery.core.specification.group.LogicalOperatorType
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateType
 
 /**
- * [TreeNode] to [Specification] compiler
+ * [TreeNode] to [DynamicQuerySpecification] compiler
  *
  * @param rootNode Root node of the tree to be compiled
  */
 class TreeNodeCompiler(private val rootNode: TreeNode) {
 
     /**
-     * Starts the compilation from the [rootNode], returning the produced [Specification]
+     * Starts the compilation from the [rootNode], returning the produced [DynamicQuerySpecification]
      */
-    fun compile(): Specification =
+    fun compile(): DynamicQuerySpecification =
         compile(rootNode)
 
-    private fun compile(node: TreeNode): Specification =
+    private fun compile(node: TreeNode): DynamicQuerySpecification =
         when (node.type) {
             TreeNodeType.GROUP -> compileChildren(node)
             TreeNodeType.PREDICATE -> compilePredicate(node)
@@ -30,25 +30,29 @@ class TreeNodeCompiler(private val rootNode: TreeNode) {
 
     private fun compilePredicate(node: TreeNode): PredicateSpecification {
         val predicateType = PredicateType.forIdentifier(node.operation!!)
-        return SpecificationFactory.predicate(predicateType, node.attributeName!!, node.parameters ?: emptyList())
+        return DynamicQuerySpecificationFactory.predicate(
+            predicateType,
+            node.attributeName!!,
+            node.parameters ?: emptyList(),
+        )
     }
 
     private fun compileNegation(node: TreeNode): PredicateSpecification {
         val children = compileChildren(node)
-        return SpecificationFactory.negate(children)
+        return DynamicQuerySpecificationFactory.negate(children)
     }
 
     private fun compileLogicalOperator(
         node: TreeNode,
-        leftExpression: Specification,
-        rightExpression: Specification
+        leftExpression: DynamicQuerySpecification,
+        rightExpression: DynamicQuerySpecification
     ): GroupSpecification {
         val logicalOperator = LogicalOperatorType.forIdentifier(node.logicalOperator!!)
-        return SpecificationFactory.group(logicalOperator, leftExpression, rightExpression)
+        return DynamicQuerySpecificationFactory.group(logicalOperator, leftExpression, rightExpression)
     }
 
-    private fun compileChildren(parent: TreeNode): Specification {
-        var leftSpecification: Specification? = null
+    private fun compileChildren(parent: TreeNode): DynamicQuerySpecification {
+        var leftSpecification: DynamicQuerySpecification? = null
         var logicalOperatorNode: TreeNode? = null
 
         parent.children.forEach { child ->

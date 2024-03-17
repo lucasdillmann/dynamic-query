@@ -1,23 +1,23 @@
 package br.com.dillmann.dynamicquery.core.specification.group
 
-import br.com.dillmann.dynamicquery.core.specification.Specification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Predicate
 import jakarta.persistence.criteria.Root
 
 /**
- * [Specification] specialization for logical operators
+ * [DynamicQuerySpecification] specialization for logical operators
  *
  * @property leftExpression Left side expression of the operator
  * @property rightExpression Right side expression of the operator
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
  */
 abstract class GroupSpecification(
-    val leftExpression: Specification,
-    val rightExpression: Specification,
+    val leftExpression: DynamicQuerySpecification,
+    val rightExpression: DynamicQuerySpecification,
     private val builderFunction: CriteriaBuilder.(Predicate, Predicate) -> Predicate,
-): Specification {
+): DynamicQuerySpecification {
 
     /**
      * Produces a JPA-compliant predicate for a logic operation using the given criteria

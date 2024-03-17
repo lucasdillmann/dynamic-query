@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.springbootdatajpa
 
-import br.com.dillmann.dynamicquery.core.specification.Specification as DynamicQuerySpecification
+import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
