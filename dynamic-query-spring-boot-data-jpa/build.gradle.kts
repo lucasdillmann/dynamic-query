@@ -10,6 +10,5 @@ dependencies {
     implementation(project(":dynamic-query-core"))
 
     // Spring Boot
-    compileOnly("org.springframework.boot:spring-boot-starter-data-jpa")
-    testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }

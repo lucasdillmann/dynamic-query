@@ -6,7 +6,7 @@ package br.com.dillmann.dynamicquery.springbootweb
  * @property message Human-readable message with a summary about what happened
  * @property details Optional details of the error
  */
-class DynamicQueryWebErrorDto(
+data class DynamicQueryWebErrorDto(
     val message: String,
     val details: Map<String, Any>?,
 )
