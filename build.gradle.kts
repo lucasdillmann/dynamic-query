@@ -1,13 +1,17 @@
 plugins {
     `maven-publish`
     `java-library`
+    jacoco
     signing
+
     kotlin("jvm") version "1.9.10"
     kotlin("plugin.spring") version "1.9.10"
     kotlin("plugin.jpa") version "1.9.10"
+
     id("io.gitlab.arturbosch.detekt") version "1.23.3"
     id("org.springframework.boot") version "3.2.3"
     id("io.spring.dependency-management") version "1.1.4"
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 allprojects {
@@ -15,7 +19,9 @@ allprojects {
     apply(plugin = "maven-publish")
     apply(plugin = "java-library")
     apply(plugin = "signing")
+    apply(plugin = "jacoco")
     apply(plugin = "io.gitlab.arturbosch.detekt")
+    apply(plugin = "org.sonarqube")
 
     group = "br.com.dillmann.dynamicquery"
     version = "1.0.0"
@@ -36,8 +42,22 @@ allprojects {
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
 
-    tasks.test {
-        useJUnitPlatform()
+    tasks {
+        test {
+            useJUnitPlatform()
+        }
+
+        findByName("bootJar")?.run {
+            enabled = false
+        }
+
+        jacocoTestReport {
+            reports {
+                xml.required = true
+                html.required = true
+            }
+        }
+
     }
 
     kotlin {
@@ -47,6 +67,14 @@ allprojects {
     java {
         withJavadocJar()
         withSourcesJar()
+    }
+
+    sonar {
+        properties {
+            property("sonar.projectKey", "lucasdillmann_dynamic-query")
+            property("sonar.organization", "lucasdillmann")
+            property("sonar.host.url", "https://sonarcloud.io")
+        }
     }
 
     publishing {

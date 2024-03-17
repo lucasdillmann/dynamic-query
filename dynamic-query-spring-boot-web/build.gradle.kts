@@ -12,3 +12,10 @@ dependencies {
     // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-web")
 }
+
+tasks {
+    bootJar {
+        enabled = false
+        mainClass = "" // even though the task is disabled, Spring plugin still requires a value to be set
+    }
+}
