@@ -8,9 +8,9 @@ import javax.persistence.criteria.*
 /**
  * [PredicateSpecification] specialization for ranges filter expressions
  *
- * @param attributeName Name of the attribute
- * @param rangeStartValue Left (start) value of the range
- * @param rangeEndValue Left (end) value of the range
+ * @property attributeName Name of the attribute
+ * @property rangeStartValue Left (start) value of the range
+ * @property rangeEndValue Left (end) value of the range
  * @param negateResults Defines if the predicate should be negated or not
  */
 abstract class RangeSpecification(

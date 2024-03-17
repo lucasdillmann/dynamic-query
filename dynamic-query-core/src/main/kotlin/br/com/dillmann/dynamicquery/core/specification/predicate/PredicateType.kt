@@ -5,8 +5,8 @@ private val EMPTY_RANGE = 0..0
 /**
  * Relation of supported predicate types
  *
- * @param identifier Unique identifier of the type
- * @param argumentCountRange Range of accepted argument count
+ * @property identifier Unique identifier of the type
+ * @property argumentCountRange Range of accepted argument count
  */
 enum class PredicateType(val identifier: String, val argumentCountRange: IntRange) {
 
@@ -39,6 +39,12 @@ enum class PredicateType(val identifier: String, val argumentCountRange: IntRang
     NOT_LIKE_IGNORE_CASE("notLikeIgnoreCase", 1..1);
 
     companion object {
+
+        /**
+         * Resolves and returns a [PredicateType] by its identifier
+         *
+         * @param identifier Identifier of the wanted option
+         */
         @JvmStatic
         fun forIdentifier(identifier: String) =
             entries.first { it.identifier == identifier }

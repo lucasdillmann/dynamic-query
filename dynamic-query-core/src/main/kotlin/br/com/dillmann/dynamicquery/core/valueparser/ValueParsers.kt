@@ -70,6 +70,7 @@ object ValueParsers {
     /**
      * Parses the given value as a [String] to the requested target type
      *
+     * @param T Generic type of the return type
      * @param value Value to be parsed
      * @param targetType Desired result type
      * @throws NoValueParserAvailableException when no value parser is available to perform the requested conversion

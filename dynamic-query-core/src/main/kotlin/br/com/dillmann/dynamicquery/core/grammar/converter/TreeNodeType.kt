@@ -3,7 +3,7 @@ package br.com.dillmann.dynamicquery.core.grammar.converter
 /**
  * Conversion tree's node types enumeration
  *
- * @param allowsChildren Defines if the type of the node can have child nodes
+ * @property allowsChildren Defines if the type of the node can have child nodes
  */
 enum class TreeNodeType(val allowsChildren: Boolean) {
 

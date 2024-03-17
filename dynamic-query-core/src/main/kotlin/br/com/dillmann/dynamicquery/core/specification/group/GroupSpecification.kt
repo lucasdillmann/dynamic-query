@@ -9,8 +9,8 @@ import javax.persistence.criteria.Root
 /**
  * [Specification] specialization for logical operators
  *
- * @param leftExpression Left side expression of the operator
- * @param rightExpression Right side expression of the operator
+ * @property leftExpression Left side expression of the operator
+ * @property rightExpression Right side expression of the operator
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
  */
 abstract class GroupSpecification(

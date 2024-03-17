@@ -5,8 +5,8 @@ import br.com.dillmann.dynamicquery.core.DynamicQueryException
 /**
  * [DynamicQueryException] specialization for the error scenarios of value conversions/parsing
  *
- * @param value Value requested to be converted
- * @param targetType Target type of the conversion
+ * @property value Value requested to be converted
+ * @property targetType Target type of the conversion
  * @param message Details about what happened
  * @param cause Cause of the error when another exception was raised during the process of conversion
  */

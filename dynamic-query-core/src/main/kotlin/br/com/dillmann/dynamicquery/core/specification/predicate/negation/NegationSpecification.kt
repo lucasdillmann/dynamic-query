@@ -10,7 +10,7 @@ import javax.persistence.criteria.Root
 /**
  * [PredicateSpecification] specialization for negation expressions
  *
- * @param negatedExpression Expression to be inverted/negated
+ * @property negatedExpression Expression to be inverted/negated
  */
 class NegationSpecification(val negatedExpression: Specification): PredicateSpecification {
 

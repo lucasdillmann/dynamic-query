@@ -11,8 +11,8 @@ import javax.persistence.criteria.Root
 /**
  * [PredicateSpecification] specialization for collection filter expressions
  *
- * @param attributeName Full path of the attribute
- * @param values Values to be compared to
+ * @property attributeName Full path of the attribute
+ * @property values Values to be compared to
  * @param negateResults Defines if the predicate should be negated or not
  */
 abstract class CollectionSpecification(

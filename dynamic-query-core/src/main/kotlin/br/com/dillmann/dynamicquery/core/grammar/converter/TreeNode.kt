@@ -7,6 +7,9 @@ import java.util.*
  *
  * This class stores the metadata read using ANTLR parser during the conversion. When parse is completed,
  * the metadata stored here can be used to produce a predicate.
+ *
+ * @property type Type of the node
+ * @property parent Parent node (optional)
  */
 class TreeNode(var type: TreeNodeType, val parent: TreeNode?) {
 

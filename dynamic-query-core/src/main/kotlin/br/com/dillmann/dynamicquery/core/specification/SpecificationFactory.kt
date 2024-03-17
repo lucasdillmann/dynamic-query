@@ -34,16 +34,12 @@ object SpecificationFactory {
      */
     @JvmStatic
     @JvmOverloads
-    fun predicate(type: PredicateType, attributeName: String, arguments: List<String> = emptyList()): PredicateSpecification {
-        val argumentCountRange = type.argumentCountRange
-        if (arguments.size !in argumentCountRange)
-            throw InvalidArgumentCountException(
-                attributeName,
-                type,
-                arguments.size,
-                argumentCountRange.first,
-                argumentCountRange.last,
-            )
+    fun predicate(
+        type: PredicateType,
+        attributeName: String,
+        arguments: List<String> = emptyList(),
+    ): PredicateSpecification {
+        checkArgumentCount(type, arguments, attributeName)
 
         return when (type) {
             // Unary
@@ -74,6 +70,18 @@ object SpecificationFactory {
             NOT_LIKE -> NotLikeBinarySpecification(attributeName, arguments.first())
             NOT_LIKE_IGNORE_CASE -> NotLikeCaseInsensitiveBinarySpecification(attributeName, arguments.first())
         }
+    }
+
+    private fun checkArgumentCount(type: PredicateType, arguments: List<String>, attributeName: String) {
+        val argumentCountRange = type.argumentCountRange
+        if (arguments.size !in argumentCountRange)
+            throw InvalidArgumentCountException(
+                attributeName,
+                type,
+                arguments.size,
+                argumentCountRange.first,
+                argumentCountRange.last,
+            )
     }
 
     /**

@@ -7,9 +7,10 @@ import kotlin.reflect.KClass
  * Generic and internal abstract implementation of a [ValueParser] for the default value parsers. This class is intended
  * for internal use only.
  *
+ * @param T Generic type of the value supported by the parser
  * @param supportedType Type of values that the implementation supports
  */
-internal abstract class DefaultValueParser<T: Any>(private val supportedType: KClass<T>): ValueParser<T> {
+internal abstract class DefaultValueParser<T : Any>(private val supportedType: KClass<T>) : ValueParser<T> {
 
     /**
      * Priority of the parser. Always returns [Int.MAX_VALUE] (which translates to the lowest possible priority) since

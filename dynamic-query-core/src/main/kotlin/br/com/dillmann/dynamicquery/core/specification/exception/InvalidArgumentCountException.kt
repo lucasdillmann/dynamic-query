@@ -2,16 +2,15 @@ package br.com.dillmann.dynamicquery.core.specification.exception
 
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateType
 
-
 /**
  * [SpecificationException] specialization for the error scenarios where an invalid amount of arguments
  * where provided for an operation
  *
- * @param attributeName Path of the attribute
- * @param predicateType Type of the predicate
- * @param currentArgumentCount Count of provided arguments
- * @param minimumArgumentCount Expected minimum amount of arguments
- * @param maximumArgumentCount Expected maximum amount of arguments
+ * @property attributeName Path of the attribute
+ * @property predicateType Type of the predicate
+ * @property currentArgumentCount Count of provided arguments
+ * @property minimumArgumentCount Expected minimum amount of arguments
+ * @property maximumArgumentCount Expected maximum amount of arguments
  */
 class InvalidArgumentCountException(
     val attributeName: String,

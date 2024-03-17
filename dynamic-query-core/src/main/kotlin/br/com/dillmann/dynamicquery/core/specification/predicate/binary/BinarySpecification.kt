@@ -8,8 +8,8 @@ import javax.persistence.criteria.*
 /**
  * [PredicateSpecification] specialization for binary filter expressions
  *
- * @param attributeName Full path of the attribute
- * @param value Value to be compared to
+ * @property attributeName Full path of the attribute
+ * @property value Value to be compared to
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
  */
 abstract class BinarySpecification(

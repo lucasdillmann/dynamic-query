@@ -3,6 +3,7 @@ plugins {
     `java-library`
     signing
     kotlin("jvm") version "1.9.22"
+    id("io.gitlab.arturbosch.detekt") version "1.23.3"
 }
 
 allprojects {
@@ -10,6 +11,7 @@ allprojects {
     apply(plugin = "maven-publish")
     apply(plugin = "java-library")
     apply(plugin = "signing")
+    apply(plugin = "io.gitlab.arturbosch.detekt")
 
     group = "br.com.dillmann.dynamicquery"
     version = "1.0.0"

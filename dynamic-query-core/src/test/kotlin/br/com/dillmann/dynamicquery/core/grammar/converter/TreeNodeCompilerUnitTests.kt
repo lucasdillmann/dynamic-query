@@ -15,6 +15,11 @@ import kotlin.test.assertEquals
  * [TreeNodeCompiler] unit tests
  */
 class TreeNodeCompilerUnitTests {
+
+    private val groupSpecification = mockk<GroupSpecification>()
+    private val predicateSpecification = mockk<PredicateSpecification>()
+    private val negationSpecification = mockk<NegationSpecification>()
+
     companion object {
 
         @BeforeAll
@@ -30,10 +35,6 @@ class TreeNodeCompilerUnitTests {
             unmockkAll()
         }
     }
-
-    private val groupSpecification = mockk<GroupSpecification>()
-    private val predicateSpecification = mockk<PredicateSpecification>()
-    private val negationSpecification = mockk<NegationSpecification>()
 
     @BeforeEach
     fun setUp() {

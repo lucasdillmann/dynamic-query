@@ -7,7 +7,7 @@ import javax.persistence.criteria.*
 /**
  * [PredicateSpecification] specialization for unary filter expressions
  *
- * @param attributeName Name of the attribute
+ * @property attributeName Name of the attribute
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
  */
 abstract class UnarySpecification(
