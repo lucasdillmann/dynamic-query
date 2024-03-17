@@ -1,7 +1,5 @@
 package br.com.dillmann.dynamicquery.core
 
-import java.lang.RuntimeException
-
 /**
  * Base exception for all the library's thrown errors
  *

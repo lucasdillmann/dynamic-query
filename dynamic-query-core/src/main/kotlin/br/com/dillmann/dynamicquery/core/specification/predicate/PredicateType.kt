@@ -29,7 +29,7 @@ enum class PredicateType(val identifier: String, val argumentCountRange: IntRang
     EQUALS_IGNORE_CASE("equalsIgnoreCase", 1..1),
     NOT_EQUALS("notEquals", 1..1),
     NOT_EQUALS_IGNORE_CASE("notEqualsIgnoreCase", 1..1),
-    GREATER_THAN("biggerThan", 1..1),
+    GREATER_THAN("greaterThan", 1..1),
     GREATER_THAN_OR_EQUALS("greaterOrEquals", 1..1),
     LESS_THAN("lessThan", 1..1),
     LESS_THAN_OR_EQUALS("lessOrEquals", 1..1),

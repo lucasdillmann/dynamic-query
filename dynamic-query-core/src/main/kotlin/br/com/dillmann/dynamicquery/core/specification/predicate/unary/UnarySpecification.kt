@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.unary
 
-import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.specification.path.PathResolver
+import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import javax.persistence.criteria.*
 
 /**

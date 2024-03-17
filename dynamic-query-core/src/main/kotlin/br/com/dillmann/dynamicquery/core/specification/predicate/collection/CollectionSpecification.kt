@@ -1,9 +1,12 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.collection
 
-import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.specification.path.PathResolver
+import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.valueparser.ValueParsers
-import javax.persistence.criteria.*
+import javax.persistence.criteria.CriteriaBuilder
+import javax.persistence.criteria.CriteriaQuery
+import javax.persistence.criteria.Predicate
+import javax.persistence.criteria.Root
 
 /**
  * [PredicateSpecification] specialization for collection filter expressions

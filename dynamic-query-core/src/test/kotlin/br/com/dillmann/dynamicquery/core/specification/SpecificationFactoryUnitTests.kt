@@ -3,6 +3,9 @@ package br.com.dillmann.dynamicquery.core.specification
 import br.com.dillmann.dynamicquery.core.randomListOf
 import br.com.dillmann.dynamicquery.core.randomString
 import br.com.dillmann.dynamicquery.core.specification.exception.InvalidArgumentCountException
+import br.com.dillmann.dynamicquery.core.specification.group.AndGroupSpecification
+import br.com.dillmann.dynamicquery.core.specification.group.LogicalOperatorType
+import br.com.dillmann.dynamicquery.core.specification.group.OrGroupSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateType
 import br.com.dillmann.dynamicquery.core.specification.predicate.binary.*
 import br.com.dillmann.dynamicquery.core.specification.predicate.collection.CollectionSpecification
@@ -12,9 +15,6 @@ import br.com.dillmann.dynamicquery.core.specification.predicate.range.BetweenRa
 import br.com.dillmann.dynamicquery.core.specification.predicate.range.NotBetweenRangeSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.range.RangeSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.unary.*
-import br.com.dillmann.dynamicquery.core.specification.group.AndGroupSpecification
-import br.com.dillmann.dynamicquery.core.specification.group.LogicalOperatorType
-import br.com.dillmann.dynamicquery.core.specification.group.OrGroupSpecification
 import io.mockk.mockk
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.Test
@@ -67,7 +67,7 @@ class SpecificationFactoryUnitTests {
 
     @Test
     fun `predicate should return the expected specification when asked for an EQUALS_IGNORE_CASE`() =
-        testBinaryPredicate<EqualsIgnoreCaseBinarySpecification>(PredicateType.EQUALS_IGNORE_CASE)
+        testBinaryPredicate<EqualsCaseInsensitiveBinarySpecification>(PredicateType.EQUALS_IGNORE_CASE)
 
     @Test
     fun `predicate should return the expected specification when asked for a NOT_EQUALS`() =
@@ -75,7 +75,7 @@ class SpecificationFactoryUnitTests {
 
     @Test
     fun `predicate should return the expected specification when asked for a NOT_EQUALS_IGNORE_CASE`() =
-        testBinaryPredicate<NotEqualsIgnoreCaseBinarySpecification>(PredicateType.NOT_EQUALS_IGNORE_CASE)
+        testBinaryPredicate<NotEqualsCaseInsensitiveBinarySpecification>(PredicateType.NOT_EQUALS_IGNORE_CASE)
 
     @Test
     fun `predicate should return the expected specification when asked for a GREATER_THAN`() =

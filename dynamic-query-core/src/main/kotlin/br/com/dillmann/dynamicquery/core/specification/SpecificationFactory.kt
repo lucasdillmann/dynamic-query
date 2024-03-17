@@ -1,6 +1,10 @@
 package br.com.dillmann.dynamicquery.core.specification
 
 import br.com.dillmann.dynamicquery.core.specification.exception.InvalidArgumentCountException
+import br.com.dillmann.dynamicquery.core.specification.group.AndGroupSpecification
+import br.com.dillmann.dynamicquery.core.specification.group.GroupSpecification
+import br.com.dillmann.dynamicquery.core.specification.group.LogicalOperatorType
+import br.com.dillmann.dynamicquery.core.specification.group.OrGroupSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateType
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateType.*
@@ -8,16 +12,12 @@ import br.com.dillmann.dynamicquery.core.specification.predicate.binary.*
 import br.com.dillmann.dynamicquery.core.specification.predicate.collection.InCollectionSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.collection.NotInCollectionSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.negation.NegationSpecification
-import br.com.dillmann.dynamicquery.core.specification.group.LogicalOperatorType
 import br.com.dillmann.dynamicquery.core.specification.predicate.range.BetweenRangeSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.range.NotBetweenRangeSpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.unary.IsEmptyUnarySpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.unary.IsNotEmptyUnarySpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.unary.IsNotNullUnarySpecification
 import br.com.dillmann.dynamicquery.core.specification.predicate.unary.IsNullUnarySpecification
-import br.com.dillmann.dynamicquery.core.specification.group.AndGroupSpecification
-import br.com.dillmann.dynamicquery.core.specification.group.GroupSpecification
-import br.com.dillmann.dynamicquery.core.specification.group.OrGroupSpecification
 
 /**
  * [Specification] factory
@@ -62,9 +62,9 @@ object SpecificationFactory {
 
             // Binary
             EQUALS -> EqualsBinarySpecification(attributeName, arguments.first())
-            EQUALS_IGNORE_CASE -> EqualsIgnoreCaseBinarySpecification(attributeName, arguments.first())
+            EQUALS_IGNORE_CASE -> EqualsCaseInsensitiveBinarySpecification(attributeName, arguments.first())
             NOT_EQUALS -> NotEqualsBinarySpecification(attributeName, arguments.first())
-            NOT_EQUALS_IGNORE_CASE -> NotEqualsIgnoreCaseBinarySpecification(attributeName, arguments.first())
+            NOT_EQUALS_IGNORE_CASE -> NotEqualsCaseInsensitiveBinarySpecification(attributeName, arguments.first())
             GREATER_THAN -> GreaterThanBinarySpecification(attributeName, arguments.first())
             GREATER_THAN_OR_EQUALS -> GreaterThanOrEqualsBinarySpecification(attributeName, arguments.first())
             LESS_THAN -> LessThanBinarySpecification(attributeName, arguments.first())

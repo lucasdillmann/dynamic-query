@@ -1,7 +1,5 @@
 package br.com.dillmann.dynamicquery.core.valueparser
 
-import java.util.Comparator
-
 /**
  * [Comparator] implementation able to sort two [ValueParser] implementation using its priority values in a
  * ascending way

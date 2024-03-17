@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.valueparser.ValueParser
-import java.util.UUID
+import java.util.*
 
 /**
  * Default implementation of a [ValueParser] for [UUID]

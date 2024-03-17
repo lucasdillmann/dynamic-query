@@ -24,5 +24,5 @@ internal abstract class DefaultValueParser<T: Any>(private val supportedType: KC
      * @param targetType Resulting type of the conversion that is about to happen
      */
     override fun supports(targetType: Class<*>): Boolean =
-        targetType.isAssignableFrom(supportedType.java)
+        supportedType.java.isAssignableFrom(targetType)
 }

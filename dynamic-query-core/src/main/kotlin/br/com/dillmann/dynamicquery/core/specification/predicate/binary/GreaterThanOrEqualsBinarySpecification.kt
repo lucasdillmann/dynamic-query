@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.binary
 
-import javax.persistence.criteria.*
+import javax.persistence.criteria.CriteriaBuilder
 
 /**
  * [BinarySpecification] implementation for bigger than or equals expressions

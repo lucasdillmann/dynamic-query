@@ -4,10 +4,10 @@ import br.com.dillmann.dynamicquery.core.specification.decorators.caseInsensitiv
 import javax.persistence.criteria.CriteriaBuilder
 
 /**
- * [BinarySpecification] implementation for not equals expressions that are case-insensitive
+ * [BinarySpecification] implementation for equals expressions that are case-insensitive
  *
  * @param attributeName Full path of the attribute
  * @param value Value to be compared to
  */
-class EqualsIgnoreCaseBinarySpecification(attributeName: String, value: String):
+class EqualsCaseInsensitiveBinarySpecification(attributeName: String, value: String):
     BinarySpecification(attributeName, value, caseInsensitive("equal", CriteriaBuilder::equal))

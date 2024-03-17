@@ -1,8 +1,8 @@
 package br.com.dillmann.dynamicquery.core.grammar.converter
 
 import org.junit.jupiter.api.Test
-import kotlin.test.assertTrue
 import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 /**
  * [TreeNodeType] unit tests

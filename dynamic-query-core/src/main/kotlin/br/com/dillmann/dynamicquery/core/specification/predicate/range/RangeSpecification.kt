@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.range
 
-import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.specification.path.PathResolver
+import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.valueparser.ValueParsers
 import javax.persistence.criteria.*
 
@@ -31,7 +31,7 @@ abstract class RangeSpecification(
         @Suppress("UNCHECKED_CAST")
         val path = PathResolver.resolve(attributeName, root) as Path<Comparable<Any>>
         val parsedRangeStart = ValueParsers.parse(rangeStartValue, path.javaType)
-        val parsedRangeEnd = ValueParsers.parse(rangeStartValue, path.javaType)
+        val parsedRangeEnd = ValueParsers.parse(rangeEndValue, path.javaType)
         val predicate = builder.between(path, parsedRangeStart, parsedRangeEnd)
         return if (negateResults) predicate.not() else predicate
     }

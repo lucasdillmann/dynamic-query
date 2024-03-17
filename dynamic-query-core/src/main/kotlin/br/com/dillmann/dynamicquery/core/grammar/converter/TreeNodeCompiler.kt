@@ -2,10 +2,10 @@ package br.com.dillmann.dynamicquery.core.grammar.converter
 
 import br.com.dillmann.dynamicquery.core.specification.Specification
 import br.com.dillmann.dynamicquery.core.specification.SpecificationFactory
-import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
-import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateType
 import br.com.dillmann.dynamicquery.core.specification.group.GroupSpecification
 import br.com.dillmann.dynamicquery.core.specification.group.LogicalOperatorType
+import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
+import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateType
 
 /**
  * [TreeNode] to [Specification] compiler

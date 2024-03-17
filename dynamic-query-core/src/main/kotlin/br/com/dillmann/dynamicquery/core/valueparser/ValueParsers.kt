@@ -3,16 +3,26 @@ package br.com.dillmann.dynamicquery.core.valueparser
 import br.com.dillmann.dynamicquery.core.valueparser.default.*
 import br.com.dillmann.dynamicquery.core.valueparser.exception.NoValueParserAvailableException
 import br.com.dillmann.dynamicquery.core.valueparser.exception.ParseFailedException
-import java.util.TreeSet
+import java.util.*
 
 /**
  * Facade for simple conversions between [String] values and any needed target type
  */
 object ValueParsers {
 
-    private val parsers = TreeSet<ValueParser<out Any>>(ValueParserComparator)
+    private val parsers = LinkedList<ValueParser<out Any>>()
 
     init {
+        reset()
+    }
+
+    /**
+     * Resets the internal state by removing all custom parsers that where registered before, leaving only the
+     * default ones active
+     */
+    @JvmStatic
+    fun reset() {
+        parsers.clear()
         register(BigDecimalValueParser)
         register(BigIntegerValueParser)
         register(BooleanValueParser)
@@ -23,6 +33,7 @@ object ValueParsers {
         register(IntValueParser)
         register(LocalDateTimeValueParser)
         register(LocalDateValueParser)
+        register(LocalTimeValueParser)
         register(LongValueParser)
         register(OffsetDateTimeValueParser)
         register(OffsetTimeValueParser)
@@ -39,8 +50,10 @@ object ValueParsers {
      * @param parser Implementation to be registered and used to perform value conversion
      */
     @JvmStatic
+    @Synchronized
     fun register(parser: ValueParser<out Any>) {
         parsers.add(parser)
+        parsers.sortWith(ValueParserComparator)
     }
 
     /**
