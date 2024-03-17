@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.binary
 
-import javax.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaBuilder
 
 /**
  * [BinarySpecification] implementation for not equals expressions

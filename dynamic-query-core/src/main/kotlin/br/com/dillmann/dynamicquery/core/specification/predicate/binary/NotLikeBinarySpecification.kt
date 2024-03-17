@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.binary
 
 import br.com.dillmann.dynamicquery.core.specification.decorators.requireString
-import javax.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaBuilder
 
 /**
  * [BinarySpecification] implementation for not like expressions

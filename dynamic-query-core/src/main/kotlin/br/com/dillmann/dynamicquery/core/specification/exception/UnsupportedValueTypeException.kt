@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.core.specification.exception
 
-import javax.persistence.criteria.Expression
+import jakarta.persistence.criteria.Expression
 
 /**
  * [SpecificationException] specialization for the error scenarios where an operation was requested on an attribute

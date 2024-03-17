@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.unary
 
 import br.com.dillmann.dynamicquery.core.specification.decorators.requireCollection
-import javax.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaBuilder
 
 /**
  * [UnarySpecification] implementation for the is empty operator

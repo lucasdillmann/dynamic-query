@@ -3,7 +3,7 @@ package br.com.dillmann.dynamicquery.core.specification.predicate.range
 import br.com.dillmann.dynamicquery.core.specification.path.PathResolver
 import br.com.dillmann.dynamicquery.core.specification.predicate.PredicateSpecification
 import br.com.dillmann.dynamicquery.core.valueparser.ValueParsers
-import javax.persistence.criteria.*
+import jakarta.persistence.criteria.*
 
 /**
  * [PredicateSpecification] specialization for ranges filter expressions

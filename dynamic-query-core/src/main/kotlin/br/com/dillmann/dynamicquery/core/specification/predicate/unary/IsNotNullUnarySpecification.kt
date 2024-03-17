@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.unary
 
-import javax.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaBuilder
 
 /**
  * [UnarySpecification] implementation for the is null operator

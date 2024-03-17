@@ -7,10 +7,10 @@ import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import javax.persistence.criteria.From
-import javax.persistence.criteria.Join
-import javax.persistence.criteria.Path
-import javax.persistence.metamodel.Bindable
+import jakarta.persistence.criteria.From
+import jakarta.persistence.criteria.Join
+import jakarta.persistence.criteria.Path
+import jakarta.persistence.metamodel.Bindable
 import kotlin.test.assertEquals
 
 /**

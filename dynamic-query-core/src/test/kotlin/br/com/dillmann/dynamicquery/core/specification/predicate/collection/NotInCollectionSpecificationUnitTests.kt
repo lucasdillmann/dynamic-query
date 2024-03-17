@@ -9,8 +9,8 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import javax.persistence.criteria.*
-import javax.persistence.criteria.CriteriaBuilder.In
+import jakarta.persistence.criteria.*
+import jakarta.persistence.criteria.CriteriaBuilder.In
 import kotlin.test.assertEquals
 
 /**

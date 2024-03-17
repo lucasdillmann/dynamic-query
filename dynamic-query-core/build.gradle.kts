@@ -7,8 +7,8 @@ dependencies {
     antlr("org.antlr:antlr4:4.13.1")
 
     // JPA
-    compileOnly("jakarta.persistence:jakarta.persistence-api:2.2.3")
-    testImplementation("jakarta.persistence:jakarta.persistence-api:2.2.3")
+    compileOnly("jakarta.persistence:jakarta.persistence-api:3.1.0")
+    testImplementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
 }
 
 tasks {

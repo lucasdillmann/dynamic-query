@@ -1,8 +1,8 @@
 package br.com.dillmann.dynamicquery.core.specification.path
 
 import br.com.dillmann.dynamicquery.core.specification.exception.UnknownAttributeNameException
-import javax.persistence.criteria.From
-import javax.persistence.criteria.Path
+import jakarta.persistence.criteria.From
+import jakarta.persistence.criteria.Path
 
 /**
  * Utility class able to resolve a [Path] from any given starting point and full attribute name

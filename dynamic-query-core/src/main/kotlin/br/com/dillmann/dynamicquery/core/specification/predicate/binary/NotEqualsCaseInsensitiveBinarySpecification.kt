@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.core.specification.predicate.binary
 
 import br.com.dillmann.dynamicquery.core.specification.decorators.caseInsensitive
-import javax.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaBuilder
 
 /**
  * [BinarySpecification] implementation for not equals expressions that are case-insensitive

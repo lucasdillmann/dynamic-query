@@ -1,8 +1,8 @@
 package br.com.dillmann.dynamicquery.core.specification.decorators
 
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.Expression
-import javax.persistence.criteria.Predicate
+import jakarta.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.Expression
+import jakarta.persistence.criteria.Predicate
 
 /**
  * Builds and returns a proxy for the [CriteriaBuilder] function reference that casts the expression as a

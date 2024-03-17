@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.core.specification.group
 
 import br.com.dillmann.dynamicquery.core.specification.Specification
-import javax.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaBuilder
 
 /**
  * [GroupSpecification] implementation for the OR operator
