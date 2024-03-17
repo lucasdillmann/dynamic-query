@@ -1,0 +1,25 @@
+{
+  "groups": [
+    {
+      "name": "dynamic-query.web",
+      "description": "Configuration properties for the Dynamic Query's integration with the Spring Web",
+      "type": "br.com.dillmann.dynamicquery.springbootweb.DynamicQueryWebConfigurationProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "dynamic-query.web.query-parameter-name",
+      "type": "java.lang.String",
+      "description": "Name of the HTTP query parameter from where the Dynamic Query will be extracted when using Spring's controller argument injection",
+      "defaultValue": "query",
+      "sourceType": "br.com.dillmann.dynamicquery.springbootweb.DynamicQueryWebConfigurationProperties"
+    },
+    {
+      "name": "dynamic-query.web.query-parameter-name",
+      "type": "java.lang.Boolean",
+      "description": "Defines if the Dynamic Query's error handler for the Spring Web controllers should be enabled or not",
+      "defaultValue": true,
+      "sourceType": "br.com.dillmann.dynamicquery.springbootweb.DynamicQueryWebConfigurationProperties"
+    }
+  ]
+}
