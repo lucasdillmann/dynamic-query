@@ -43,7 +43,7 @@ object PathResolver {
 
     private fun getNextNode(currentNode: Path<out Any>, attributeName: String, fullPath: String): Path<out Any> {
         try {
-            return currentNode.get(attributeName)
+            return currentNode[attributeName]
         } catch (ex: IllegalArgumentException) {
             throw UnknownAttributeNameException(fullPath, ex)
         }
