@@ -2,7 +2,9 @@ plugins {
     `maven-publish`
     `java-library`
     signing
-    kotlin("jvm") version "1.9.22"
+    kotlin("jvm") version "1.9.10"
+    kotlin("plugin.spring") version "1.9.10"
+    kotlin("plugin.jpa") version "1.9.10"
     id("io.gitlab.arturbosch.detekt") version "1.23.3"
 }
 
@@ -31,7 +33,7 @@ allprojects {
     }
 
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
 
     java {

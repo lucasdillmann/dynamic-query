@@ -3,3 +3,4 @@ plugins {
 }
 rootProject.name = "dynamic-query"
 include("dynamic-query-core")
+include("dynamic-query-spring-boot-data-jpa")
