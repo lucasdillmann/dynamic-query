@@ -16,6 +16,10 @@ jobs:
         with:
           java-version: 11
           distribution: temurin
+          cache: gradle
+          cache-dependency-path: |
+            **/build.gradle.kts
+            **/gradle-wrapper.properties
       - name: detekt
         run: ./gradlew detekt
 
@@ -27,5 +31,9 @@ jobs:
         with:
           java-version: 11
           distribution: temurin
+          cache: gradle
+          cache-dependency-path: |
+            **/build.gradle.kts
+            **/gradle-wrapper.properties
       - name: unit-tests
         run: ./gradlew test
