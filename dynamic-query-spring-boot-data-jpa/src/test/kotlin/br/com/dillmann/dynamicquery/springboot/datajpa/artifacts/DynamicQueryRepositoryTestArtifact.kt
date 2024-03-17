@@ -1,6 +1,6 @@
-package br.com.dillmann.dynamicquery.springbootdatajpa.artifacts
+package br.com.dillmann.dynamicquery.springboot.datajpa.artifacts
 
-import br.com.dillmann.dynamicquery.springbootdatajpa.DynamicQueryRepository
+import br.com.dillmann.dynamicquery.springboot.datajpa.DynamicQueryRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort

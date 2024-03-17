@@ -1,4 +1,4 @@
-package br.com.dillmann.dynamicquery.springbootweb
+package br.com.dillmann.dynamicquery.springboot.web
 
 import br.com.dillmann.dynamicquery.core.DynamicQuery
 import br.com.dillmann.dynamicquery.core.DynamicQueryException

@@ -1,9 +1,9 @@
-package br.com.dillmann.dynamicquery.springbootdatajpa
+package br.com.dillmann.dynamicquery.springboot.datajpa
 
 import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
-import br.com.dillmann.dynamicquery.springbootdatajpa.artifacts.DynamicQueryRepositoryTestArtifact
-import br.com.dillmann.dynamicquery.springbootdatajpa.artifacts.randomBoolean
-import br.com.dillmann.dynamicquery.springbootdatajpa.artifacts.randomLong
+import br.com.dillmann.dynamicquery.springboot.datajpa.artifacts.DynamicQueryRepositoryTestArtifact
+import br.com.dillmann.dynamicquery.springboot.datajpa.artifacts.randomBoolean
+import br.com.dillmann.dynamicquery.springboot.datajpa.artifacts.randomLong
 import io.mockk.*
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll

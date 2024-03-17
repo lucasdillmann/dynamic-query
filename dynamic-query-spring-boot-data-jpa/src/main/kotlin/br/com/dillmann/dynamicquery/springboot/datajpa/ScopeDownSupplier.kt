@@ -1,4 +1,4 @@
-package br.com.dillmann.dynamicquery.springbootdatajpa
+package br.com.dillmann.dynamicquery.springboot.datajpa
 
 import org.springframework.data.jpa.domain.Specification
 

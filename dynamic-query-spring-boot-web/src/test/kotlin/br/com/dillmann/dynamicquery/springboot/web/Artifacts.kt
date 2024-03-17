@@ -1,4 +1,4 @@
-package br.com.dillmann.dynamicquery.springbootweb
+package br.com.dillmann.dynamicquery.springboot.web
 
 private val ASCII_CHARS = (32..126).map(Int::toChar)
 

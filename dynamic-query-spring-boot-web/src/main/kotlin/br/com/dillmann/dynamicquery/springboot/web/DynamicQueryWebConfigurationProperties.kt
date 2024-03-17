@@ -1,4 +1,4 @@
-package br.com.dillmann.dynamicquery.springbootweb
+package br.com.dillmann.dynamicquery.springboot.web
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

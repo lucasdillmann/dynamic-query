@@ -1,4 +1,4 @@
-package br.com.dillmann.dynamicquery.springbootweb
+package br.com.dillmann.dynamicquery.springboot.web
 
 /**
  * Public API contract for the Dynamic Query's HTTP error responses

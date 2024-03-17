@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- br.com.dillmann.dynamicquery.springbootweb.DynamicQueryWebAutoConfiguration
+ br.com.dillmann.dynamicquery.springboot.web.DynamicQueryWebAutoConfiguration

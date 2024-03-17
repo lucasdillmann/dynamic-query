@@ -1,4 +1,4 @@
-package br.com.dillmann.dynamicquery.springbootdatajpa.artifacts
+package br.com.dillmann.dynamicquery.springboot.datajpa.artifacts
 
 /**
  * Produces and returns a random [Long] between the maximum and minimum values that the type can hold

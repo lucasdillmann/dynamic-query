@@ -1,4 +1,4 @@
-package br.com.dillmann.dynamicquery.springbootdatajpa
+package br.com.dillmann.dynamicquery.springboot.datajpa
 
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
