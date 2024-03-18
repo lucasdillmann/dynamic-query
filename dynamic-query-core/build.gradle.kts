@@ -4,10 +4,12 @@ plugins {
 
 dependencies {
     // ANTLR
-    antlr("org.antlr:antlr4:4.13.1")
+    val antlrVersion: String by project
+    antlr("org.antlr:antlr4:$antlrVersion")
 
     // JPA
-    implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
+    val jakartaPersistenceApiVersion: String by project
+    implementation("jakarta.persistence:jakarta.persistence-api:$jakartaPersistenceApiVersion")
 }
 
 tasks {

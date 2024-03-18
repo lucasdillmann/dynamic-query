@@ -35,10 +35,12 @@ allprojects {
         testImplementation("org.jetbrains.kotlin:kotlin-test")
 
         // MockK
-        testImplementation("io.mockk:mockk:1.13.10")
+        val mockkVersion: String by project
+        testImplementation("io.mockk:mockk:$mockkVersion")
 
         // JUnit
-        testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+        val junitVersion: String by project
+        testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
 

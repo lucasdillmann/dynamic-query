@@ -53,7 +53,7 @@ object ValueParsers {
     @Synchronized
     fun register(parser: ValueParser<out Any>) {
         parsers.add(parser)
-        parsers.sortWith(ValueParserComparator)
+        parsers.sortWith { left, right -> left.priority.compareTo(right.priority) }
     }
 
     /**

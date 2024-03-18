@@ -15,11 +15,4 @@ class DynamicQueryWebConfigurationProperties {
      * When not set, the [DEFAULT_HTTP_QUERY_PARAMETER_NAME] will be used as the fallback value.
      */
     var queryParameterName: String? = null
-
-    /**
-     * Defines if the Dynamic Query's error handler for the Spring Web controllers should be enabled or not. When
-     * not set or set to true, a HTTP response will be automatically generated with the error details whenever
-     * a Dynamic Query's exception is thrown.
-     */
-    var enableErrorHandler: Boolean? = null
 }
