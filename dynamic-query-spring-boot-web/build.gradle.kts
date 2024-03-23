@@ -7,8 +7,7 @@ plugins {
 
 dependencies {
     // Dynamic Query
-    implementation(project(":dynamic-query-core"))
-    implementation(project(":dynamic-query-spring-boot"))
+    api(project(":dynamic-query-spring-boot"))
 
     // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-web")

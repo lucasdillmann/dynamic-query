@@ -9,7 +9,7 @@ dependencies {
 
     // JPA
     val jakartaPersistenceApiVersion: String by project
-    implementation("jakarta.persistence:jakarta.persistence-api:$jakartaPersistenceApiVersion")
+    api("jakarta.persistence:jakarta.persistence-api:$jakartaPersistenceApiVersion")
 }
 
 tasks {
