@@ -44,7 +44,7 @@ object ValueParsers {
     }
 
     /**
-     * Registers the provided [ValueParser] implementation int the relation of available value parsers that
+     * Registers the provided [ValueParser] implementation in the relation of available value parsers that
      * this class can use to perform conversions
      *
      * @param parser Implementation to be registered and used to perform value conversion
