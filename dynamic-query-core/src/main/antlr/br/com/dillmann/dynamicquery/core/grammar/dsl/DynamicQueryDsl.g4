@@ -8,7 +8,7 @@ expressions: expression (logicalOperator expression)*;
 expression: negation | predicates | '(' expressions ')';
 negation: 'not(' expressions ')';
 predicates: predicate (logicalOperator predicate)*;
-predicate: attributeName ':' operation ('[' parameters ']')?;
+predicate: operation '(' attributeName (parameterSeparator parameters)? ')';
 attributeName: ATRIBUTE_NAME;
 operation
     : 'equals'
@@ -31,8 +31,9 @@ operation
     | 'isNotNull'
     | 'isEmpty'
     | 'isNotEmpty';
-parameters: parameter (',' parameter)*;
+parameters: parameter (parameterSeparator parameter)*;
 parameter: (parameterNumericValue | parameterStringValue | parameterBooleanLiteral);
+parameterSeparator: (WS)? ',' (WS)?;
 parameterStringValue: PARAMETER_STRING_VALUE;
 parameterNumericValue: PARAMETER_NUMERIC_VALUE;
 parameterBooleanLiteral: 'true' | 'TRUE' | 'false' | 'FALSE';
