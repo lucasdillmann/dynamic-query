@@ -1,5 +1,6 @@
 package br.com.dillmann.dynamicquery.core.specification.path
 
+import br.com.dillmann.dynamicquery.core.pathconverter.PathConverters
 import br.com.dillmann.dynamicquery.core.specification.exception.UnknownAttributeNameException
 import jakarta.persistence.criteria.From
 import jakarta.persistence.criteria.Path
@@ -18,8 +19,10 @@ object PathResolver {
      * @param startingPoint Root element of the search
      */
     @JvmStatic
-    fun resolve(attributeFullPath: String, startingPoint: Path<out Any>): Path<out Any> =
-        resolve(startingPoint, attributeFullPath.split('.').iterator(), attributeFullPath)
+    fun resolve(attributeFullPath: String, startingPoint: Path<out Any>): Path<out Any> {
+        val convertedPath = PathConverters.convert(attributeFullPath, startingPoint)
+        return resolve(startingPoint, convertedPath.split('.').iterator(), convertedPath)
+    }
 
     private tailrec fun resolve(
         currentNode: Path<out Any>,

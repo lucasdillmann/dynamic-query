@@ -1,9 +1,9 @@
 package br.com.dillmann.dynamicquery.core.specification.path
 
+import br.com.dillmann.dynamicquery.core.pathconverter.PathConverters
 import br.com.dillmann.dynamicquery.core.randomString
 import br.com.dillmann.dynamicquery.core.specification.exception.UnknownAttributeNameException
-import io.mockk.every
-import io.mockk.mockk
+import io.mockk.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -11,6 +11,8 @@ import jakarta.persistence.criteria.From
 import jakarta.persistence.criteria.Join
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.metamodel.Bindable
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
 import kotlin.test.assertEquals
 
 /**
@@ -24,8 +26,24 @@ class PathResolverUnitTests {
     private val joinChildSimpleAttribute = mockk<Path<Any>>()
     private val model = mockk<Bindable<Any>>()
 
+    companion object {
+        @BeforeAll
+        @JvmStatic
+        fun beforeAll() {
+            mockkObject(PathConverters)
+            mockkStatic(PathConverters::class)
+        }
+
+        @AfterAll
+        @JvmStatic
+        fun afterAll() {
+            unmockkAll()
+        }
+    }
+
     @BeforeEach
     fun setUp() {
+        every { PathConverters.convert(any(), any()) } answers { arg(0) }
         every { simpleAttribute.model } returns model
         every { joinChildSimpleAttribute.model } returns model
         every { joinAttribute.model } returns null
@@ -61,5 +79,18 @@ class PathResolverUnitTests {
             // execution
             PathResolver.resolve(randomString, root)
         }
+    }
+
+    @Test
+    fun `resolve should invoke and use the path provided by the PathConverters`() {
+        // scenario
+        every { PathConverters.convert(any(), any()) } returns "simpleAttribute"
+
+        // execution
+        val result = PathResolver.resolve("joinAttribute.simpleAttribute", root)
+
+        // validation
+        assertEquals(simpleAttribute, result)
+        verify { PathConverters.convert("joinAttribute.simpleAttribute", root) }
     }
 }
