@@ -12,7 +12,8 @@ internal object OffsetDateTimeValueParser: DefaultValueParser<OffsetDateTime>(Of
      * Parses the given [String] value as an instance of [OffsetDateTime]
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun parse(value: String): OffsetDateTime =
+    override fun parse(value: String, targetType: Class<*>): OffsetDateTime =
         OffsetDateTime.parse(value)
 }

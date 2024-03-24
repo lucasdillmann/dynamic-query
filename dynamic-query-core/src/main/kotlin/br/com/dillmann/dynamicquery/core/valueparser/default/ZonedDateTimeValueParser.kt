@@ -12,7 +12,8 @@ internal object ZonedDateTimeValueParser: DefaultValueParser<ZonedDateTime>(Zone
      * Parses the given [String] value as an instance of [ZonedDateTime]
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun parse(value: String): ZonedDateTime =
+    override fun parse(value: String, targetType: Class<*>): ZonedDateTime =
         ZonedDateTime.parse(value)
 }

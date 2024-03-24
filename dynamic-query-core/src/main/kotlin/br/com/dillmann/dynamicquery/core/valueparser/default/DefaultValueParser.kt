@@ -22,8 +22,9 @@ internal abstract class DefaultValueParser<T : Any>(private val supportedType: K
     /**
      * Checks if the parser supports the conversion from [String] to a specific target type
      *
-     * @param targetType Resulting type of the conversion that is about to happen
+     * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun supports(targetType: Class<*>): Boolean =
+    override fun supports(value: String, targetType: Class<*>): Boolean =
         supportedType.java.isAssignableFrom(targetType)
 }

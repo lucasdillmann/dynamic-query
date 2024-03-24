@@ -1,5 +1,6 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
+import br.com.dillmann.dynamicquery.core.randomString
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -17,7 +18,7 @@ class ByteValueParserUnitTests {
         val inputValue = "$expectedValue"
 
         // execution
-        val result = ByteValueParser.parse(inputValue)
+        val result = ByteValueParser.parse(inputValue, Byte::class.java)
 
         // validation
         assertEquals(expectedValue, result)
@@ -26,7 +27,7 @@ class ByteValueParserUnitTests {
     @Test
     fun `supports should return true when the type is Byte`() {
         // execution
-        val result = ByteValueParser.supports(Byte::class.java)
+        val result = ByteValueParser.supports(randomString, Byte::class.java)
 
         // validation
         assertTrue(result)
@@ -35,7 +36,7 @@ class ByteValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but Byte`() {
         // execution
-        val result = ByteValueParser.supports(Any::class.java)
+        val result = ByteValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)

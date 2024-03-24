@@ -30,8 +30,8 @@ class ValueParsersUnitTests {
     @BeforeEach
     fun setUp() {
         every { testParser.priority } returns Int.MIN_VALUE
-        every { testParser.supports(any()) } answers { TestType::class.java.isAssignableFrom(arg(0)) }
-        every { testParser.parse(any()) } returns testValue
+        every { testParser.supports(any(), any()) } answers { TestType::class.java.isAssignableFrom(arg(1)) }
+        every { testParser.parse(any(), any()) } returns testValue
 
         ValueParsers.register(testParser)
     }
@@ -63,7 +63,7 @@ class ValueParsersUnitTests {
         // scenario
         val rootException = RuntimeException(randomString)
         val inputValue = randomString
-        every { testParser.parse(any()) } throws rootException
+        every { testParser.parse(any(), any()) } throws rootException
 
         // execution
         val result = runCatching { ValueParsers.parse(inputValue, TestType::class.java) }
@@ -86,7 +86,7 @@ class ValueParsersUnitTests {
 
         // validation
         assertEquals(testValue, result)
-        verify { testParser.parse(inputValue) }
+        verify { testParser.parse(inputValue, TestType::class.java) }
     }
 
     @Test
@@ -94,9 +94,9 @@ class ValueParsersUnitTests {
         // scenario
         val parser1 = mockk<ValueParser<Any>>()
         val parser2 = mockk<ValueParser<Any>>()
-        every { parser1.supports(any()) } returns false
-        every { parser2.supports(any()) } returns true
-        every { parser2.parse(any()) } returns mockk()
+        every { parser1.supports(any(), any()) } returns false
+        every { parser2.supports(any(), any()) } returns true
+        every { parser2.parse(any(), any()) } returns mockk()
         every { parser1.priority } returns Int.MIN_VALUE
         every { parser2.priority } returns Int.MIN_VALUE + 1
 
@@ -107,8 +107,8 @@ class ValueParsersUnitTests {
         ValueParsers.parse(randomString, Any::class.java)
 
         // validation
-        verify(exactly = 0) { parser1.parse(any()) }
-        verify { parser2.parse(any()) }
+        verify(exactly = 0) { parser1.parse(any(), any()) }
+        verify { parser2.parse(any(), any()) }
     }
 
     @Test
@@ -116,9 +116,9 @@ class ValueParsersUnitTests {
         // scenario
         val parser1 = mockk<ValueParser<Any>>()
         val parser2 = mockk<ValueParser<Any>>()
-        every { parser1.supports(any()) } returns true
-        every { parser2.supports(any()) } returns true
-        every { parser1.parse(any()) } returns mockk()
+        every { parser1.supports(any(), any()) } returns true
+        every { parser2.supports(any(), any()) } returns true
+        every { parser1.parse(any(), any()) } returns mockk()
         every { parser1.priority } returns Int.MIN_VALUE
         every { parser2.priority } returns Int.MIN_VALUE + 1
 
@@ -129,8 +129,8 @@ class ValueParsersUnitTests {
         ValueParsers.parse(randomString, Any::class.java)
 
         // validation
-        verify { parser1.parse(any()) }
-        verify(exactly = 0) { parser2.parse(any()) }
+        verify { parser1.parse(any(), any()) }
+        verify(exactly = 0) { parser2.parse(any(), any()) }
     }
 
     @Test
@@ -145,7 +145,7 @@ class ValueParsersUnitTests {
 
         // validation
         ValueParsers.parse(randomString, String::class.java)
-        verify(exactly = 0) { parser.parse(any()) }
+        verify(exactly = 0) { parser.parse(any(), any()) }
     }
 
     @Test
@@ -220,6 +220,10 @@ class ValueParsersUnitTests {
     fun `parse should support ZonedDateTime values by default using ZonedDateTimeValueParser`() =
         testDefaultParser(ZonedDateTime.now()) { ZonedDateTimeValueParser }
 
+    @Test
+    fun `parse should support Enum values by default using EnumValueParser`() =
+        testDefaultParser(EnumTestArtifact.ENUM_OPTION) { EnumValueParser }
+
     private inline fun <reified T: Any> testDefaultParser(sample: T, crossinline parserProvider: () -> ValueParser<T>) {
         // scenario
         val inputValue = randomString
@@ -227,15 +231,15 @@ class ValueParsersUnitTests {
         ValueParsers.deregister(parserProvider()) // removes the concrete implementation before mocking it
         mockkObject(parserProvider())
         ValueParsers.register(parserProvider()) // installs the mocked instance
-        every { parserProvider().parse(any()) } returns sample
-        every { parserProvider().supports(any()) } answers { arg<Class<*>>(0) == T::class.java }
+        every { parserProvider().parse(any(), any()) } returns sample
+        every { parserProvider().supports(any(), any()) } answers { arg<Class<*>>(1) == T::class.java  }
         every { parserProvider().priority } returns Int.MAX_VALUE
 
         // execution
         val result = ValueParsers.parse(inputValue, T::class.java)
 
         // validation
-        verify { parserProvider().parse(inputValue) }
+        verify { parserProvider().parse(inputValue, T::class.java) }
         assertEquals(sample, result)
     }
 }

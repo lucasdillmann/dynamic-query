@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomInt
+import br.com.dillmann.dynamicquery.core.randomString
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import kotlin.test.assertEquals
@@ -19,7 +20,7 @@ class LocalDateTimeValueParserUnitTests {
         val inputValue = expectedValue.toString()
 
         // execution
-        val result = LocalDateTimeValueParser.parse(inputValue)
+        val result = LocalDateTimeValueParser.parse(inputValue, LocalDateTime::class.java)
 
         // validation
         assertEquals(expectedValue, result)
@@ -28,7 +29,7 @@ class LocalDateTimeValueParserUnitTests {
     @Test
     fun `supports should return true when the type is LocalDateTime`() {
         // execution
-        val result = LocalDateTimeValueParser.supports(LocalDateTime::class.java)
+        val result = LocalDateTimeValueParser.supports(randomString, LocalDateTime::class.java)
 
         // validation
         assertTrue(result)
@@ -37,7 +38,7 @@ class LocalDateTimeValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but LocalDateTime`() {
         // execution
-        val result = LocalDateTimeValueParser.supports(Any::class.java)
+        val result = LocalDateTimeValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)

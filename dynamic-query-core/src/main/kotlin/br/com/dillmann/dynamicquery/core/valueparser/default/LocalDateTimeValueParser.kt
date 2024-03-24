@@ -12,7 +12,8 @@ internal object LocalDateTimeValueParser: DefaultValueParser<LocalDateTime>(Loca
      * Parses the given [String] value as an instance of [LocalDateTime]
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun parse(value: String): LocalDateTime =
+    override fun parse(value: String, targetType: Class<*>): LocalDateTime =
         LocalDateTime.parse(value)
 }

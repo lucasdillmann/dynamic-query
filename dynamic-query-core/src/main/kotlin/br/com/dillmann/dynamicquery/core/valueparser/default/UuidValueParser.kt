@@ -12,7 +12,8 @@ internal object UuidValueParser: DefaultValueParser<UUID>(UUID::class) {
      * Parses the given [String] value as an instance of [UUID]
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun parse(value: String): UUID =
+    override fun parse(value: String, targetType: Class<*>): UUID =
         UUID.fromString(value)
 }

@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomInt
+import br.com.dillmann.dynamicquery.core.randomString
 import org.junit.jupiter.api.Test
 import java.math.BigInteger
 import kotlin.test.assertEquals
@@ -19,7 +20,7 @@ class BigIntegerValueParserUnitTests {
         val expectedValue = BigInteger(inputValue)
 
         // execution
-        val result = BigIntegerValueParser.parse(inputValue)
+        val result = BigIntegerValueParser.parse(inputValue, BigInteger::class.java)
 
         // validation
         assertEquals(expectedValue, result)
@@ -28,7 +29,7 @@ class BigIntegerValueParserUnitTests {
     @Test
     fun `supports should return true when the type is BigInteger`() {
         // execution
-        val result = BigIntegerValueParser.supports(BigInteger::class.java)
+        val result = BigIntegerValueParser.supports(randomString, BigInteger::class.java)
 
         // validation
         assertTrue(result)
@@ -37,7 +38,7 @@ class BigIntegerValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but BigInteger`() {
         // execution
-        val result = BigIntegerValueParser.supports(Any::class.java)
+        val result = BigIntegerValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)

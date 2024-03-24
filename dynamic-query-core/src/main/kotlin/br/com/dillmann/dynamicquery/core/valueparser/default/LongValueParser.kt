@@ -11,7 +11,8 @@ internal object LongValueParser: DefaultValueParser<Long>(Long::class) {
      * Parses the given [String] value as an instance of [Long]
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun parse(value: String): Long =
+    override fun parse(value: String, targetType: Class<*>): Long =
         value.toLong()
 }

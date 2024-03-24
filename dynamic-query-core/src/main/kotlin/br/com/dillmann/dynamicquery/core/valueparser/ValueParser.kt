@@ -13,14 +13,16 @@ interface ValueParser<T> {
     /**
      * Checks if the parser supports the conversion from [String] to a specific target type
      *
-     * @param targetType Resulting type of the conversion that is about to happen
+     * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    fun supports(targetType: Class<*>): Boolean
+    fun supports(value: String, targetType: Class<*>): Boolean
 
     /**
      * Parses the given [String] value as an instance of the domain value
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    fun parse(value: String): T?
+    fun parse(value: String, targetType: Class<*>): T?
 }

@@ -12,7 +12,8 @@ internal object BigIntegerValueParser: DefaultValueParser<BigInteger>(BigInteger
      * Parses the given [String] value as an instance of [BigInteger]
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun parse(value: String): BigInteger =
+    override fun parse(value: String, targetType: Class<*>): BigInteger =
         value.toBigInteger()
 }

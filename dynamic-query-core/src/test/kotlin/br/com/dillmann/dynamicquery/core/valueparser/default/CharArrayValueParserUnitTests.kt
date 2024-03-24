@@ -19,7 +19,7 @@ class CharArrayValueParserUnitTests {
         val expectedValue = inputValue.toCharArray()
 
         // execution
-        val result = CharArrayValueParser.parse(inputValue)
+        val result = CharArrayValueParser.parse(inputValue, CharArray::class.java)
 
         // validation
         assertContentEquals(expectedValue, result)
@@ -28,7 +28,7 @@ class CharArrayValueParserUnitTests {
     @Test
     fun `supports should return true when the type is CharArray`() {
         // execution
-        val result = CharArrayValueParser.supports(CharArray::class.java)
+        val result = CharArrayValueParser.supports(randomString, CharArray::class.java)
 
         // validation
         assertTrue(result)
@@ -37,7 +37,7 @@ class CharArrayValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but CharArray`() {
         // execution
-        val result = CharArrayValueParser.supports(Any::class.java)
+        val result = CharArrayValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)

@@ -12,7 +12,8 @@ internal object BigDecimalValueParser: DefaultValueParser<BigDecimal>(BigDecimal
      * Parses the given [String] value as an instance of [BigDecimal]
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun parse(value: String): BigDecimal =
+    override fun parse(value: String, targetType: Class<*>): BigDecimal =
         value.toBigDecimal()
 }

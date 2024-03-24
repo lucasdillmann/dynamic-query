@@ -29,6 +29,7 @@ object ValueParsers {
         register(ByteValueParser)
         register(CharArrayValueParser)
         register(DoubleValueParser)
+        register(EnumValueParser)
         register(FloatValueParser)
         register(IntValueParser)
         register(LocalDateTimeValueParser)
@@ -80,8 +81,8 @@ object ValueParsers {
         try {
             @Suppress("UNCHECKED_CAST")
             return parsers
-                .firstOrNull { it.supports(targetType) }
-                ?.parse(value) as? T
+                .firstOrNull { it.supports(value, targetType) }
+                ?.parse(value, targetType) as? T
                 ?: throw NoValueParserAvailableException(value, targetType)
         } catch (ex: NoValueParserAvailableException) {
             throw ex

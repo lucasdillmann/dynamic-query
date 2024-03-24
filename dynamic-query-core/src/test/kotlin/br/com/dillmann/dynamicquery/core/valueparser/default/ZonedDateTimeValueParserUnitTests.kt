@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomInt
+import br.com.dillmann.dynamicquery.core.randomString
 import org.junit.jupiter.api.Test
 import java.time.ZonedDateTime
 import kotlin.test.assertEquals
@@ -19,7 +20,7 @@ class ZonedDateTimeValueParserUnitTests {
         val inputValue = expectedValue.toString()
 
         // execution
-        val result = ZonedDateTimeValueParser.parse(inputValue)
+        val result = ZonedDateTimeValueParser.parse(inputValue, ZonedDateTime::class.java)
 
         // validation
         assertEquals(expectedValue, result)
@@ -28,7 +29,7 @@ class ZonedDateTimeValueParserUnitTests {
     @Test
     fun `supports should return true when the type is ZonedDateTime`() {
         // execution
-        val result = ZonedDateTimeValueParser.supports(ZonedDateTime::class.java)
+        val result = ZonedDateTimeValueParser.supports(randomString, ZonedDateTime::class.java)
 
         // validation
         assertTrue(result)
@@ -37,7 +38,7 @@ class ZonedDateTimeValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but ZonedDateTime`() {
         // execution
-        val result = ZonedDateTimeValueParser.supports(Any::class.java)
+        val result = ZonedDateTimeValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)

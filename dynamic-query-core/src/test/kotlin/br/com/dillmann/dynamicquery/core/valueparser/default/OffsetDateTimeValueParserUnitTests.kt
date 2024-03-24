@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomInt
+import br.com.dillmann.dynamicquery.core.randomString
 import org.junit.jupiter.api.Test
 import java.time.OffsetDateTime
 import kotlin.test.assertEquals
@@ -19,7 +20,7 @@ class OffsetDateTimeValueParserUnitTests {
         val inputValue = expectedValue.toString()
 
         // execution
-        val result = OffsetDateTimeValueParser.parse(inputValue)
+        val result = OffsetDateTimeValueParser.parse(inputValue, OffsetDateTime::class.java)
 
         // validation
         assertEquals(expectedValue, result)
@@ -28,7 +29,7 @@ class OffsetDateTimeValueParserUnitTests {
     @Test
     fun `supports should return true when the type is OffsetDateTime`() {
         // execution
-        val result = OffsetDateTimeValueParser.supports(OffsetDateTime::class.java)
+        val result = OffsetDateTimeValueParser.supports(randomString, OffsetDateTime::class.java)
 
         // validation
         assertTrue(result)
@@ -37,7 +38,7 @@ class OffsetDateTimeValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but OffsetDateTime`() {
         // execution
-        val result = OffsetDateTimeValueParser.supports(Any::class.java)
+        val result = OffsetDateTimeValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)

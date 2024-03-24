@@ -11,7 +11,8 @@ internal object BooleanValueParser: DefaultValueParser<Boolean>(Boolean::class) 
      * Parses the given [String] value as an instance of [Boolean]
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun parse(value: String): Boolean =
+    override fun parse(value: String, targetType: Class<*>): Boolean =
         value.toBoolean()
 }

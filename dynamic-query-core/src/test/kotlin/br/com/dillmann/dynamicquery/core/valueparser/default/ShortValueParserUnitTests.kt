@@ -1,5 +1,6 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
+import br.com.dillmann.dynamicquery.core.randomString
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -17,7 +18,7 @@ class ShortValueParserUnitTests {
         val inputValue = "$expectedValue"
 
         // execution
-        val result = ShortValueParser.parse(inputValue)
+        val result = ShortValueParser.parse(inputValue, Short::class.java)
 
         // validation
         assertEquals(expectedValue, result)
@@ -26,7 +27,7 @@ class ShortValueParserUnitTests {
     @Test
     fun `supports should return true when the type is Short`() {
         // execution
-        val result = ShortValueParser.supports(Short::class.java)
+        val result = ShortValueParser.supports(randomString, Short::class.java)
 
         // validation
         assertTrue(result)
@@ -35,7 +36,7 @@ class ShortValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but Short`() {
         // execution
-        val result = ShortValueParser.supports(Any::class.java)
+        val result = ShortValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)

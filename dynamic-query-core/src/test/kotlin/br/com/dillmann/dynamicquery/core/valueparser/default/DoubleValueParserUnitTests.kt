@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomInt
+import br.com.dillmann.dynamicquery.core.randomString
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -18,7 +19,7 @@ class DoubleValueParserUnitTests {
         val inputValue = "$expectedValue"
 
         // execution
-        val result = DoubleValueParser.parse(inputValue)
+        val result = DoubleValueParser.parse(inputValue, Double::class.java)
 
         // validation
         assertEquals(expectedValue, result)
@@ -27,7 +28,7 @@ class DoubleValueParserUnitTests {
     @Test
     fun `supports should return true when the type is Double`() {
         // execution
-        val result = DoubleValueParser.supports(Double::class.java)
+        val result = DoubleValueParser.supports(randomString, Double::class.java)
 
         // validation
         assertTrue(result)
@@ -36,7 +37,7 @@ class DoubleValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but Double`() {
         // execution
-        val result = DoubleValueParser.supports(Any::class.java)
+        val result = DoubleValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)

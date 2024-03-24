@@ -12,7 +12,8 @@ internal object LocalDateValueParser: DefaultValueParser<LocalDate>(LocalDate::c
      * Parses the given [String] value as an instance of [LocalDate]
      *
      * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
      */
-    override fun parse(value: String): LocalDate =
+    override fun parse(value: String, targetType: Class<*>): LocalDate =
         LocalDate.parse(value)
 }

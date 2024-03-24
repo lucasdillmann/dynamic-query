@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomInt
+import br.com.dillmann.dynamicquery.core.randomString
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -18,7 +19,7 @@ class FloatValueParserUnitTests {
         val inputValue = "$expectedValue"
 
         // execution
-        val result = FloatValueParser.parse(inputValue)
+        val result = FloatValueParser.parse(inputValue, Float::class.java)
 
         // validation
         assertEquals(expectedValue, result)
@@ -27,7 +28,7 @@ class FloatValueParserUnitTests {
     @Test
     fun `supports should return true when the type is Float`() {
         // execution
-        val result = FloatValueParser.supports(Float::class.java)
+        val result = FloatValueParser.supports(randomString, Float::class.java)
 
         // validation
         assertTrue(result)
@@ -36,7 +37,7 @@ class FloatValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but Float`() {
         // execution
-        val result = FloatValueParser.supports(Any::class.java)
+        val result = FloatValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)

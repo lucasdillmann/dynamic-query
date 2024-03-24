@@ -17,7 +17,7 @@ class StringValueParserUnitTests {
         val inputValue = randomString
 
         // execution
-        val result = StringValueParser.parse(inputValue)
+        val result = StringValueParser.parse(inputValue, String::class.java)
 
         // validation
         assertEquals(inputValue, result)
@@ -26,7 +26,7 @@ class StringValueParserUnitTests {
     @Test
     fun `supports should return true when the type is String`() {
         // execution
-        val result = StringValueParser.supports(String::class.java)
+        val result = StringValueParser.supports(randomString, String::class.java)
 
         // validation
         assertTrue(result)
@@ -35,7 +35,7 @@ class StringValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but String`() {
         // execution
-        val result = StringValueParser.supports(Any::class.java)
+        val result = StringValueParser.supports(randomString, Any::class.java)
 
         // validation
         assertFalse(result)
