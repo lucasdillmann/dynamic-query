@@ -11,6 +11,9 @@ dependencies {
 
     // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // Kotlin
+    runtimeOnly("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
 }
 
 tasks {

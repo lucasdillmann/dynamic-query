@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomString
+import br.com.dillmann.dynamicquery.core.valueparser.TestType
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -35,7 +36,7 @@ class StringValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but String`() {
         // execution
-        val result = StringValueParser.supports(randomString, Any::class.java)
+        val result = StringValueParser.supports(randomString, TestType::class.java)
 
         // validation
         assertFalse(result)

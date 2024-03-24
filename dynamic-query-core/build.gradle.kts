@@ -21,7 +21,7 @@ tasks {
         dependsOn(generateTestGrammarSource)
     }
 
-    sourcesJar {
+    kotlinSourcesJar {
         dependsOn(generateGrammarSource)
     }
 

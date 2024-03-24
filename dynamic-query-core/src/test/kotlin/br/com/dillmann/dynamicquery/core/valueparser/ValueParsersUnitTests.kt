@@ -23,7 +23,6 @@ import kotlin.test.assertNotNull
  */
 class ValueParsersUnitTests {
 
-    class TestType
     private val testValue = mockk<TestType>()
     private val testParser = mockk<ValueParser<TestType>>()
 

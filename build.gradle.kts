@@ -60,10 +60,16 @@ allprojects {
             }
         }
 
+        withType<AbstractPublishToMaven>().forEach {
+            it.dependsOn(kotlinSourcesJar)
+        }
     }
 
     kotlin {
         jvmToolchain(17)
+        compilerOptions {
+            freeCompilerArgs.add("-Xjvm-default=all")
+        }
     }
 
     java {
@@ -86,6 +92,8 @@ allprojects {
                 artifactId = project.name
                 version = project.version.toString()
                 from(components["kotlin"])
+
+                artifact(tasks.kotlinSourcesJar)
 
                 versionMapping {
                     usage("java-api") {
@@ -123,10 +131,6 @@ allprojects {
                 }
             }
         }
-    }
-
-    signing {
-        sign(publishing.publications["maven"])
     }
 }
 

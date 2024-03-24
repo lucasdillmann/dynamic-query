@@ -8,6 +8,15 @@ import br.com.dillmann.dynamicquery.core.valueparser.ValueParser
 internal object EnumValueParser: DefaultValueParser<Enum<*>>(Enum::class) {
 
     /**
+     * Checks if the parser supports the conversion from [String] to a specific target type
+     *
+     * @param value Value to be parsed
+     * @param targetType Resulting type of the needed conversion
+     */
+    override fun supports(value: String, targetType: Class<*>) =
+        targetType.isEnum
+
+    /**
      * Parses the given [String] value as an instance of [Enum]
      *
      * @param value Value to be parsed

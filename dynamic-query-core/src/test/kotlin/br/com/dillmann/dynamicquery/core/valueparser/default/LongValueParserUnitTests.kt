@@ -2,6 +2,7 @@ package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomLong
 import br.com.dillmann.dynamicquery.core.randomString
+import br.com.dillmann.dynamicquery.core.valueparser.TestType
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -37,7 +38,7 @@ class LongValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but Long`() {
         // execution
-        val result = LongValueParser.supports(randomString, Any::class.java)
+        val result = LongValueParser.supports(randomString, TestType::class.java)
 
         // validation
         assertFalse(result)

@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomString
+import br.com.dillmann.dynamicquery.core.valueparser.TestType
 import org.junit.jupiter.api.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
@@ -37,7 +38,7 @@ class CharArrayValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but CharArray`() {
         // execution
-        val result = CharArrayValueParser.supports(randomString, Any::class.java)
+        val result = CharArrayValueParser.supports(randomString, TestType::class.java)
 
         // validation
         assertFalse(result)

@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomString
+import br.com.dillmann.dynamicquery.core.valueparser.TestType
 import org.junit.jupiter.api.Test
 import java.util.*
 import kotlin.test.assertEquals
@@ -37,7 +38,7 @@ class UuidValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but UUID`() {
         // execution
-        val result = UuidValueParser.supports(randomString, Any::class.java)
+        val result = UuidValueParser.supports(randomString, TestType::class.java)
 
         // validation
         assertFalse(result)

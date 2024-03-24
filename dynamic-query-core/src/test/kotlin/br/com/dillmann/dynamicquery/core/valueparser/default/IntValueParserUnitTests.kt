@@ -2,6 +2,7 @@ package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomInt
 import br.com.dillmann.dynamicquery.core.randomString
+import br.com.dillmann.dynamicquery.core.valueparser.TestType
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -37,7 +38,7 @@ class IntValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but Int`() {
         // execution
-        val result = IntValueParser.supports(randomString, Any::class.java)
+        val result = IntValueParser.supports(randomString, TestType::class.java)
 
         // validation
         assertFalse(result)

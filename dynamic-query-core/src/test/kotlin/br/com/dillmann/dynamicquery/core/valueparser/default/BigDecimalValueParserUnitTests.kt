@@ -1,6 +1,7 @@
 package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomString
+import br.com.dillmann.dynamicquery.core.valueparser.TestType
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import kotlin.test.assertEquals
@@ -37,7 +38,7 @@ class BigDecimalValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but BigDecimal`() {
         // execution
-        val result = BigDecimalValueParser.supports(randomString, Any::class.java)
+        val result = BigDecimalValueParser.supports(randomString, TestType::class.java)
 
         // validation
         assertFalse(result)

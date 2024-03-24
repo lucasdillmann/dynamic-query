@@ -2,6 +2,7 @@ package br.com.dillmann.dynamicquery.core.valueparser.default
 
 import br.com.dillmann.dynamicquery.core.randomBoolean
 import br.com.dillmann.dynamicquery.core.randomString
+import br.com.dillmann.dynamicquery.core.valueparser.TestType
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -37,7 +38,7 @@ class BooleanValueParserUnitTests {
     @Test
     fun `supports should return false when the type is anything but Boolean`() {
         // execution
-        val result = BooleanValueParser.supports(randomString, Any::class.java)
+        val result = BooleanValueParser.supports(randomString, TestType::class.java)
 
         // validation
         assertFalse(result)
