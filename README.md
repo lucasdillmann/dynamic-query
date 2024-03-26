@@ -231,8 +231,8 @@ Some features or functionality aren't yet available, but are planned to be integ
 future, which include:
 
 - Publication of the artifacts in the Maven Central repositories (already in the works)
-- Integration of more operations that the JPA supports, like `lower` (such as `equals(trim(fieldName), "lorem ipsum"))`),
-  `upper`, `trim` and more
+- Integration of more operations that the JPA supports, like `trim` (such as `equals(trim(fieldName), "lorem ipsum"))`),
+  `upper`, `lower` and more
 - Ability to compare one field to another in the operations (such as `equals(someField, anotherField)`)
 
 If you like the project and want this and more to become available, don't forget to give it a star and let me know. :)
