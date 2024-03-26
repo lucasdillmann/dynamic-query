@@ -25,7 +25,10 @@ public class ProductGroupController {
         final Pageable page,
         final DynamicQuerySpecification dynamicQuery
     ) {
-        final Page<ProductGroup> results = repository.findAll(dynamicQuery, page);
+        final Page<ProductGroup> results = dynamicQuery != null
+            ? repository.findAll(dynamicQuery, page)
+            : repository.findAll(page);
+
         return ResponseEntity.ok(results);
     }
 }
