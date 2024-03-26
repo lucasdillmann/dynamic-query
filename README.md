@@ -7,12 +7,39 @@ possibility.
 
 ## Getting started
 
-To get started, you'll need to include the dynamic-query-core module in your application (via Maven, Gradle, sbt, etc).
+To get started, you'll need to include the Dynamic Query in your application (via Maven, Gradle, sbt, etc).
 Dynamic Query isn't available through Maven Central yet, but the publication is in the works.
 
-Once included in your classpath, you can use the `DynamicQuery` class to parse any expression formatted as a `String`
-into a JPA-compliant specification, which can be used to filter the query results. The following code exemplifies the
-process of parsing and using the specification in a JPA query.
+If you're using Spring Boot, adding the `spring-boot-data-jpa` and `spring-boot-modules` will enable you to inject
+a instance of the `DynamicQuerySpecification` directly on your controller and forward it to a repository.
+
+```java
+@Repository
+public interface ExampleRepository
+  extends JpaRepository<Integer, Example>, DynamicQueryRepository<Example> {}
+
+@RestController
+public class ExampleController {
+    
+    private final ExampleRepository repository;
+    
+    @Autowired
+    public ExampleController(final ExampleRepository repository) {
+        this.repository = repository;
+    }
+    
+    @GetMapping
+    public ResponseEntity<Page<Example>> example(final DynamicQuerySpecification dynamicQuery, final Pageable page) {
+        // This is an example only. Using the repository right on the controller isn't a good pattern 
+        // to be used in production code.
+        final Page<Example> page = repository.findAll(dynamicQuery, page);
+        return ResponseEntity.ok(page);
+    }
+}
+```
+If you're using anything else, with the `dynamic-query-core` module in the classpath you can use the `DynamicQuery` 
+class to parse any expression formatted as a `String` into a JPA-compliant specification, which can be used to filter 
+the query results. The following code exemplifies the process of parsing and using the specification in a JPA query.
 
 ```java
 // Initialize the query using JPA Criteria APIs
@@ -32,16 +59,15 @@ final TypedQuery<EntityClass> query = entityManager.createQuery(criteriaQuery.wh
 final List<EntityClass> queryResults = query.getResultList();
 ```
 
-If you're using Spring Boot, check the Getting Started section of the
-[`spring-boot-data-jpa`](dynamic-query-spring-boot-data-jpa/README.md) and
-[`spring-boot-web`](dynamic-query-spring-boot-web/README.md) modules. They provide a simplified way to integrate and
-use Dynamic Query with the framework as if Dynamic Query was a native resource.
-
 ### Examples
 
 If you is a developer that learns quickly by example, check-out the [`examples`](examples/) folder. There's some
 example projects there with the Dynamic Query integrated for you. Just note that such projects are for demo purposes
 only, they aren't intended to be used as a template or something like that.
+
+### Requirements
+The Dynamic Query library requires the JVM 17 or later to be used. When the project is Spring Boot based, version 
+3.0.0 or later of the framework is required.
 
 ## Building a Dynamic Query expression
 
@@ -199,3 +225,14 @@ public class ExampleConverter implements PathConverter {
 
 }
 ```
+
+## Roadmap ahead
+Some features or functionality aren't yet available, but are planned to be integrated in the Dynamic Query in the
+future, which include:
+
+- Publication of the artifacts in the Maven Central repositories (already in the works)
+- Integration of more operations that the JPA supports, like `lower` (such as `equals(trim(fieldName), "lorem ipsum"))`),
+  `upper`, `trim` and more
+- Ability to compare one field to another in the operations (such as `equals(someField, anotherField)`)
+
+If you like the project and want this and more to become available, don't forget to give it a star and let me know. :)

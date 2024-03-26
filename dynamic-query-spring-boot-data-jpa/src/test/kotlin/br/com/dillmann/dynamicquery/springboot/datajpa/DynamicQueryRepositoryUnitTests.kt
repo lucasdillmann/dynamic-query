@@ -46,10 +46,10 @@ class DynamicQueryRepositoryUnitTests {
         @JvmStatic
         @BeforeAll
         fun beforeAll() {
-            val toSpringSpecification: DynamicQuerySpecification.() -> Specification<Any> =
-                DynamicQuerySpecification::toSpringSpecification
-            val toSpringSpecificationWithScopeDown: DynamicQuerySpecification.(ScopeDownSupplier<Any>) -> Specification<Any> =
-                DynamicQuerySpecification::toSpringSpecification
+            val toSpringSpecification: DynamicQuerySpecification?.() -> Specification<Any> =
+                DynamicQuerySpecification?::toSpringSpecification
+            val toSpringSpecificationWithScopeDown: DynamicQuerySpecification?.(ScopeDownSupplier<Any>) -> Specification<Any> =
+                DynamicQuerySpecification?::toSpringSpecification
 
             mockkStatic(
                 toSpringSpecification as KFunction<*>,
