@@ -1,8 +1,7 @@
 package br.com.dillmann.dynamicquery.springboot.web
 
-import br.com.dillmann.dynamicquery.core.DynamicQuery
-import br.com.dillmann.dynamicquery.core.DynamicQueryException
-import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
+import br.com.dillmann.dynamicquery.DynamicQuery
+import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.support.WebDataBinderFactory
@@ -38,7 +37,6 @@ class DynamicQueryWebArgumentResolver(
      * @param container Spring's MVC container. Not used by this implementation.
      * @param webRequest Details about the request being handled by Spring MVC
      * @param binderFactory Spring's argument binder factory. Not used by this implementation.
-     * @throws DynamicQueryException when the expression parse fails with an error
      */
     override fun resolveArgument(
         parameter: MethodParameter,

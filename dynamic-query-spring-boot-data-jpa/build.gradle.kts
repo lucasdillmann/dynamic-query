@@ -7,7 +7,7 @@ plugins {
 
 dependencies {
     // Dynamic Query
-    api(project(":dynamic-query-spring-boot"))
+    api(project(":dynamic-query-spring-boot-autoconfiguration"))
 
     // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")

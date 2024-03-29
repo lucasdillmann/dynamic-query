@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.springboot.web
 
-import br.com.dillmann.dynamicquery.core.DynamicQuery
-import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
+import br.com.dillmann.dynamicquery.DynamicQuery
+import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 import io.mockk.*
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertFalse

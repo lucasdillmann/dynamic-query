@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.springboot.datajpa
 
-import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
+import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 import org.springframework.data.jpa.domain.Specification
 
 /**

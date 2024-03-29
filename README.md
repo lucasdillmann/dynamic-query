@@ -5,13 +5,16 @@ Main goal is to enable a simple way for applications, mainly REST APIs, to have 
 filters in the data that the application manages without the need to hardcode every single business scenario or search
 possibility.
 
+Please note that this project is not production ready yet.
+
 ## Getting started
 
-To get started, you'll need to include the Dynamic Query in your application (via Maven, Gradle, sbt, etc).
+To get started, you'll need to include the Dynamic Query in your application (via Maven, Gradle, sbt, etc.).
 Dynamic Query isn't available through Maven Central yet, but the publication is in the works.
 
-If you're using Spring Boot, adding the `spring-boot-data-jpa` and `spring-boot-modules` will enable you to inject
-a instance of the `DynamicQuerySpecification` directly on your controller and forward it to a repository.
+If you're using Spring Boot, adding the `dynamic-query-spring-boot-data-jpa` and `dynamic-query-spring-boot-web` 
+modules will enable you to inject an instance of the `DynamicQuerySpecification` directly on your controller and 
+forward it to a repository.
 
 ```java
 @Repository
@@ -37,7 +40,7 @@ public class ExampleController {
     }
 }
 ```
-If you're using anything else, with the `dynamic-query-core` module in the classpath you can use the `DynamicQuery` 
+If you're using anything else, with the `dynamic-query` module in the classpath you can use the `DynamicQuery` 
 class to parse any expression formatted as a `String` into a JPA-compliant specification, which can be used to filter 
 the query results. The following code exemplifies the process of parsing and using the specification in a JPA query.
 

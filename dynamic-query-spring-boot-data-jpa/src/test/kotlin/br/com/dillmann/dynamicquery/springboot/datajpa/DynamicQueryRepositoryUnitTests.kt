@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.springboot.datajpa
 
-import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification
+import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 import br.com.dillmann.dynamicquery.springboot.datajpa.artifacts.DynamicQueryRepositoryTestArtifact
 import br.com.dillmann.dynamicquery.springboot.datajpa.artifacts.randomBoolean
 import br.com.dillmann.dynamicquery.springboot.datajpa.artifacts.randomLong

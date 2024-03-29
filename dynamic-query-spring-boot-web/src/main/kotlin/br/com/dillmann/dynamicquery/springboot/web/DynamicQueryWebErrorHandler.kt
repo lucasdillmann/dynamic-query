@@ -1,11 +1,9 @@
 package br.com.dillmann.dynamicquery.springboot.web
 
-import br.com.dillmann.dynamicquery.core.DynamicQueryException
-import br.com.dillmann.dynamicquery.core.grammar.exception.SyntaxException
-import br.com.dillmann.dynamicquery.core.specification.exception.InvalidArgumentCountException
-import br.com.dillmann.dynamicquery.core.specification.exception.UnknownAttributeNameException
-import br.com.dillmann.dynamicquery.core.specification.exception.UnsupportedValueTypeException
-import org.slf4j.LoggerFactory
+import br.com.dillmann.dynamicquery.grammar.DynamicQueryGrammarException
+import br.com.dillmann.dynamicquery.specification.exception.InvalidArgumentCountException
+import br.com.dillmann.dynamicquery.specification.exception.UnknownAttributeNameException
+import br.com.dillmann.dynamicquery.specification.exception.UnsupportedValueTypeException
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -22,24 +20,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler
     matchIfMissing = true,
 )
 class DynamicQueryWebErrorHandler {
-
-    private val logger = LoggerFactory.getLogger(javaClass)
-
-    /**
-     * Fallback exception handler for the [DynamicQueryException]. This method will produce a generic internal server
-     * error message for any [DynamicQueryException]-based exceptions that weren't handled by any other method of this
-     * class.
-     *
-     * @param exception Thrown exception
-     */
-    @ExceptionHandler
-    fun handle(exception: DynamicQueryException): ResponseEntity<DynamicQueryWebErrorDto> {
-        logger.warn(
-            "Unhandled Dynamic Query's exception detected. Request will be terminated with an internal server error.",
-            exception,
-        )
-        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR)
-    }
 
     /**
      * Exception handler for the [InvalidArgumentCountException]
@@ -92,12 +72,12 @@ class DynamicQueryWebErrorHandler {
         )
 
     /**
-     * Exception handler for the [SyntaxException]
+     * Exception handler for the [DynamicQueryGrammarException]
      *
      * @param exception Thrown exception
      */
     @ExceptionHandler
-    fun handle(exception: SyntaxException) =
+    fun handle(exception: DynamicQueryGrammarException) =
         buildResponse(
             HttpStatus.BAD_REQUEST,
             exception.message,

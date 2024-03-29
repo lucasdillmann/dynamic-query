@@ -10,7 +10,7 @@ class DynamicQueryWebConfigurationProperties {
 
     /**
      * Name of the query parameter where the Dynamic Query DSL will be available on HTTP requests. Value will be
-     * used when the Dynamic Query's Specification is injected on a MVC Controller (via method arguments).
+     * used when the Dynamic Query's Specification is injected on an MVC Controller (via method arguments).
      *
      * When not set, the [DEFAULT_HTTP_QUERY_PARAMETER_NAME] will be used as the fallback value.
      */
