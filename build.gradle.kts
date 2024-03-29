@@ -14,8 +14,18 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4" apply false
 }
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+    
+    sonar {
+        properties {
+            property("sonar.projectKey", "lucasdillmann_dynamic-query")
+            property("sonar.organization", "lucasdillmann")
+            property("sonar.host.url", "https://sonarcloud.io")
+        }
+    }
 }
 
 subprojects {
@@ -29,10 +39,6 @@ subprojects {
 
     group = "br.com.dillmann.dynamicquery"
     version = "1.0.0"
-
-    repositories {
-        mavenCentral()
-    }
 
     dependencies {
         // Kotlin
@@ -79,14 +85,6 @@ subprojects {
     java {
         withJavadocJar()
         withSourcesJar()
-    }
-
-    sonar {
-        properties {
-            property("sonar.projectKey", "lucasdillmann_dynamic-query")
-            property("sonar.organization", "lucasdillmann")
-            property("sonar.host.url", "https://sonarcloud.io")
-        }
     }
 
     publishing {
