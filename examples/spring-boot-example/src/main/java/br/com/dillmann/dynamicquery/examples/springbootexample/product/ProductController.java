@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.examples.springbootexample.product;
 
-import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification;
+import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

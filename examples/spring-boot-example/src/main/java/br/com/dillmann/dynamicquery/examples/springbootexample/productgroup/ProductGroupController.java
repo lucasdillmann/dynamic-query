@@ -1,6 +1,6 @@
 package br.com.dillmann.dynamicquery.examples.springbootexample.productgroup;
 
-import br.com.dillmann.dynamicquery.core.specification.DynamicQuerySpecification;
+import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,10 +25,9 @@ public class ProductGroupController {
         final Pageable page,
         final DynamicQuerySpecification dynamicQuery
     ) {
-        final Page<ProductGroup> results = dynamicQuery != null
-            ? repository.findAll(dynamicQuery, page)
-            : repository.findAll(page);
-
+        // This is an example only. Using the repository right on the controller isn't a good pattern
+        // to be used in production code.
+        final Page<ProductGroup> results = repository.findAll(dynamicQuery, page);
         return ResponseEntity.ok(results);
     }
 }

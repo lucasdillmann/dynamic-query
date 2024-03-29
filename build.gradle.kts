@@ -5,16 +5,20 @@ plugins {
     signing
 
     kotlin("jvm") version "1.9.10"
-    kotlin("plugin.spring") version "1.9.10"
-    kotlin("plugin.jpa") version "1.9.10"
+    kotlin("plugin.spring") version "1.9.10" apply false
+    kotlin("plugin.jpa") version "1.9.10" apply false
 
-    id("io.gitlab.arturbosch.detekt") version "1.23.3"
-    id("org.springframework.boot") version "3.2.3"
-    id("io.spring.dependency-management") version "1.1.4"
     id("org.sonarqube") version "4.4.1.3373"
+    id("io.gitlab.arturbosch.detekt") version "1.23.3"
+    id("org.springframework.boot") version "3.2.3" apply false
+    id("io.spring.dependency-management") version "1.1.4" apply false
 }
 
-allprojects {
+repositories {
+    mavenCentral()
+}
+
+subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "maven-publish")
     apply(plugin = "java-library")
