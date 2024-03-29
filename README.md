@@ -17,9 +17,12 @@ modules will enable you to inject an instance of the `DynamicQuerySpecification`
 forward it to a repository.
 
 ```java
+import br.com.dillmann.dynamicquery.springboot.datajpa.DynamicQueryRepository;
+import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification;
+
 @Repository
-public interface ExampleRepository
-  extends JpaRepository<Integer, Example>, DynamicQueryRepository<Example> {}
+public interface ExampleRepository extends DynamicQueryRepository<Example> {
+}
 
 @RestController
 public class ExampleController {
@@ -40,6 +43,7 @@ public class ExampleController {
     }
 }
 ```
+
 If you're using anything else, with the `dynamic-query` module in the classpath you can use the `DynamicQuery` 
 class to parse any expression formatted as a `String` into a JPA-compliant specification, which can be used to filter 
 the query results. The following code exemplifies the process of parsing and using the specification in a JPA query.
@@ -64,7 +68,7 @@ final List<EntityClass> queryResults = query.getResultList();
 
 ### Examples
 
-If you is a developer that learns quickly by example, check-out the [`examples`](examples/) folder. There's some
+If you are a developer that learns quickly by example, check-out the [`examples`](examples) folder. There's some
 example projects there with the Dynamic Query integrated for you. Just note that such projects are for demo purposes
 only, they aren't intended to be used as a template or something like that.
 
@@ -75,14 +79,14 @@ The Dynamic Query library requires the JVM 17 or later to be used. When the proj
 ## Building a Dynamic Query expression
 
 A Dynamic Query expression is, at its core, a set of instructions that will be applied to a query as the conditions
-that the data must met. A expression is a compound of one or more operations and logic operators (AND/OR) between
+that the data must meet. An expression is a compound of one or more operations and logic operators (AND/OR) between
 them.
 
-In general, the syntax of a operation follows the pattern `<operation name>(<field name> [, <arguments>])`, like
+In general, the syntax of an operation follows the pattern `<operation name>(<field name> [, <arguments>])`, like
 the expression `equals(active, true)` that is an operation with name `equals` on field `active` with the `true` as
 an argument, which will lead to a filter to only return the data where the attribute `active` equals `true`.
 
-When needed, a expression can be created to have multiple conditions and/or groups of conditions, just like the
+When needed, an expression can be created to have multiple conditions and/or groups of conditions, just like the
 expression `equals(active)&&(lowerThan(age, 18)||isNull(age))`.
 
 Field names can contain alphanumeric characters. When needed to reference a multi-level attribute (such as when ToMany
@@ -122,11 +126,11 @@ The table bellow contains the relation of operations the Dynamic Query supports.
 
 ## Value types and conversions
 Dynamic Query is designed to work as a simple way to apply filters that could be coming from outside the application
-itself, like from a query parameter in a HTTP request. This means that the expressions can have a limited set of
+itself, like from a query parameter in an HTTP request. This means that the expressions can have a limited set of
 types of the values, mostly numbers, booleans and strings.
 
 JPA, on the other hand, is strongly typed and most operations require the values to have a valid type. For example,
-if the field is an UUID, the right-side of a equals operation must be a valid UUID for it to work. You can try to
+if the field is a UUID, the right-side of an equals operation must be a valid UUID for it to work. You can try to
 supply a String, but it will probably fail even if a valid String representation of a UUID is being used.
 
 Such scenarios where a type conversion is needed are handled automatically by Dynamic Query. Using JPA APIs, it will 
@@ -152,7 +156,7 @@ Below are the list of types that are natively supported:
 - ZonedDateTime
 - Enums (by comparing the option name)
 
-Although the list includes most of the needed types in a common scenario, that doesn't means that will cover all of
+Although the list includes most of the needed types in a common scenario, that doesn't mean that will cover all of
 your applications' scenarios. If needed, you can extend (or even replace a native conversion) this behaviour by
 implementing the interface `ValueParser` and registering your class using `ValueParsers#register` (if you're using 
 Spring, the `dynamic-query-spring-boot` module will register it automatically for you).
@@ -173,7 +177,8 @@ public class ExampleParser implements ValueParser<Example> {
      * @param value Value to be parsed
      * @param targetType Target type of the conversion (the type of the attribute)
      */
-    public boolean supports(String value, Class<?> targetType) { ... }
+    public boolean supports(String value, Class<?> targetType) {
+    }
 
     /**
      * Executes the parsing. Only called if supports method returns true.
@@ -181,7 +186,8 @@ public class ExampleParser implements ValueParser<Example> {
      * @param value Value to be parsed
      * @param targetType Target type of the conversion (the type of the attribute)
      */
-    public Example parse(String value, Class<?> targetType) { ... }
+    public Example parse(String value, Class<?> targetType) {
+    }
     
 }
 ```
@@ -216,7 +222,8 @@ public class ExampleConverter implements PathConverter {
      * @param path Path of the attribute that needs to be converted
      * @param startPoint Start point of the conversion, normally the JPA's query root value
      */
-    public boolean supports(String path, Path<?> startPoint) { ... }
+    public boolean supports(String path, Path<?> startPoint) {
+    }
 
     /**
      * Executes the conversion. Only called if supports method returns true.
@@ -224,7 +231,8 @@ public class ExampleConverter implements PathConverter {
      * @param path Path of the attribute that needs to be converted
      * @param startPoint Start point of the conversion, normally the JPA's query root value
      */
-    public String convert(String path, Path<?> startPoint) { ... }
+    public String convert(String path, Path<?> startPoint) {
+    }
 
 }
 ```
