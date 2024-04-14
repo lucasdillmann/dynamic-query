@@ -49,7 +49,7 @@ class DynamicQueryCompilerUnitTests {
         // scenario
         val type = PredicateType.entries.random()
         val predicate = buildNode(
-            type = TreeNodeType.PREDICATE,
+            type = TreeNodeType.PREDICATE_OPERATION,
             predicateType = type,
             parameters = listOf(randomString, randomString),
         )
@@ -66,9 +66,9 @@ class DynamicQueryCompilerUnitTests {
     fun `compile should produce the expected result when the tree contains a group`() {
         // scenario
         val group = buildNode(TreeNodeType.GROUP)
-        val firstPredicate = buildNode(TreeNodeType.PREDICATE, predicateType = PredicateType.IS_NOT_NULL, parent = group)
-        val secondPredicate = buildNode(TreeNodeType.PREDICATE, predicateType = PredicateType.IS_NULL, parent = group)
-        val thirdPredicate = buildNode(TreeNodeType.PREDICATE, predicateType = PredicateType.IS_EMPTY, parent = group)
+        val firstPredicate = buildNode(TreeNodeType.PREDICATE_OPERATION, predicateType = PredicateType.IS_NOT_NULL, parent = group)
+        val secondPredicate = buildNode(TreeNodeType.PREDICATE_OPERATION, predicateType = PredicateType.IS_NULL, parent = group)
+        val thirdPredicate = buildNode(TreeNodeType.PREDICATE_OPERATION, predicateType = PredicateType.IS_EMPTY, parent = group)
         val firstLogicalOperator = buildNode(TreeNodeType.LOGICAL_OPERATOR, logicalOperator = LogicalOperatorType.AND)
         val secondLogicalOperator = buildNode(TreeNodeType.LOGICAL_OPERATOR, logicalOperator = LogicalOperatorType.OR)
         val firstSpecification = mockk<PredicateSpecification>()
@@ -104,7 +104,7 @@ class DynamicQueryCompilerUnitTests {
     fun `compile should produce the expected result when the tree contains a negation`() {
         // scenario
         val negation = buildNode(TreeNodeType.NEGATION)
-        val predicate = buildNode(TreeNodeType.PREDICATE, predicateType = PredicateType.IS_NULL)
+        val predicate = buildNode(TreeNodeType.PREDICATE_OPERATION, predicateType = PredicateType.IS_NULL)
         negation.addChild(predicate)
 
         // execution

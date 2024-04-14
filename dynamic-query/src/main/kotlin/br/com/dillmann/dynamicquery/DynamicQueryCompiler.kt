@@ -20,7 +20,7 @@ object DynamicQueryCompiler {
     fun compile(node: TreeNode): DynamicQuerySpecification =
         when (node.type) {
             TreeNodeType.GROUP -> compileChildren(node)
-            TreeNodeType.PREDICATE -> compilePredicate(node)
+            TreeNodeType.PREDICATE_OPERATION -> compilePredicate(node)
             TreeNodeType.NEGATION -> compileNegation(node)
             TreeNodeType.LOGICAL_OPERATOR -> error("Logical operators should be compiled indirectly by groups")
         }

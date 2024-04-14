@@ -13,9 +13,14 @@ enum class TreeNodeType(val allowsChildren: Boolean) {
     GROUP(true),
 
     /**
-     * Predicate expression
+     * Predicate operation expression
      */
-    PREDICATE(false),
+    PREDICATE_OPERATION(true),
+
+    /**
+     * Transformation operation expression
+     */
+    TRANSFORMATION_OPERATION(true),
 
     /**
      * Logical operator expression
@@ -26,4 +31,9 @@ enum class TreeNodeType(val allowsChildren: Boolean) {
      * Negation of a set of child expressions
      */
     NEGATION(true),
+
+    /**
+     * A parameter (string literal, boolean, expression, etc) of any given operation
+     */
+    PARAMETER_LITERAL(false),
 }

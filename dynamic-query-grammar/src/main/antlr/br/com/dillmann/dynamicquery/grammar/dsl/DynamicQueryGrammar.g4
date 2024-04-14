@@ -8,9 +8,8 @@ expressions: expression (logicalOperator expression)*;
 expression: negation | predicates | '(' expressions ')';
 negation: 'not(' expressions ')';
 predicates: predicate (logicalOperator predicate)*;
-predicate: operation '(' attributeName (parameterSeparator parameters)? ')';
-attributeName: ATRIBUTE_NAME;
-operation
+predicate: predicateType '(' parameters ')';
+predicateType
     : 'equals'
     | 'notEquals'
     | 'equalsIgnoreCase'
@@ -31,15 +30,21 @@ operation
     | 'isNotNull'
     | 'isEmpty'
     | 'isNotEmpty';
+transformation: transformationType '(' parameters ')';
+transformationType
+    : 'lower'
+    | 'upper';
 parameters: parameter (parameterSeparator parameter)*;
-parameter: (parameterNumericValue | parameterStringValue | parameterBooleanLiteral);
+parameter: attributeName | numericLiteral | stringLiteral | booleanLiteral | nullLiteral | transformation;
 parameterSeparator: (WS)? ',' (WS)?;
-parameterStringValue: PARAMETER_STRING_VALUE;
-parameterNumericValue: PARAMETER_NUMERIC_VALUE;
-parameterBooleanLiteral: 'true' | 'TRUE' | 'false' | 'FALSE';
+attributeName: ATRIBUTE_NAME;
+stringLiteral: STRING_LITERAL;
+numericLiteral: NUMERIC_LITERAL;
+booleanLiteral: 'true' | 'false';
+nullLiteral: 'null';
 logicalOperator: '&&' | '||';
 
-PARAMETER_NUMERIC_VALUE: ('-')?[0-9]+('.'[0-9]+)*;
-PARAMETER_STRING_VALUE: '"' (~('"' | '\\' | '\r' | '\n') | '\\' ('"' | '\\'))+ '"';
+NUMERIC_LITERAL: ('-')?[0-9]+('.'[0-9]+)*;
+STRING_LITERAL: '"' (~('"' | '\\' | '\r' | '\n') | '\\' ('"' | '\\'))+ '"';
 ATRIBUTE_NAME: [A-Za-z0-9._-]+;
 WS: [ \t\r\n]+ -> skip;

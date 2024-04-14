@@ -19,24 +19,20 @@ class TreeNode(var type: TreeNodeType, val parent: TreeNode?) {
     val children: MutableList<TreeNode> = LinkedList<TreeNode>()
 
     /**
-     * Target operation of the node (equals, between and alike) when the node is a [TreeNodeType.PREDICATE]
+     * Target operation of the node (equals, between and alike) when the node is either
+     * [TreeNodeType.PREDICATE_OPERATION] or [TreeNodeType.TRANSFORMATION_OPERATION]
      */
     var operation: String? = null
-
-    /**
-     * Target name of the target attribute when the node is a [TreeNodeType.PREDICATE]
-     */
-    var attributeName: String? = null
-
-    /**
-     * Relation of arguments (like the start and end of a between operation) when the node is a [TreeNodeType.PREDICATE]
-     */
-    var parameters: List<String>? = null
 
     /**
      * The operator when node is a [TreeNodeType.LOGICAL_OPERATOR]
      */
     var logicalOperator: String? = null
+
+    /**
+     * The type of the parameter when the node is a [TreeNodeType.PARAMETER_LITERAL]
+     */
+    var parameter: TreeNodeParameter? = null
 
     /**
      * Stores the provided [node] as a child of this node
