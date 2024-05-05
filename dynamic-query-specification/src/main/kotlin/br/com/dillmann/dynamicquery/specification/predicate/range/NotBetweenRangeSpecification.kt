@@ -1,11 +1,13 @@
 package br.com.dillmann.dynamicquery.specification.predicate.range
 
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+
 /**
  * [RangeSpecification] implementation for the "not between" operator
  *
- * @param attributeName Name of the attribute
+ * @param target Target of the operation (such as the attribute name)
  * @param rangeStartValue Left (start) value of the range
  * @param rangeEndValue Left (end) value of the range
  */
-class NotBetweenRangeSpecification(attributeName: String, rangeStartValue: String, rangeEndValue: String):
-    RangeSpecification(attributeName, rangeStartValue, rangeEndValue, true)
+internal class NotBetweenRangeSpecification(target: Parameter, rangeStartValue: Parameter, rangeEndValue: Parameter):
+    RangeSpecification(target, rangeStartValue, rangeEndValue, true)

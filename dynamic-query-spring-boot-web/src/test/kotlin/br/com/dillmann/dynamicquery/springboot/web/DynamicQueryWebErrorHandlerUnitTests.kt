@@ -23,11 +23,10 @@ class DynamicQueryWebErrorHandlerUnitTests {
         val expectedPayload = DynamicQueryWebErrorDto(
             exception.message!!,
             mapOf(
-                "attributeName" to exception.attributeName,
                 "minimumArgumentCount" to exception.minimumArgumentCount,
                 "maximumArgumentCount" to exception.maximumArgumentCount,
                 "currentArgumentCount" to exception.currentArgumentCount,
-                "predicateType" to exception.predicateType,
+                "predicateType" to exception.operation,
             ),
         )
         val expectedResponse = ResponseEntity.badRequest().body(expectedPayload)

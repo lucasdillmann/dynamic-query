@@ -1,11 +1,13 @@
 package br.com.dillmann.dynamicquery.specification.predicate.range
 
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+
 /**
  * [RangeSpecification] implementation for the between operator
  *
- * @param attributeName Name of the attribute
+ * @param target Target of the operation (such as the attribute name)
  * @param rangeStartValue Left (start) value of the range
  * @param rangeEndValue Left (end) value of the range
  */
-class BetweenRangeSpecification(attributeName: String, rangeStartValue: String, rangeEndValue: String):
-    RangeSpecification(attributeName, rangeStartValue, rangeEndValue, false)
+internal class BetweenRangeSpecification(target: Parameter, rangeStartValue: Parameter, rangeEndValue: Parameter):
+    RangeSpecification(target, rangeStartValue, rangeEndValue, false)

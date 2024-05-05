@@ -9,5 +9,11 @@ import jakarta.persistence.criteria.CriteriaBuilder
  * @param leftExpression Left side expression of the operator
  * @param rightExpression Right side expression of the operator
  */
-class AndGroupSpecification(leftExpression: DynamicQuerySpecification, rightExpression: DynamicQuerySpecification):
-    GroupSpecification(leftExpression, rightExpression, CriteriaBuilder::and)
+internal class AndGroupSpecification(
+    leftExpression: DynamicQuerySpecification,
+    rightExpression: DynamicQuerySpecification,
+): GroupSpecification(
+    leftExpression,
+    rightExpression,
+    CriteriaBuilder::and,
+)

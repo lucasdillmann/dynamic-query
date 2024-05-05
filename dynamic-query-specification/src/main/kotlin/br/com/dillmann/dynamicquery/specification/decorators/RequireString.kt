@@ -14,11 +14,11 @@ import jakarta.persistence.criteria.Predicate
  */
 internal fun requireString(
     operationName: String,
-    delegate: CriteriaBuilder.(Expression<String>, String) -> Predicate,
-): CriteriaBuilder.(Expression<Comparable<Any>>, Comparable<Any>) -> Predicate = proxy@{ path, value ->
-    if (!String::class.isInstance(value))
+    delegate: CriteriaBuilder.(Expression<String>, Expression<String>) -> Predicate,
+): CriteriaBuilder.(Expression<Comparable<Any>>, Expression<out Comparable<Any>>) -> Predicate = proxy@{ path, value ->
+    if (!String::class.java.isAssignableFrom(value.javaType))
         throw UnsupportedValueTypeException(path, value, operationName)
 
     @Suppress("UNCHECKED_CAST")
-    return@proxy delegate(path as Expression<String>, value as String)
+    delegate(path as Expression<String>, value as Expression<String>)
 }

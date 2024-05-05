@@ -1,13 +1,12 @@
 package br.com.dillmann.dynamicquery.specification.predicate.unary
 
-import br.com.dillmann.dynamicquery.specification.randomString
-import br.com.dillmann.dynamicquery.specification.path.PathResolver
-import io.mockk.*
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import jakarta.persistence.criteria.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import jakarta.persistence.criteria.*
 import kotlin.test.assertEquals
 
 /**
@@ -15,34 +14,18 @@ import kotlin.test.assertEquals
  */
 class IsNotNullUnarySpecificationUnitTests {
 
-    private val attributeName = randomString
-    private val path = mockk<Path<Any>>()
+    private val attributeName = mockk<Parameter>()
+    private val path = mockk<Expression<Any>>()
     private val predicate = mockk<Predicate>()
     private val root = mockk<Root<Any>>()
     private val query = mockk<CriteriaQuery<Any>>()
     private val builder = mockk<CriteriaBuilder>()
     private val specification = IsNotNullUnarySpecification(attributeName)
 
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun beforeAll() {
-            mockkObject(PathResolver)
-            mockkStatic(PathResolver::class)
-        }
-
-        @AfterAll
-        @JvmStatic
-        fun afterAll() {
-            unmockkAll()
-        }
-    }
-
     @BeforeEach
     fun setUp() {
-        every { PathResolver.resolve(any(), any()) } returns path
-        every { builder.isNotNull(any<Path<Any>>()) } returns predicate
+        every { attributeName.asExpression(root, query, builder) } returns path
+        every { builder.isNotNull(any<Expression<Any>>()) } returns predicate
     }
 
     @Test
@@ -51,7 +34,7 @@ class IsNotNullUnarySpecificationUnitTests {
         specification.toPredicate(root, query, builder)
 
         // validation
-        verify { PathResolver.resolve(attributeName, root) }
+        verify { attributeName.asExpression(root, query, builder) }
         verify { builder.isNotNull(path) }
     }
 

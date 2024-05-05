@@ -1,7 +1,8 @@
 package br.com.dillmann.dynamicquery.specification.valueparser
 
 import br.com.dillmann.dynamicquery.specification.valueparser.default.*
-import br.com.dillmann.dynamicquery.specification.valueparser.exception.*
+import br.com.dillmann.dynamicquery.specification.valueparser.exception.NoValueParserAvailableException
+import br.com.dillmann.dynamicquery.specification.valueparser.exception.ParseFailedException
 import java.util.*
 
 /**

@@ -51,7 +51,7 @@ class GrammarConverter : DynamicQueryGrammarBaseListener() {
      * @param parserContext Details about the predicate token that is starting
      */
     override fun enterPredicate(parserContext: PredicateContext) {
-        context.startNode(TreeNodeType.PREDICATE_OPERATION)
+        context.startNode(TreeNodeType.PREDICATE)
     }
 
     /**
@@ -65,22 +65,22 @@ class GrammarConverter : DynamicQueryGrammarBaseListener() {
     }
 
     /**
-     * Notifies about the navigation entering a transformation operation token. When called, start a new filter node in
+     * Notifies about the navigation entering a operation token. When called, start a new filter node in
      * the internal predicate tree.
      *
      * @param parserContext Details about the predicate token that is starting
      */
-    override fun enterTransformation(parserContext: TransformationContext) {
-        context.startNode(TreeNodeType.TRANSFORMATION_OPERATION)
+    override fun enterOperation(parserContext: OperationContext) {
+        context.startNode(TreeNodeType.OPERATION)
     }
 
     /**
-     * Notifies about the navigation exiting a transformation operation token. When called, close the current node in
+     * Notifies about the navigation exiting a operation token. When called, close the current node in
      * the internal predicate tree.
      *
      * @param parserContext Details about the predicate token that is ending
      */
-    override fun exitTransformation(parserContext: TransformationContext) {
+    override fun exitOperation(parserContext: OperationContext) {
         context.endNode()
     }
 
@@ -92,7 +92,7 @@ class GrammarConverter : DynamicQueryGrammarBaseListener() {
      */
     override fun exitStringLiteral(parserContext: StringLiteralContext) {
         val parsedValue = parserContext.text.removeSurrounding("\"")
-        addLiteralParameter(TreeNodeParameterType.STRING_LITERAL, parsedValue)
+        addLiteralParameter(TreeNodeParameterType.LITERAL, parsedValue)
     }
 
     /**
@@ -102,8 +102,7 @@ class GrammarConverter : DynamicQueryGrammarBaseListener() {
      * @param parserContext Details about the parameter literal token that is ending
      */
     override fun exitBooleanLiteral(parserContext: BooleanLiteralContext) {
-        val parsedValue = parserContext.text.toBoolean()
-        addLiteralParameter(TreeNodeParameterType.BOOLEAN_LITERAL, parsedValue)
+        addLiteralParameter(TreeNodeParameterType.LITERAL, parserContext.text)
     }
 
     /**
@@ -113,12 +112,7 @@ class GrammarConverter : DynamicQueryGrammarBaseListener() {
      * @param parserContext Details about the parameter literal token that is ending
      */
     override fun exitNumericLiteral(parserContext: NumericLiteralContext) {
-        val rawValue = parserContext.text
-        val parsedValue: Number =
-            if (rawValue.contains(".")) rawValue.toBigDecimal()
-            else rawValue.toBigInteger()
-
-        addLiteralParameter(TreeNodeParameterType.NUMERIC_LITERAL, parsedValue)
+        addLiteralParameter(TreeNodeParameterType.LITERAL, parserContext.text)
     }
 
     /**
@@ -128,7 +122,7 @@ class GrammarConverter : DynamicQueryGrammarBaseListener() {
      * @param parserContext Details about the parameter literal token that is ending
      */
     override fun exitNullLiteral(parserContext: NullLiteralContext) {
-        addLiteralParameter(TreeNodeParameterType.NULL_LITERAL, null)
+        addLiteralParameter(TreeNodeParameterType.LITERAL, null)
     }
 
     /**
@@ -148,17 +142,17 @@ class GrammarConverter : DynamicQueryGrammarBaseListener() {
      * @param parserContext Details about the operation token that is ending
      */
     override fun exitPredicateType(parserContext: PredicateTypeContext) {
-        context.currentNode.operation = parserContext.text
+        context.currentNode.identifier = parserContext.text
     }
 
     /**
-     * Notifies about the navigation exiting a transformation type token. When called, stores the given type as the
-     * transformation operation to be executed on the current internal predicate tree's node.
+     * Notifies about the navigation exiting an operation type token. When called, stores the given type as the
+     * operation to be executed on the current internal predicate tree's node.
      *
-     * @param parserContext Details about the transformation type token that is ending
+     * @param parserContext Details about the operation type token that is ending
      */
-    override fun exitTransformationType(parserContext: TransformationTypeContext) {
-        context.currentNode.operation = parserContext.text
+    override fun exitOperationType(parserContext: OperationTypeContext) {
+        context.currentNode.identifier = parserContext.text
     }
 
     /**
@@ -193,7 +187,7 @@ class GrammarConverter : DynamicQueryGrammarBaseListener() {
         context.endNode()
     }
 
-    private fun addLiteralParameter(type: TreeNodeParameterType, value: Any?) {
+    private fun addLiteralParameter(type: TreeNodeParameterType, value: String?) {
         context.startNode(TreeNodeType.PARAMETER_LITERAL)
         context.currentNode.parameter = TreeNodeParameter(type, value)
         context.endNode()

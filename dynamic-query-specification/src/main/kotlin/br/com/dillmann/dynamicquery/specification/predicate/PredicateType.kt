@@ -1,6 +1,9 @@
 package br.com.dillmann.dynamicquery.specification.predicate
 
-private val EMPTY_RANGE = 0..0
+import br.com.dillmann.dynamicquery.specification.AT_LEAST_TWO_ELEMENTS_RANGE
+import br.com.dillmann.dynamicquery.specification.ONE_ELEMENT_RANGE
+import br.com.dillmann.dynamicquery.specification.THREE_ELEMENTS_RANGE
+import br.com.dillmann.dynamicquery.specification.TWO_ELEMENTS_RANGE
 
 /**
  * Relation of supported predicate types
@@ -11,32 +14,32 @@ private val EMPTY_RANGE = 0..0
 enum class PredicateType(val identifier: String, val argumentCountRange: IntRange) {
 
     // Unary
-    IS_NULL("isNull", EMPTY_RANGE),
-    IS_NOT_NULL("isNotNull", EMPTY_RANGE),
-    IS_EMPTY("isEmpty", EMPTY_RANGE),
-    IS_NOT_EMPTY("isNotEmpty", EMPTY_RANGE),
+    IS_NULL("isNull", ONE_ELEMENT_RANGE),
+    IS_NOT_NULL("isNotNull", ONE_ELEMENT_RANGE),
+    IS_EMPTY("isEmpty", ONE_ELEMENT_RANGE),
+    IS_NOT_EMPTY("isNotEmpty", ONE_ELEMENT_RANGE),
 
     // Range
-    BETWEEN("between", 2..2),
-    NOT_BETWEEN("notBetween", 2..2),
+    BETWEEN("between", THREE_ELEMENTS_RANGE),
+    NOT_BETWEEN("notBetween", THREE_ELEMENTS_RANGE),
 
     // Collection
-    IN("in", 1..Int.MAX_VALUE),
-    NOT_IN("notIn", 1..Int.MAX_VALUE),
+    IN("in", AT_LEAST_TWO_ELEMENTS_RANGE),
+    NOT_IN("notIn", AT_LEAST_TWO_ELEMENTS_RANGE),
 
     // Binary
-    EQUALS("equals", 1..1),
-    EQUALS_IGNORE_CASE("equalsIgnoreCase", 1..1),
-    NOT_EQUALS("notEquals", 1..1),
-    NOT_EQUALS_IGNORE_CASE("notEqualsIgnoreCase", 1..1),
-    GREATER_THAN("greaterThan", 1..1),
-    GREATER_THAN_OR_EQUALS("greaterOrEquals", 1..1),
-    LESS_THAN("lessThan", 1..1),
-    LESS_THAN_OR_EQUALS("lessOrEquals", 1..1),
-    LIKE("like", 1..1),
-    LIKE_IGNORE_CASE("likeIgnoreCase", 1..1),
-    NOT_LIKE("notLike", 1..1),
-    NOT_LIKE_IGNORE_CASE("notLikeIgnoreCase", 1..1);
+    EQUALS("equals", TWO_ELEMENTS_RANGE),
+    EQUALS_IGNORE_CASE("equalsIgnoreCase", TWO_ELEMENTS_RANGE),
+    NOT_EQUALS("notEquals", TWO_ELEMENTS_RANGE),
+    NOT_EQUALS_IGNORE_CASE("notEqualsIgnoreCase", TWO_ELEMENTS_RANGE),
+    GREATER_THAN("greaterThan", TWO_ELEMENTS_RANGE),
+    GREATER_THAN_OR_EQUALS("greaterOrEquals", TWO_ELEMENTS_RANGE),
+    LESS_THAN("lessThan", TWO_ELEMENTS_RANGE),
+    LESS_THAN_OR_EQUALS("lessOrEquals", TWO_ELEMENTS_RANGE),
+    LIKE("like", TWO_ELEMENTS_RANGE),
+    LIKE_IGNORE_CASE("likeIgnoreCase", TWO_ELEMENTS_RANGE),
+    NOT_LIKE("notLike", TWO_ELEMENTS_RANGE),
+    NOT_LIKE_IGNORE_CASE("notLikeIgnoreCase", TWO_ELEMENTS_RANGE);
 
     companion object {
 

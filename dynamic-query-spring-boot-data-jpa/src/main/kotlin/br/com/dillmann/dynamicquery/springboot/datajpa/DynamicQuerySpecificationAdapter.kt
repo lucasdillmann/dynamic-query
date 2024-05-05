@@ -1,11 +1,11 @@
 package br.com.dillmann.dynamicquery.springboot.datajpa
 
+import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Predicate
 import jakarta.persistence.criteria.Root
 import org.springframework.data.jpa.domain.Specification
-import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 
 /**
  * [Specification] adapter for the Dynamic Query's [Specification]

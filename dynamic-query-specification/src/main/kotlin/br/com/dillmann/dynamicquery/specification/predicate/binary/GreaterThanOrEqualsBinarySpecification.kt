@@ -1,12 +1,13 @@
 package br.com.dillmann.dynamicquery.specification.predicate.binary
 
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
 import jakarta.persistence.criteria.CriteriaBuilder
 
 /**
  * [BinarySpecification] implementation for bigger than or equals expressions
  *
- * @param attributeName Full path of the attribute
+ * @param target Target of the operation (such as the attribute name)
  * @param value Value to be compared to
  */
-class GreaterThanOrEqualsBinarySpecification(attributeName: String, value: String):
-    BinarySpecification(attributeName, value, CriteriaBuilder::greaterThanOrEqualTo)
+internal class GreaterThanOrEqualsBinarySpecification(target: Parameter, value: Parameter):
+    BinarySpecification(target, value, CriteriaBuilder::greaterThanOrEqualTo)

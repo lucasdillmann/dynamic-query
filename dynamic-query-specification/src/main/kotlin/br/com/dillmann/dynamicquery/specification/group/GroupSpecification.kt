@@ -13,7 +13,7 @@ import jakarta.persistence.criteria.Root
  * @property rightExpression Right side expression of the operator
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
  */
-abstract class GroupSpecification(
+internal abstract class GroupSpecification(
     val leftExpression: DynamicQuerySpecification,
     val rightExpression: DynamicQuerySpecification,
     private val builderFunction: CriteriaBuilder.(Predicate, Predicate) -> Predicate,

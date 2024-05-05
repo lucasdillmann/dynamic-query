@@ -1,15 +1,12 @@
 package br.com.dillmann.dynamicquery.specification.predicate.binary
 
-import br.com.dillmann.dynamicquery.specification.randomLong
-import br.com.dillmann.dynamicquery.specification.randomString
-import br.com.dillmann.dynamicquery.specification.path.PathResolver
-import br.com.dillmann.dynamicquery.specification.valueparser.ValueParsers
-import io.mockk.*
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import jakarta.persistence.criteria.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import jakarta.persistence.criteria.*
 import kotlin.test.assertEquals
 
 /**
@@ -17,61 +14,42 @@ import kotlin.test.assertEquals
  */
 class GreaterThanBinarySpecificationUnitTests {
 
-    private val attributeName = randomString
-    private val value = randomString
-    private val path = mockk<Path<Long>>()
+    private val attributeName = mockk<Parameter>()
+    private val value = mockk<Parameter>()
+    private val valueExpression = mockk<Expression<Long>>()
+    private val path = mockk<Expression<Long>>()
     private val root = mockk<Root<Any>>()
     private val query = mockk<CriteriaQuery<Any>>()
     private val builder = mockk<CriteriaBuilder>()
     private val predicate = mockk<Predicate>()
     private val specification = GreaterThanBinarySpecification(attributeName, value)
 
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun beforeAll() {
-            mockkObject(PathResolver, ValueParsers)
-            mockkStatic(PathResolver::class, ValueParsers::class)
-        }
-
-        @AfterAll
-        @JvmStatic
-        fun afterAll() {
-            unmockkAll()
-        }
-    }
-
     @BeforeEach
     fun setUp() {
-        every { PathResolver.resolve(any(), any()) } returns path
-        every { ValueParsers.parse<Long>(any(), any()) } returns randomLong
-        every { builder.greaterThan(any<Expression<Long>>(), any<Long>()) } returns predicate
+        every { attributeName.asExpression(any(), any(), any()) } returns path
+        every { value.asExpression(any(), any(), any(), any<Class<*>>()) } returns valueExpression
+        every { builder.greaterThan(any<Expression<Long>>(), any<Expression<Long>>()) } returns predicate
         every { path.javaType } returns Long::class.java
     }
 
     @Test
-    fun `toPredicate should resolve and use the target using PathResolver`() {
+    fun `toPredicate should resolve and use the target using given Parameter`() {
         // execution
         specification.toPredicate(root, query, builder)
 
         // validation
-        verify { PathResolver.resolve(attributeName, root) }
-        verify { builder.greaterThan(path, any<Long>()) }
+        verify { attributeName.asExpression(root, query, builder) }
+        verify { builder.greaterThan(path, any<Expression<Long>>()) }
     }
 
     @Test
-    fun `toPredicate should parse the value to the target type using ValueParsers`() {
-        // scenario
-        val expectedValue = randomString
-        every { ValueParsers.parse<Any>(any(), any()) } returns expectedValue
-
+    fun `toPredicate should parse the value to the target type using given Parameter`() {
         // execution
         specification.toPredicate(root, query, builder)
 
         // validation
-        verify { ValueParsers.parse(value, Long::class.java) }
-        verify { builder.greaterThan(any(), expectedValue) }
+        verify { value.asExpression(root, query, builder, Long::class.java) }
+        verify { builder.greaterThan(any(), valueExpression) }
     }
 
     @Test
@@ -81,6 +59,6 @@ class GreaterThanBinarySpecificationUnitTests {
 
         // validation
         assertEquals(predicate, result)
-        verify { builder.greaterThan(any<Expression<Long>>(), any<Long>()) }
+        verify { builder.greaterThan(any<Expression<Long>>(), any<Expression<Long>>()) }
     }
 }

@@ -1,17 +1,13 @@
 package br.com.dillmann.dynamicquery.specification.path
 
-import br.com.dillmann.dynamicquery.specification.randomString
 import br.com.dillmann.dynamicquery.specification.exception.UnknownAttributeNameException
+import br.com.dillmann.dynamicquery.specification.randomString
 import io.mockk.*
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import jakarta.persistence.criteria.From
 import jakarta.persistence.criteria.Join
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.metamodel.Bindable
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.*
 import kotlin.test.assertEquals
 
 /**

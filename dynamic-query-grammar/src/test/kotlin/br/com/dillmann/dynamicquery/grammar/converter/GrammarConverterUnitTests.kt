@@ -1,7 +1,9 @@
 package br.com.dillmann.dynamicquery.grammar.converter
 
-import br.com.dillmann.dynamicquery.grammar.*
 import br.com.dillmann.dynamicquery.grammar.dsl.DynamicQueryGrammarParser.*
+import br.com.dillmann.dynamicquery.grammar.randomBoolean
+import br.com.dillmann.dynamicquery.grammar.randomLong
+import br.com.dillmann.dynamicquery.grammar.randomString
 import br.com.dillmann.dynamicquery.grammar.tree.TreeNode
 import br.com.dillmann.dynamicquery.grammar.tree.TreeNodeParameter
 import br.com.dillmann.dynamicquery.grammar.tree.TreeNodeParameterType
@@ -11,8 +13,6 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.math.BigDecimal
-import kotlin.math.absoluteValue
 import kotlin.test.assertEquals
 
 /**
@@ -44,7 +44,7 @@ class GrammarConverterUnitTests {
         every { anyConstructed<GrammarConversionContext>().endNode() } just Runs
         every { anyConstructed<GrammarConversionContext>().currentNode } returns currentNode
         every { anyConstructed<GrammarConversionContext>().root } returns rootNode
-        every { currentNode.operation = any() } just Runs
+        every { currentNode.identifier = any() } just Runs
         every { currentNode.logicalOperator = any() } just Runs
         every { currentNode.parameter = any() } just Runs
 
@@ -84,7 +84,7 @@ class GrammarConverterUnitTests {
         converter.enterPredicate(mockk())
 
         // validation
-        verify { anyConstructed<GrammarConversionContext>().startNode(TreeNodeType.PREDICATE_OPERATION) }
+        verify { anyConstructed<GrammarConversionContext>().startNode(TreeNodeType.PREDICATE) }
     }
 
     @Test
@@ -97,18 +97,18 @@ class GrammarConverterUnitTests {
     }
 
     @Test
-    fun `enterTransformation should start a new filter node in the internal tree`() {
+    fun `enterOperation should start a new filter node in the internal tree`() {
         // execution
-        converter.enterTransformation(mockk())
+        converter.enterOperation(mockk())
 
         // validation
-        verify { anyConstructed<GrammarConversionContext>().startNode(TreeNodeType.TRANSFORMATION_OPERATION) }
+        verify { anyConstructed<GrammarConversionContext>().startNode(TreeNodeType.OPERATION) }
     }
 
     @Test
-    fun `exitTransformation should close the current node in the internal tree`() {
+    fun `exitOperation should close the current node in the internal tree`() {
         // execution
-        converter.exitTransformation(mockk())
+        converter.exitOperation(mockk())
 
         // validation
         verify { anyConstructed<GrammarConversionContext>().endNode() }
@@ -179,21 +179,21 @@ class GrammarConverterUnitTests {
         converter.exitPredicateType(parserContext)
 
         // validation
-        verify { currentNode.operation = expectedValue }
+        verify { currentNode.identifier = expectedValue }
     }
 
     @Test
-    fun `exitTransformationType should set the received operation name in the current tree node`() {
+    fun `exitOperationType should set the received operation name in the current tree node`() {
         // scenario
-        val parserContext = mockk<TransformationTypeContext>()
+        val parserContext = mockk<OperationTypeContext>()
         val expectedValue = randomString
         every { parserContext.text } returns expectedValue
 
         // execution
-        converter.exitTransformationType(parserContext)
+        converter.exitOperationType(parserContext)
 
         // validation
-        verify { currentNode.operation = expectedValue }
+        verify { currentNode.identifier = expectedValue }
     }
 
     @Test
@@ -209,7 +209,7 @@ class GrammarConverterUnitTests {
         // validation
         verifyOrder {
             anyConstructed<GrammarConversionContext>().startNode(TreeNodeType.PARAMETER_LITERAL)
-            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.STRING_LITERAL, expectedValue)
+            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.LITERAL, expectedValue)
             anyConstructed<GrammarConversionContext>().endNode()
         }
     }
@@ -218,8 +218,8 @@ class GrammarConverterUnitTests {
     fun `exitNumericLiteral should be able to parse the received value as a Number and store it as a parameter of the current node`() {
         // scenario
         val parserContext = mockk<NumericLiteralContext>()
-        val expectedValue = randomLong.toBigInteger()
-        every { parserContext.text } returns expectedValue.toString()
+        val expectedValue = randomLong.toString()
+        every { parserContext.text } returns expectedValue
 
         // execution
         converter.exitNumericLiteral(parserContext)
@@ -227,41 +227,8 @@ class GrammarConverterUnitTests {
         // validation
         verifyOrder {
             anyConstructed<GrammarConversionContext>().startNode(TreeNodeType.PARAMETER_LITERAL)
-            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.NUMERIC_LITERAL, expectedValue)
+            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.LITERAL, expectedValue)
             anyConstructed<GrammarConversionContext>().endNode()
-        }
-    }
-
-    @Test
-    fun `exitNumericLiteral should be able to parse integer values`() {
-        // scenario
-        val parserContext = mockk<NumericLiteralContext>()
-        val expectedValue = randomLong.toBigInteger()
-        every { parserContext.text } returns expectedValue.toString()
-
-        // execution
-        converter.exitNumericLiteral(parserContext)
-
-        // validation
-        verify {
-            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.NUMERIC_LITERAL, expectedValue)
-        }
-    }
-
-    @Test
-    fun `exitNumericLiteral should be able to parse real (numbers with decimal point) values`() {
-        // scenario
-        val parserContext = mockk<NumericLiteralContext>()
-        val inputValue = "$randomInt.${randomInt.absoluteValue}"
-        val expectedValue = inputValue.toBigDecimal()
-        every { parserContext.text } returns inputValue
-
-        // execution
-        converter.exitNumericLiteral(parserContext)
-
-        // validation
-        verify {
-            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.NUMERIC_LITERAL, expectedValue)
         }
     }
 
@@ -269,8 +236,8 @@ class GrammarConverterUnitTests {
     fun `exitNumericLiteral should be able to parse the received value as a Boolean and store it as a parameter of the current node`() {
         // scenario
         val parserContext = mockk<BooleanLiteralContext>()
-        val expectedValue = randomBoolean
-        every { parserContext.text } returns expectedValue.toString()
+        val expectedValue = randomBoolean.toString()
+        every { parserContext.text } returns expectedValue
 
         // execution
         converter.exitBooleanLiteral(parserContext)
@@ -278,7 +245,7 @@ class GrammarConverterUnitTests {
         // validation
         verifyOrder {
             anyConstructed<GrammarConversionContext>().startNode(TreeNodeType.PARAMETER_LITERAL)
-            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.BOOLEAN_LITERAL, expectedValue)
+            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.LITERAL, expectedValue)
             anyConstructed<GrammarConversionContext>().endNode()
         }
     }
@@ -294,7 +261,7 @@ class GrammarConverterUnitTests {
         // validation
         verifyOrder {
             anyConstructed<GrammarConversionContext>().startNode(TreeNodeType.PARAMETER_LITERAL)
-            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.NULL_LITERAL, null)
+            currentNode.parameter = TreeNodeParameter(TreeNodeParameterType.LITERAL, null)
             anyConstructed<GrammarConversionContext>().endNode()
         }
     }

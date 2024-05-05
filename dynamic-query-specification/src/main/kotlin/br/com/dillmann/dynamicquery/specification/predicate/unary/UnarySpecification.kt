@@ -1,17 +1,17 @@
 package br.com.dillmann.dynamicquery.specification.predicate.unary
 
-import br.com.dillmann.dynamicquery.specification.path.PathResolver
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
 import br.com.dillmann.dynamicquery.specification.predicate.PredicateSpecification
 import jakarta.persistence.criteria.*
 
 /**
  * [PredicateSpecification] specialization for unary filter expressions
  *
- * @property attributeName Name of the attribute
+ * @property target Target of the operation (such as the attribute name)
  * @param builderFunction Criteria Builder's function for the specific type of binary operation
  */
-abstract class UnarySpecification(
-    val attributeName: String,
+internal abstract class UnarySpecification(
+    val target: Parameter,
     private val builderFunction: CriteriaBuilder.(Expression<out Any>) -> Predicate,
 ): PredicateSpecification {
 
@@ -23,7 +23,7 @@ abstract class UnarySpecification(
      * @param builder Criteria expression builder
      */
     override fun toPredicate(root: Root<*>, query: CriteriaQuery<*>, builder: CriteriaBuilder): Predicate {
-        val path = PathResolver.resolve(attributeName, root)
-        return builder.builderFunction(path)
+        val expression = target.asExpression(root, query, builder)
+        return builder.builderFunction(expression)
     }
 }

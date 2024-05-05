@@ -1,10 +1,12 @@
 package br.com.dillmann.dynamicquery.specification.predicate.collection
 
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+
 /**
  * [CollectionSpecification] implementation for not in expressions
  *
- * @param attributeName Full path of the attribute
+ * @param target Target of the operation (such as the attribute name)
  * @param values Values to be compared to
  */
-class NotInCollectionSpecification(attributeName: String, values: List<String>):
-    CollectionSpecification(attributeName, values, true)
+internal class NotInCollectionSpecification(target: Parameter, values: List<Parameter>):
+    CollectionSpecification(target, values, true)

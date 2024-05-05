@@ -2,8 +2,8 @@ package br.com.dillmann.dynamicquery
 
 import br.com.dillmann.dynamicquery.grammar.DynamicQueryGrammarParserFactory
 import br.com.dillmann.dynamicquery.grammar.converter.GrammarConverter
-import br.com.dillmann.dynamicquery.grammar.tree.TreeNode
 import br.com.dillmann.dynamicquery.grammar.dsl.DynamicQueryGrammarParser
+import br.com.dillmann.dynamicquery.grammar.tree.TreeNode
 import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 import io.mockk.*
 import org.junit.jupiter.api.AfterAll

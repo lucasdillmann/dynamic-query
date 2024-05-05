@@ -30,12 +30,48 @@ predicateType
     | 'isNotNull'
     | 'isEmpty'
     | 'isNotEmpty';
-transformation: transformationType '(' parameters ')';
-transformationType
-    : 'lower'
+operation: operationType '(' parameters* ')';
+operationType
+    : 'abs'
+    | 'avg'
+    | 'ceiling'
+    | 'coalesce'
+    | 'concat'
+    | 'count'
+    | 'countDistinct'
+    | 'currentDate'
+    | 'currentTime'
+    | 'currentTimestamp'
+    | 'diff'
+    | 'exp'
+    | 'floor'
+    | 'length'
+    | 'localDate'
+    | 'localDateTime'
+    | 'localTime'
+    | 'locate'
+    | 'lower'
+    | 'max'
+    | 'min'
+    | 'mod'
+    | 'neg'
+    | 'power'
+    | 'prod'
+    | 'quot'
+    | 'size'
+    | 'sqrt'
+    | 'substring'
+    | 'sum'
+    | 'toBigDecimal'
+    | 'toBigInteger'
+    | 'toDouble'
+    | 'toFloat'
+    | 'toInteger'
+    | 'toLong'
+    | 'trim'
     | 'upper';
 parameters: parameter (parameterSeparator parameter)*;
-parameter: attributeName | numericLiteral | stringLiteral | booleanLiteral | nullLiteral | transformation;
+parameter: attributeName | numericLiteral | stringLiteral | booleanLiteral | nullLiteral | operation;
 parameterSeparator: (WS)? ',' (WS)?;
 attributeName: ATRIBUTE_NAME;
 stringLiteral: STRING_LITERAL;

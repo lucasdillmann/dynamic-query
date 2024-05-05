@@ -1,22 +1,21 @@
 package br.com.dillmann.dynamicquery.specification.predicate.range
 
-import br.com.dillmann.dynamicquery.specification.path.PathResolver
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
 import br.com.dillmann.dynamicquery.specification.predicate.PredicateSpecification
-import br.com.dillmann.dynamicquery.specification.valueparser.ValueParsers
 import jakarta.persistence.criteria.*
 
 /**
  * [PredicateSpecification] specialization for ranges filter expressions
  *
- * @property attributeName Name of the attribute
+ * @property target Target of the operation (such as the attribute name)
  * @property rangeStartValue Left (start) value of the range
  * @property rangeEndValue Left (end) value of the range
  * @param negateResults Defines if the predicate should be negated or not
  */
-abstract class RangeSpecification(
-    val attributeName: String,
-    val rangeStartValue: String,
-    val rangeEndValue: String,
+internal abstract class RangeSpecification(
+    val target: Parameter,
+    val rangeStartValue: Parameter,
+    val rangeEndValue: Parameter,
     private val negateResults: Boolean,
 ): PredicateSpecification {
 
@@ -29,10 +28,10 @@ abstract class RangeSpecification(
      */
     override fun toPredicate(root: Root<*>, query: CriteriaQuery<*>, builder: CriteriaBuilder): Predicate {
         @Suppress("UNCHECKED_CAST")
-        val path = PathResolver.resolve(attributeName, root) as Path<Comparable<Any>>
-        val parsedRangeStart = ValueParsers.parse(rangeStartValue, path.javaType)
-        val parsedRangeEnd = ValueParsers.parse(rangeEndValue, path.javaType)
-        val predicate = builder.between(path, parsedRangeStart, parsedRangeEnd)
+        val path = target.asExpression(root, query, builder) as Expression<Comparable<Any>>
+        val rangeStart = rangeStartValue.asExpression(root, query, builder, path.javaType)
+        val rangeEnd = rangeEndValue.asExpression(root, query, builder, path.javaType)
+        val predicate = builder.between(path, rangeStart, rangeEnd)
         return if (negateResults) predicate.not() else predicate
     }
 }

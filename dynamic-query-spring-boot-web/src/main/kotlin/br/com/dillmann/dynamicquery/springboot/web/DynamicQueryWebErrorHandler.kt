@@ -29,14 +29,12 @@ class DynamicQueryWebErrorHandler {
     @ExceptionHandler
     fun handle(exception: InvalidArgumentCountException) =
         buildResponse(
-            HttpStatus.BAD_REQUEST,
             exception.message,
             mapOf(
-                "attributeName" to exception.attributeName,
                 "minimumArgumentCount" to exception.minimumArgumentCount,
                 "maximumArgumentCount" to exception.maximumArgumentCount,
                 "currentArgumentCount" to exception.currentArgumentCount,
-                "predicateType" to exception.predicateType,
+                "predicateType" to exception.operation,
             ),
         )
 
@@ -48,7 +46,6 @@ class DynamicQueryWebErrorHandler {
     @ExceptionHandler
     fun handle(exception: UnknownAttributeNameException) =
         buildResponse(
-            HttpStatus.BAD_REQUEST,
             exception.message,
             mapOf(
                 "path" to exception.path,
@@ -63,7 +60,6 @@ class DynamicQueryWebErrorHandler {
     @ExceptionHandler
     fun handle(exception: UnsupportedValueTypeException) =
         buildResponse(
-            HttpStatus.BAD_REQUEST,
             exception.message,
             mapOf(
                 "value" to exception.value,
@@ -79,7 +75,6 @@ class DynamicQueryWebErrorHandler {
     @ExceptionHandler
     fun handle(exception: DynamicQueryGrammarException) =
         buildResponse(
-            HttpStatus.BAD_REQUEST,
             exception.message,
             mapOf(
                 "line" to exception.line,
@@ -89,12 +84,12 @@ class DynamicQueryWebErrorHandler {
         )
 
     private fun buildResponse(
-        status: HttpStatus,
         message: String? = null,
         errorDetails: Map<String, Any>? = null
     ): ResponseEntity<DynamicQueryWebErrorDto> {
-        val targetMessage = message ?: status.reasonPhrase
+        val httpStatus = HttpStatus.BAD_REQUEST
+        val targetMessage = message ?: httpStatus.reasonPhrase
         val payload = DynamicQueryWebErrorDto(targetMessage, errorDetails)
-        return ResponseEntity.status(status).body(payload)
+        return ResponseEntity.status(httpStatus).body(payload)
     }
 }

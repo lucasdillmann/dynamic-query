@@ -1,11 +1,12 @@
 package br.com.dillmann.dynamicquery.specification.predicate.unary
 
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
 import jakarta.persistence.criteria.CriteriaBuilder
 
 /**
  * [UnarySpecification] implementation for the is null operator
  *
- * @param attributeName Name of the attribute
+ * @param target Target of the operation (such as the attribute name)
  */
-class IsNotNullUnarySpecification(attributeName: String):
-    UnarySpecification(attributeName, CriteriaBuilder::isNotNull)
+internal class IsNotNullUnarySpecification(target: Parameter):
+    UnarySpecification(target, CriteriaBuilder::isNotNull)

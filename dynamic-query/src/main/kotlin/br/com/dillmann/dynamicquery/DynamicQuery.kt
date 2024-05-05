@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery
 
-import br.com.dillmann.dynamicquery.grammar.DynamicQueryGrammarParserFactory
 import br.com.dillmann.dynamicquery.grammar.DynamicQueryGrammarException
+import br.com.dillmann.dynamicquery.grammar.DynamicQueryGrammarParserFactory
 import br.com.dillmann.dynamicquery.grammar.converter.GrammarConverter
 import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 

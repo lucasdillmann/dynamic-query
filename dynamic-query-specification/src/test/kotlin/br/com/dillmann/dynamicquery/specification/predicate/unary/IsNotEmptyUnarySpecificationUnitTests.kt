@@ -1,13 +1,12 @@
 package br.com.dillmann.dynamicquery.specification.predicate.unary
 
-import br.com.dillmann.dynamicquery.specification.randomString
-import br.com.dillmann.dynamicquery.specification.path.PathResolver
-import io.mockk.*
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import jakarta.persistence.criteria.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import jakarta.persistence.criteria.*
 import kotlin.test.assertEquals
 
 /**
@@ -15,34 +14,19 @@ import kotlin.test.assertEquals
  */
 class IsNotEmptyUnarySpecificationUnitTests {
 
-    private val attributeName = randomString
-    private val path = mockk<Path<Collection<Any>>>()
+    private val attributeName = mockk<Parameter>()
+    private val path = mockk<Expression<Collection<Any>>>()
     private val predicate = mockk<Predicate>()
     private val root = mockk<Root<Any>>()
     private val query = mockk<CriteriaQuery<Any>>()
     private val builder = mockk<CriteriaBuilder>()
     private val specification = IsNotEmptyUnarySpecification(attributeName)
 
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun beforeAll() {
-            mockkObject(PathResolver)
-            mockkStatic(PathResolver::class)
-        }
-
-        @AfterAll
-        @JvmStatic
-        fun afterAll() {
-            unmockkAll()
-        }
-    }
-
     @BeforeEach
+    @Suppress("UNCHECKED_CAST")
     fun setUp() {
-        every { PathResolver.resolve(any(), any()) } returns path
-        every { builder.isNotEmpty(any<Path<Collection<Any>>>()) } returns predicate
+        every { attributeName.asExpression(any(), any(), any()) } returns path as Expression<Any>
+        every { builder.isNotEmpty(any<Expression<Collection<Any>>>()) } returns predicate
     }
 
     @Test
@@ -51,7 +35,7 @@ class IsNotEmptyUnarySpecificationUnitTests {
         specification.toPredicate(root, query, builder)
 
         // validation
-        verify { PathResolver.resolve(attributeName, root) }
+        verify { attributeName.asExpression(root, query, builder) }
         verify { builder.isNotEmpty(path) }
     }
 

@@ -1,15 +1,13 @@
 package br.com.dillmann.dynamicquery.specification.predicate.binary
 
-import br.com.dillmann.dynamicquery.specification.randomString
-import br.com.dillmann.dynamicquery.specification.path.PathResolver
-import br.com.dillmann.dynamicquery.specification.valueparser.ValueParsers
-import io.mockk.*
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import jakarta.persistence.criteria.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
-import jakarta.persistence.criteria.*
 import kotlin.test.assertEquals
 
 /**
@@ -17,63 +15,47 @@ import kotlin.test.assertEquals
  */
 class NotEqualsBinarySpecificationUnitTests {
 
-    private val attributeName = randomString
-    private val value = randomString
-    private val path = mockk<Path<Any>>()
+    private val attributeName = mockk<Parameter>()
+    private val value = mockk<Parameter>()
+    private val valueExpression = mockk<Expression<Any>>()
+    private val path = mockk<Expression<Any>>()
     private val root = mockk<Root<Any>>()
     private val query = mockk<CriteriaQuery<Any>>()
     private val builder = mockk<CriteriaBuilder>()
     private val predicate = mockk<Predicate>()
     private val specification = NotEqualsBinarySpecification(attributeName, value)
 
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun beforeAll() {
-            mockkObject(PathResolver, ValueParsers)
-            mockkStatic(PathResolver::class, ValueParsers::class)
-        }
-
-        @AfterAll
-        @JvmStatic
-        fun afterAll() {
-            unmockkAll()
-        }
-    }
-
     @BeforeEach
     fun setUp() {
-        every { PathResolver.resolve(any(), any()) } returns path
-        every { ValueParsers.parse<Any>(any(), any()) } returns randomString
-        every { builder.notEqual(any<Expression<Any>>(), any<String>()) } returns predicate
+        every { attributeName.asExpression(any(), any(), any()) } returns path
+        every { value.asExpression(any(), any(), any(), any<Class<*>>()) } returns valueExpression
+        every { builder.notEqual(any<Expression<Any>>(), any<Expression<Any>>()) } returns predicate
         every { path.javaType } returns Any::class.java
+        every { valueExpression.javaType } returns Any::class.java
     }
 
     @Test
-    fun `toPredicate should resolve and use the target using PathResolver`() {
+    fun `toPredicate should resolve and use the target using given Parameter`() {
         // execution
         specification.toPredicate(root, query, builder)
 
         // validation
-        verify { PathResolver.resolve(attributeName, root) }
-        verify { builder.notEqual(path, any<String>()) }
+        verify { attributeName.asExpression(root, query, builder) }
+        verify { builder.notEqual(path, any<Expression<Any>>()) }
     }
 
     @Test
-    fun `toPredicate should parse the value to the target type using ValueParsers`() {
+    fun `toPredicate should parse the value to the target type using given Parameter`() {
         // scenario
         val expectedType = listOf(String::class, Long::class, BigDecimal::class).random().java
-        val expectedValue = randomString
         every { path.javaType } returns expectedType
-        every { ValueParsers.parse<Any>(any(), any()) } returns expectedValue
 
         // execution
         specification.toPredicate(root, query, builder)
 
         // validation
-        verify { ValueParsers.parse(value, expectedType) }
-        verify { builder.notEqual(any(), expectedValue) }
+        verify { value.asExpression(root, query, builder, expectedType) }
+        verify { builder.notEqual(any(), valueExpression) }
     }
 
     @Test
@@ -83,6 +65,6 @@ class NotEqualsBinarySpecificationUnitTests {
 
         // validation
         assertEquals(predicate, result)
-        verify { builder.notEqual(any<Expression<Any>>(), any<String>()) }
+        verify { builder.notEqual(any<Expression<Any>>(), any<Expression<Any>>()) }
     }
 }

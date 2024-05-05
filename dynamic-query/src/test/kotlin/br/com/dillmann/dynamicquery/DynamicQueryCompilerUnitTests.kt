@@ -1,15 +1,21 @@
 package br.com.dillmann.dynamicquery
 
 import br.com.dillmann.dynamicquery.grammar.tree.TreeNode
+import br.com.dillmann.dynamicquery.grammar.tree.TreeNodeParameter
+import br.com.dillmann.dynamicquery.grammar.tree.TreeNodeParameterType
 import br.com.dillmann.dynamicquery.grammar.tree.TreeNodeType
+import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecificationFactory
-import br.com.dillmann.dynamicquery.specification.group.GroupSpecification
 import br.com.dillmann.dynamicquery.specification.group.LogicalOperatorType
-import br.com.dillmann.dynamicquery.specification.predicate.PredicateSpecification
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+import br.com.dillmann.dynamicquery.specification.parameter.ParameterFactory
+import br.com.dillmann.dynamicquery.specification.parameter.operation.OperationParameterType
 import br.com.dillmann.dynamicquery.specification.predicate.PredicateType
-import br.com.dillmann.dynamicquery.specification.predicate.negation.NegationSpecification
 import io.mockk.*
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 
 /**
@@ -17,126 +23,170 @@ import kotlin.test.assertEquals
  */
 class DynamicQueryCompilerUnitTests {
 
-    private val groupSpecification = mockk<GroupSpecification>()
-    private val predicateSpecification = mockk<PredicateSpecification>()
-    private val negationSpecification = mockk<NegationSpecification>()
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun beforeAll() {
-            mockkObject(DynamicQuerySpecificationFactory)
-            mockkStatic(DynamicQuerySpecificationFactory::class)
-        }
-
-        @AfterAll
-        @JvmStatic
-        fun afterAll() {
-            unmockkAll()
-        }
-    }
+    private val specification = mockk<DynamicQuerySpecification>()
+    private val parameter = mockk<Parameter>()
 
     @BeforeEach
     fun setUp() {
-        every { DynamicQuerySpecificationFactory.negate(any()) } returns negationSpecification
-        every { DynamicQuerySpecificationFactory.predicate(any(), any(), any()) } returns predicateSpecification
-        every { DynamicQuerySpecificationFactory.group(any(), any(), any()) } returns groupSpecification
+        mockkObject(DynamicQuerySpecificationFactory, ParameterFactory)
+        mockkStatic(DynamicQuerySpecificationFactory::class, ParameterFactory::class)
+
+        every { DynamicQuerySpecificationFactory.negate(any()) } returns specification
+        every { DynamicQuerySpecificationFactory.group(any(), any(), any()) } returns specification
+        every { DynamicQuerySpecificationFactory.predicate(any(), any()) } returns specification
+        every { ParameterFactory.literal(any()) } returns parameter
+        every { ParameterFactory.reference(any()) } returns parameter
+        every { ParameterFactory.operation(any(), any()) } returns parameter
+    }
+
+    @AfterEach
+    fun tearDown() {
+        unmockkAll()
     }
 
     @Test
-    fun `compile should produce the expected result when the tree contains a single predicate`() {
+    fun `compile should be able to produce a DynamicQuerySpecification for a simple predicate`() {
         // scenario
         val type = PredicateType.entries.random()
-        val predicate = buildNode(
-            type = TreeNodeType.PREDICATE_OPERATION,
-            predicateType = type,
-            parameters = listOf(randomString, randomString),
-        )
+
+        val rootNode = TreeNode(TreeNodeType.PREDICATE, null)
+        rootNode.identifier = type.identifier
+
+        val childNode = TreeNode(TreeNodeType.PARAMETER_LITERAL, rootNode)
+        childNode.parameter = TreeNodeParameter(TreeNodeParameterType.ATTRIBUTE_NAME, randomString)
+        rootNode.addChild(childNode)
 
         // execution
-        val result = DynamicQueryCompiler.compile(predicate)
+        val output = DynamicQueryCompiler.compile(rootNode)
 
         // validation
-        verify { DynamicQuerySpecificationFactory.predicate(type, predicate.attributeName!!, predicate.parameters!!) }
-        assertEquals(predicateSpecification, result)
+        assertEquals(specification, output)
+        verify { ParameterFactory.reference(childNode.parameter!!.value!!) }
+        verify { DynamicQuerySpecificationFactory.predicate(type, listOf(parameter)) }
     }
 
     @Test
-    fun `compile should produce the expected result when the tree contains a group`() {
+    fun `compile should be able to produce a DynamicQuerySpecification for a group of predicates`() {
         // scenario
-        val group = buildNode(TreeNodeType.GROUP)
-        val firstPredicate = buildNode(TreeNodeType.PREDICATE_OPERATION, predicateType = PredicateType.IS_NOT_NULL, parent = group)
-        val secondPredicate = buildNode(TreeNodeType.PREDICATE_OPERATION, predicateType = PredicateType.IS_NULL, parent = group)
-        val thirdPredicate = buildNode(TreeNodeType.PREDICATE_OPERATION, predicateType = PredicateType.IS_EMPTY, parent = group)
-        val firstLogicalOperator = buildNode(TreeNodeType.LOGICAL_OPERATOR, logicalOperator = LogicalOperatorType.AND)
-        val secondLogicalOperator = buildNode(TreeNodeType.LOGICAL_OPERATOR, logicalOperator = LogicalOperatorType.OR)
-        val firstSpecification = mockk<PredicateSpecification>()
-        val secondSpecification = mockk<PredicateSpecification>()
-        val thirdSpecification = mockk<PredicateSpecification>()
-        val firstGroup = mockk<GroupSpecification>()
-        val secondGroup = mockk<GroupSpecification>()
+        val groupSpecification = mockk<DynamicQuerySpecification>()
+        val leftOperationSpecification = mockk<DynamicQuerySpecification>()
+        val rightOperationSpecification = mockk<DynamicQuerySpecification>()
+        every { DynamicQuerySpecificationFactory.group(any(), any(), any()) } returns groupSpecification
+        every { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_NOT_NULL, any()) } returns leftOperationSpecification
+        every { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_NULL, any()) } returns rightOperationSpecification
 
-        group.addChild(firstPredicate)
-        group.addChild(firstLogicalOperator)
-        group.addChild(secondPredicate)
-        group.addChild(secondLogicalOperator)
-        group.addChild(thirdPredicate)
+        val rootNode = TreeNode(TreeNodeType.GROUP, null)
 
-        every { DynamicQuerySpecificationFactory.predicate(any(), firstPredicate.attributeName!!, any()) } returns firstSpecification
-        every { DynamicQuerySpecificationFactory.predicate(any(), secondPredicate.attributeName!!, any()) } returns secondSpecification
-        every { DynamicQuerySpecificationFactory.predicate(any(), thirdPredicate.attributeName!!, any()) } returns thirdSpecification
-        every { DynamicQuerySpecificationFactory.group(any(), any(), any()) } returnsMany listOf(firstGroup, secondGroup)
+        val leftOperation = TreeNode(TreeNodeType.PREDICATE, rootNode)
+        leftOperation.identifier = PredicateType.IS_NOT_NULL.identifier
+        rootNode.addChild(leftOperation)
+
+        val logicalOperatorNode = TreeNode(TreeNodeType.LOGICAL_OPERATOR, rootNode)
+        val logicalOperator = LogicalOperatorType.entries.random()
+        logicalOperatorNode.logicalOperator = logicalOperator.identifier
+        rootNode.addChild(logicalOperatorNode)
+
+        val rightOperation = TreeNode(TreeNodeType.PREDICATE, rootNode)
+        rightOperation.identifier = PredicateType.IS_NULL.identifier
+        rootNode.addChild(rightOperation)
 
         // execution
-        val result = DynamicQueryCompiler.compile(group)
+        val output = DynamicQueryCompiler.compile(rootNode)
 
         // validation
-        verify { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_NOT_NULL, firstPredicate.attributeName!!) }
-        verify { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_NULL, secondPredicate.attributeName!!) }
-        verify { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_EMPTY, thirdPredicate.attributeName!!) }
-        verify { DynamicQuerySpecificationFactory.group(LogicalOperatorType.AND, firstSpecification, secondSpecification) }
-        verify { DynamicQuerySpecificationFactory.group(LogicalOperatorType.OR, firstGroup, thirdSpecification) }
-        assertEquals(secondGroup, result)
+        assertEquals(groupSpecification, output)
+        verify { DynamicQuerySpecificationFactory.group(logicalOperator, leftOperationSpecification, rightOperationSpecification) }
     }
 
     @Test
-    fun `compile should produce the expected result when the tree contains a negation`() {
+    fun `compile should be able to produce a DynamicQuerySpecification for a negation`() {
         // scenario
-        val negation = buildNode(TreeNodeType.NEGATION)
-        val predicate = buildNode(TreeNodeType.PREDICATE_OPERATION, predicateType = PredicateType.IS_NULL)
-        negation.addChild(predicate)
+        val negationSpecification = mockk<DynamicQuerySpecification>()
+        every { DynamicQuerySpecificationFactory.negate(any()) } returns negationSpecification
+
+        val type = PredicateType.entries.random()
+
+        val rootNode = TreeNode(TreeNodeType.NEGATION, null)
+
+        val secondLevelNode = TreeNode(TreeNodeType.PREDICATE, null)
+        secondLevelNode.identifier = type.identifier
+        rootNode.addChild(secondLevelNode)
+
+        val thirdLevelNode = TreeNode(TreeNodeType.PARAMETER_LITERAL, secondLevelNode)
+        thirdLevelNode.parameter = TreeNodeParameter(TreeNodeParameterType.LITERAL, randomString)
+        secondLevelNode.addChild(thirdLevelNode)
 
         // execution
-        val result = DynamicQueryCompiler.compile(negation)
+        val output = DynamicQueryCompiler.compile(rootNode)
 
         // validation
-        verify { DynamicQuerySpecificationFactory.predicate(PredicateType.IS_NULL, predicate.attributeName!!) }
-        verify { DynamicQuerySpecificationFactory.negate(predicateSpecification) }
-        assertEquals(negationSpecification, result)
+        assertEquals(negationSpecification, output)
+        verify { DynamicQuerySpecificationFactory.negate(specification) }
     }
 
     @Test
-    fun `compile should throw an error when asked to compile a logical operator in the root node`() {
+    fun `compile should be able to produce a DynamicQuerySpecification for a predicate with child operations`() {
         // scenario
-        val logicalOperator = buildNode(TreeNodeType.LOGICAL_OPERATOR, logicalOperator = LogicalOperatorType.AND)
+        val referenceParameter = mockk<Parameter>()
+        every { ParameterFactory.reference(any()) } returns referenceParameter
+
+        val rootNode = TreeNode(TreeNodeType.PREDICATE, null)
+        rootNode.identifier = PredicateType.IS_NOT_EMPTY.identifier
+
+        val operationNode = TreeNode(TreeNodeType.OPERATION, rootNode)
+        operationNode.identifier = OperationParameterType.TRIM.identifier
+        rootNode.addChild(operationNode)
+
+        val attributeNode = TreeNode(TreeNodeType.PARAMETER_LITERAL, operationNode)
+        attributeNode.parameter = TreeNodeParameter(TreeNodeParameterType.ATTRIBUTE_NAME, randomString)
+        operationNode.addChild(attributeNode)
+
+        // execution
+        val output = DynamicQueryCompiler.compile(rootNode)
 
         // validation
-        assertThrows<IllegalStateException>("Logical operators should be compiled indirectly by groups") {
-            DynamicQueryCompiler.compile(logicalOperator)
+        assertEquals(specification, output)
+        verify { ParameterFactory.reference(attributeNode.parameter!!.value!!) }
+        verify { ParameterFactory.operation(OperationParameterType.TRIM, listOf(referenceParameter)) }
+    }
+
+    @Test
+    fun `compile should throw an error when the root node is a logical operator`() {
+        // scenario
+        val input = TreeNode(TreeNodeType.LOGICAL_OPERATOR, null)
+
+        // validation
+        assertThrows<IllegalStateException>("Logical operators should be compiled indirectly by predicates") {
+
+            // execution
+            DynamicQueryCompiler.compile(input)
         }
     }
 
-    private fun buildNode(
-        type: TreeNodeType,
-        parent: TreeNode? = null,
-        predicateType: PredicateType? = null,
-        parameters: List<String> = emptyList(),
-        logicalOperator: LogicalOperatorType? = null,
-    ) = TreeNode(type, parent).also {
-        it.parameters = parameters
-        it.attributeName = randomString
-        it.logicalOperator = logicalOperator?.identifier
-        it.operation = predicateType?.identifier
+    @Test
+    fun `compile should throw an error when the root node is a operation`() {
+        // scenario
+        val input = TreeNode(TreeNodeType.OPERATION, null)
+
+        // validation
+        assertThrows<IllegalStateException>("Operation operators should be compiled indirectly by predicates") {
+
+            // execution
+            DynamicQueryCompiler.compile(input)
+        }
     }
+
+    @Test
+    fun `compile should throw an error when the root node is a literal parameter`() {
+        // scenario
+        val input = TreeNode(TreeNodeType.PARAMETER_LITERAL, null)
+
+        // validation
+        assertThrows<IllegalStateException>("Literal parameters should be compiled indirectly by predicates") {
+
+            // execution
+            DynamicQueryCompiler.compile(input)
+        }
+    }
+
 }

@@ -1,14 +1,12 @@
 package br.com.dillmann.dynamicquery.specification.predicate.range
 
-import br.com.dillmann.dynamicquery.specification.randomString
-import br.com.dillmann.dynamicquery.specification.path.PathResolver
-import br.com.dillmann.dynamicquery.specification.valueparser.ValueParsers
-import io.mockk.*
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import jakarta.persistence.criteria.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import jakarta.persistence.criteria.*
 import kotlin.test.assertEquals
 
 /**
@@ -16,10 +14,12 @@ import kotlin.test.assertEquals
  */
 class NotBetweenRangeSpecificationUnitTests {
 
-    private val attributeName = randomString
-    private val startValue = randomString
-    private val endValue = randomString
-    private val path = mockk<Path<String>>()
+    private val attributeName = mockk<Parameter>()
+    private val startValue = mockk<Parameter>()
+    private val endValue = mockk<Parameter>()
+    private val startExpression = mockk<Expression<String>>()
+    private val endExpression = mockk<Expression<String>>()
+    private val path = mockk<Expression<String>>()
     private val root = mockk<Root<Any>>()
     private val query = mockk<CriteriaQuery<Any>>()
     private val builder = mockk<CriteriaBuilder>()
@@ -27,59 +27,44 @@ class NotBetweenRangeSpecificationUnitTests {
     private val negatedPredicate = mockk<Predicate>()
     private val specification = NotBetweenRangeSpecification(attributeName, startValue, endValue)
 
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun beforeAll() {
-            mockkObject(PathResolver, ValueParsers)
-            mockkStatic(PathResolver::class, ValueParsers::class)
-        }
-
-        @AfterAll
-        @JvmStatic
-        fun afterAll() {
-            unmockkAll()
-        }
-    }
-
     @BeforeEach
     fun setUp() {
-        every { PathResolver.resolve(any(), any()) } returns path
-        every { ValueParsers.parse<String>(any(), any()) } answers { arg<String>(0) }
+        every { attributeName.asExpression(any(), any(), any()) } returns path
+        every { startValue.asExpression(any(), any(), any(), any<Class<String>>()) } returns startExpression
+        every { endValue.asExpression(any(), any(), any(), any<Class<String>>()) } returns endExpression
         every { path.javaType } returns String::class.java
-        every { builder.between(any<Expression<String>>(), any<String>(), any<String>()) } returns predicate
+        every { builder.between(any<Expression<String>>(), any<Expression<String>>(), any<Expression<String>>()) } returns predicate
         every { predicate.not() } returns negatedPredicate
     }
 
     @Test
-    fun `toPredicate should resolve and use the target using PathResolver`() {
+    fun `toPredicate should resolve and use the target using the given Parameter`() {
         // execution
         specification.toPredicate(root, query, builder)
 
         // validation
-        verify { PathResolver.resolve(attributeName, root) }
-        verify { builder.between(path, any<String>(), any<String>()) }
+        verify { attributeName.asExpression(root, query, builder) }
+        verify { builder.between(path, any<Expression<String>>(), any<Expression<String>>()) }
     }
 
     @Test
-    fun `toPredicate should parse the start value to the target type using ValueParsers`() {
+    fun `toPredicate should parse the start value to the target type using the given Parameter`() {
         // execution
         specification.toPredicate(root, query, builder)
 
         // validation
-        verify { ValueParsers.parse(startValue, String::class.java) }
-        verify { builder.between(any(), startValue, any()) }
+        verify { startValue.asExpression(root, query, builder, String::class.java) }
+        verify { builder.between(any<Expression<String>>(), startExpression, any<Expression<String>>()) }
     }
 
     @Test
-    fun `toPredicate should parse the end value to the target type using ValueParsers`() {
+    fun `toPredicate should parse the end value to the target type using the given Parameter`() {
         // execution
         specification.toPredicate(root, query, builder)
 
         // validation
-        verify { ValueParsers.parse(endValue, String::class.java) }
-        verify { builder.between(any(), any(), endValue) }
+        verify { endValue.asExpression(root, query, builder, String::class.java) }
+        verify { builder.between(any<Expression<String>>(), any<Expression<String>>(), endExpression) }
     }
 
     @Test

@@ -3,12 +3,11 @@ package br.com.dillmann.dynamicquery.specification.decorators
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Expression
-import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 /**
@@ -16,7 +15,7 @@ import kotlin.test.assertEquals
  */
 class RequireCollectionUnitTests {
 
-    private val path = mockk<Path<Collection<Any>>>()
+    private val path = mockk<Expression<Collection<Any>>>()
     private val predicate = mockk<Predicate>()
     private val builder = mockk<CriteriaBuilder>()
 

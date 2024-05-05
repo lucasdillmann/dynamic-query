@@ -13,8 +13,7 @@ import jakarta.persistence.criteria.Predicate
  */
 internal fun caseInsensitive(
     operationName: String,
-    delegate: CriteriaBuilder.(Expression<String>, String) -> Predicate,
+    delegate: CriteriaBuilder.(Expression<String>, Expression<String>) -> Predicate,
 ) = requireString(operationName) { path, value ->
-    val lowerException = lower(path)
-    return@requireString delegate(lowerException, value.lowercase())
+    delegate(lower(path), lower(value))
 }

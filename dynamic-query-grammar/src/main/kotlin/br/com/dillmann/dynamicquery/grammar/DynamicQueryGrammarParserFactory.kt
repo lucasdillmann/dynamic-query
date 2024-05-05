@@ -1,7 +1,7 @@
 package br.com.dillmann.dynamicquery.grammar
 
-import br.com.dillmann.dynamicquery.grammar.dsl.DynamicQueryGrammarParser
 import br.com.dillmann.dynamicquery.grammar.dsl.DynamicQueryGrammarLexer
+import br.com.dillmann.dynamicquery.grammar.dsl.DynamicQueryGrammarParser
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 

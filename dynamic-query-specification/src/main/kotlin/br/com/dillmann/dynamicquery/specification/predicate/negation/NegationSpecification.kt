@@ -12,7 +12,7 @@ import jakarta.persistence.criteria.Root
  *
  * @property negatedExpression Expression to be inverted/negated
  */
-class NegationSpecification(val negatedExpression: DynamicQuerySpecification): PredicateSpecification {
+internal class NegationSpecification(val negatedExpression: DynamicQuerySpecification): PredicateSpecification {
 
     /**
      * Produces a JPA-compliant predicate using the given criteria

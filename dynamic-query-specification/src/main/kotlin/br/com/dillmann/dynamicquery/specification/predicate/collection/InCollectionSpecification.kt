@@ -1,10 +1,12 @@
 package br.com.dillmann.dynamicquery.specification.predicate.collection
 
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
+
 /**
  * [CollectionSpecification] implementation for in expressions
  *
- * @param attributeName Full path of the attribute
+ * @param target Target of the operation (such as the attribute name)
  * @param values Values to be compared to
  */
-class InCollectionSpecification(attributeName: String, values: List<String>):
-    CollectionSpecification(attributeName, values, false)
+internal class InCollectionSpecification(target: Parameter, values: List<Parameter>):
+    CollectionSpecification(target, values, false)

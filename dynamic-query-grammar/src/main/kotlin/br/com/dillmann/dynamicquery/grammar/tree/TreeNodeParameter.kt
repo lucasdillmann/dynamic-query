@@ -8,5 +8,5 @@ package br.com.dillmann.dynamicquery.grammar.tree
  */
 data class TreeNodeParameter(
     val type: TreeNodeParameterType,
-    val value: Any?,
+    val value: String?,
 )

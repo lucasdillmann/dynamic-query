@@ -13,14 +13,14 @@ enum class TreeNodeType(val allowsChildren: Boolean) {
     GROUP(true),
 
     /**
-     * Predicate operation expression
+     * Predicate expression
      */
-    PREDICATE_OPERATION(true),
+    PREDICATE(true),
 
     /**
-     * Transformation operation expression
+     * Operation expression
      */
-    TRANSFORMATION_OPERATION(true),
+    OPERATION(true),
 
     /**
      * Logical operator expression

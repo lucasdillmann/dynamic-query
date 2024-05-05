@@ -17,16 +17,16 @@ class TreeNodeTypeUnitTests {
     }
 
     @Test
-    fun `PREDICATE_OPERATION option should have allowsChildren set to true`() {
+    fun `PREDICATE option should have allowsChildren set to true`() {
         assertTrue {
-            TreeNodeType.PREDICATE_OPERATION.allowsChildren
+            TreeNodeType.PREDICATE.allowsChildren
         }
     }
 
     @Test
-    fun `TRANSFORMATION_OPERATION option should have allowsChildren set to false`() {
+    fun `OPERATION option should have allowsChildren set to true`() {
         assertTrue {
-            TreeNodeType.TRANSFORMATION_OPERATION.allowsChildren
+            TreeNodeType.OPERATION.allowsChildren
         }
     }
 

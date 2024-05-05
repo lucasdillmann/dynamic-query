@@ -4,6 +4,7 @@ import br.com.dillmann.dynamicquery.specification.exception.InvalidArgumentCount
 import br.com.dillmann.dynamicquery.specification.group.AndGroupSpecification
 import br.com.dillmann.dynamicquery.specification.group.LogicalOperatorType
 import br.com.dillmann.dynamicquery.specification.group.OrGroupSpecification
+import br.com.dillmann.dynamicquery.specification.parameter.Parameter
 import br.com.dillmann.dynamicquery.specification.predicate.PredicateType
 import br.com.dillmann.dynamicquery.specification.predicate.binary.*
 import br.com.dillmann.dynamicquery.specification.predicate.collection.CollectionSpecification
@@ -21,6 +22,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertSame
 
 /**
  * [DynamicQuerySpecificationFactory] unit tests
@@ -160,14 +162,13 @@ class DynamicQuerySpecificationFactoryUnitTests {
         Assumptions.assumeFalse(range.last == 0)
 
         // scenario
-        val attributeName = randomString
-        val arguments = randomListOf(minimumSize = 0, maximumSize = range.first - 1) { randomString }
+        val arguments = randomListOf(minimumSize = 0, maximumSize = range.first - 1) { mockk<Parameter>() }
 
         // execution
-        val result = runCatching { DynamicQuerySpecificationFactory.predicate(predicateType, attributeName, arguments) }
+        val result = runCatching { DynamicQuerySpecificationFactory.predicate(predicateType, arguments) }
 
         // validation
-        assertInvalidArgumentCountException(result, predicateType, attributeName, arguments.size)
+        assertInvalidArgumentCountException(result, predicateType, arguments.size)
     }
 
     @ParameterizedTest
@@ -176,88 +177,83 @@ class DynamicQuerySpecificationFactoryUnitTests {
         predicateType: PredicateType,
     ) {
         // scenario
-        val attributeName = randomString
         val range = predicateType.argumentCountRange
-        val arguments = randomListOf(minimumSize = range.last + 1, maximumSize = range.last + 10) { randomString }
+        val arguments = randomListOf(minimumSize = range.last + 1, maximumSize = range.last + 10) { mockk<Parameter>() }
 
         // execution
-        val result = runCatching { DynamicQuerySpecificationFactory.predicate(predicateType, attributeName, arguments) }
+        val result = runCatching { DynamicQuerySpecificationFactory.predicate(predicateType, arguments) }
 
         // validation
-        assertInvalidArgumentCountException(result, predicateType, attributeName, arguments.size)
+        assertInvalidArgumentCountException(result, predicateType, arguments.size)
     }
 
     private inline fun <reified T: UnarySpecification> testUnaryPredicate(type: PredicateType) {
         // scenario
-        val attributeName = randomString
+        val attributeName = mockk<Parameter>()
 
         // execution
-        val result = DynamicQuerySpecificationFactory.predicate(type, attributeName)
+        val result = DynamicQuerySpecificationFactory.predicate(type, listOf(attributeName))
 
         // validation
         val specification = result as? T
         assertNotNull(specification)
-        assertEquals(attributeName, specification.attributeName)
+        assertEquals(attributeName, specification.target)
     }
 
     private inline fun <reified T: RangeSpecification> testRangePredicate(type: PredicateType) {
         // scenario
-        val attributeName = randomString
-        val arguments = listOf(randomString, randomString)
+        val arguments = (0..2).map { mockk<Parameter>() }
 
         // execution
-        val result = DynamicQuerySpecificationFactory.predicate(type, attributeName, arguments)
+        val result = DynamicQuerySpecificationFactory.predicate(type, arguments)
 
         // validation
         val specification = result as? T
         assertNotNull(specification)
-        assertEquals(attributeName, specification.attributeName)
-        assertEquals(arguments.first(), specification.rangeStartValue)
-        assertEquals(arguments.last(), specification.rangeEndValue)
+        assertEquals(arguments[0], specification.target)
+        assertEquals(arguments[1], specification.rangeStartValue)
+        assertEquals(arguments[2], specification.rangeEndValue)
     }
 
     private inline fun <reified T: CollectionSpecification> testCollectionPredicate(type: PredicateType) {
         // scenario
-        val attributeName = randomString
-        val arguments = randomListOf(minimumSize = 1) { randomString }
+        val arguments = listOf<Parameter>(mockk(), mockk())
 
         // execution
-        val result = DynamicQuerySpecificationFactory.predicate(type, attributeName, arguments)
+        val result = DynamicQuerySpecificationFactory.predicate(type, arguments)
 
         // validation
         val specification = result as? T
         assertNotNull(specification)
-        assertEquals(attributeName, specification.attributeName)
-        assertEquals(arguments, specification.values)
+        assertEquals(arguments.first(), specification.target)
+        assertEquals(listOf(arguments.last()), specification.values)
     }
 
     private inline fun <reified T: BinarySpecification> testBinaryPredicate(type: PredicateType) {
         // scenario
-        val attributeName = randomString
-        val argument = randomString
+        val attributeName = mockk<Parameter>()
+        val argument = mockk<Parameter>()
 
         // execution
-        val result = DynamicQuerySpecificationFactory.predicate(type, attributeName, listOf(argument))
+        val result = DynamicQuerySpecificationFactory.predicate(type, listOf(attributeName, argument))
 
         // validation
         val specification = result as? T
         assertNotNull(specification)
-        assertEquals(attributeName, specification.attributeName)
-        assertEquals(argument, specification.value)
+        assertSame(attributeName, specification.target)
+        assertSame(argument, specification.value)
     }
 
     private fun assertInvalidArgumentCountException(
         result: Result<*>,
         predicateType: PredicateType,
-        attributeName: String,
         argumentCount: Int,
     ) {
         val exception = result.exceptionOrNull() as? InvalidArgumentCountException
         assertNotNull(exception)
 
         val argumentCountRange = predicateType.argumentCountRange
-        assertEquals(attributeName, exception.attributeName)
-        assertEquals(predicateType, exception.predicateType)
+        assertEquals(predicateType.identifier, exception.operation)
         assertEquals(argumentCount, exception.currentArgumentCount)
         assertEquals(argumentCountRange.first, exception.minimumArgumentCount)
         assertEquals(argumentCountRange.last, exception.maximumArgumentCount)

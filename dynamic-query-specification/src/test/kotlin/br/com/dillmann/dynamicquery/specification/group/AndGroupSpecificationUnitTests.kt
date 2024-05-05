@@ -4,8 +4,8 @@ import br.com.dillmann.dynamicquery.specification.DynamicQuerySpecification
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.BeforeEach
 import jakarta.persistence.criteria.*
+import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
