@@ -338,6 +338,7 @@ public class ExamplePathConverter implements PathConverter {
 
 }
 ```
+
 ## Configuration properties
 
 The table below details the available configuration properties that the Dynamic Query supports. Please note that
