@@ -33,8 +33,8 @@ modules instead will enable you to inject an instance of the `DynamicQuerySpecif
 and forward it to a repository.
 
 The value provided as the `DynamicQuerySpecification` instance will be retrieved by automatically parsing the value 
-from the "query" request parameter. When such parameter doesn't exist in the request, a null value will be provided
-to the controller.
+from the "query" request parameter (name can be changed by configuration). When such parameter doesn't exist in the
+request, a null value will be provided to the controller.
 
 ```xml
 <dependencies>
@@ -78,8 +78,8 @@ public class ExampleController {
         final Pageable page
     ) {
         // DynamicQuerySpecification will be parsed automatically using the "query" request 
-        // parameter value. When such parameter doesn't exist in the request, the 
-        // DynamicQuerySpecification will be null.
+        // parameter value by default (name can be changed by configuration). When such 
+        // parameter doesn't exist in the request, the DynamicQuerySpecification will be null.
         // This is an example only. Using the repository right on the controller isn't a
         // good pattern to be used in production code.
         final Page<Example> page = repository.findAll(dynamicQuery, page);
@@ -338,3 +338,12 @@ public class ExamplePathConverter implements PathConverter {
 
 }
 ```
+## Configuration properties
+
+The table below details the available configuration properties that the Dynamic Query supports. Please note that
+such configuration are available only when using the modules for easy integration with the Spring Boot.
+
+| Key                                    | Type    | Required | Default value | Description                                                                                                                                                                   |
+|----------------------------------------|---------|----------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dynamic-query.web.query-parameter-name | String  | No       | query         | Defines the HTTP request parameter name that will be used to extract and parse instances of the `DynamicQuerySpecification` when injecting them directly on a class or method |
+| dynamic-query.web.enable-error-handler | Boolean | No       | true          | Defines if the automatic HTTP error responses for the Dynamic Query's exceptions should be generated or not                                                                   |

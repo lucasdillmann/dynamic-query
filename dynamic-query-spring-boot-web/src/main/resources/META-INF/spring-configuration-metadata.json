@@ -15,7 +15,7 @@
       "sourceType": "br.com.dillmann.dynamicquery.springboot.web.DynamicQueryWebConfigurationProperties"
     },
     {
-      "name": "dynamic-query.web.query-parameter-name",
+      "name": "dynamic-query.web.enable-error-handler",
       "type": "java.lang.Boolean",
       "description": "Defines if the Dynamic Query's error handler for the Spring Web controllers should be enabled or not",
       "defaultValue": true,
