@@ -19,11 +19,13 @@ To get started, you'll need to include the Dynamic Query in your application (vi
 Dynamic Query isn't available through Maven Central yet, but the publication is in the works.
 
 ```xml
-<dependency>
-  <group>br.com.dillmann.dynamicquery</group>
-  <artifactId>dynamic-query</artifactId>
-  <version>1.0.0</version>
-</dependency>
+<dependencies>
+    <dependency>
+        <group>br.com.dillmann.dynamicquery</group>
+        <artifactId>dynamic-query</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
 ```
 
 If you're using Spring Boot, adding the `dynamic-query-spring-boot-data-jpa` and `dynamic-query-spring-boot-web` 
@@ -35,16 +37,18 @@ from the "query" request parameter. When such parameter doesn't exist in the req
 to the controller.
 
 ```xml
-<dependency>
-  <group>br.com.dillmann.dynamicquery</group>
-  <artifactId>dynamic-query-spring-boot-data-jpa</artifactId>
-  <version>1.0.0</version>
-</dependency>
-<dependency>
-  <group>br.com.dillmann.dynamicquery</group>
-  <artifactId>dynamic-query-spring-boot-web</artifactId>
-  <version>1.0.0</version>
-</dependency>
+<dependencies>
+    <dependency>
+      <group>br.com.dillmann.dynamicquery</group>
+      <artifactId>dynamic-query-spring-boot-data-jpa</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <group>br.com.dillmann.dynamicquery</group>
+      <artifactId>dynamic-query-spring-boot-web</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+</dependencies>
 ```
 
 With those dependencies, you can do something like this in your code in order to use the Dynamic Query's functionality:
@@ -69,11 +73,15 @@ public class ExampleController {
     }
     
     @GetMapping
-    public ResponseEntity<Page<Example>> example(final DynamicQuerySpecification dynamicQuery, final Pageable page) {
-        // DynamicQuerySpecification will be parsed automatically using the "query" request parameter value. When such
-        // parameter doesn't exist in the request, DynamicQuerySpecification will be null.
-        // This is an example only. Using the repository right on the controller isn't a good pattern 
-        // to be used in production code.
+    public ResponseEntity<Page<Example>> example(
+        final DynamicQuerySpecification dynamicQuery, 
+        final Pageable page
+    ) {
+        // DynamicQuerySpecification will be parsed automatically using the "query" request 
+        // parameter value. When such parameter doesn't exist in the request, the 
+        // DynamicQuerySpecification will be null.
+        // This is an example only. Using the repository right on the controller isn't a
+        // good pattern to be used in production code.
         final Page<Example> page = repository.findAll(dynamicQuery, page);
         return ResponseEntity.ok(page);
     }
@@ -87,7 +95,9 @@ in a JPA query.
 
 ```java
 // Initialize the query using JPA Criteria APIs
-final EntityManager entityManager = Persistence.createEntityManagerFactory("example").createEntityManager();
+final EntityManager entityManager = Persistence
+    .createEntityManagerFactory("example")
+    .createEntityManager();
 final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 final CriteriaQuery<EntityClass> criteriaQuery = builder.createQuery(EntityClass.class);
 final Root<EntityClass> root = criteriaQuery.getRoots().iterator().next();
@@ -99,7 +109,8 @@ final DynamicQuerySpecification specification = DynamicQuery.parse(expression);
 final Predicate predicate = specification.toPredicate(root, criteriaQuery, builder);
 
 // Apply the predicate and retrieve the query results
-final TypedQuery<EntityClass> query = entityManager.createQuery(criteriaQuery.where(predicate));
+final TypedQuery<EntityClass> query = entityManager
+    .createQuery(criteriaQuery.where(predicate));
 final List<EntityClass> queryResults = query.getResultList();
 ```
 
