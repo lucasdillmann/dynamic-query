@@ -9,20 +9,18 @@ dependencies {
 }
 
 tasks {
-    compileKotlin {
-        dependsOn(generateGrammarSource)
+    listOf(
+        compileKotlin,
+        kotlinSourcesJar,
+        sourcesJar,
+        dokkaJavadoc,
+    ).forEach {
+        it.get().dependsOn(generateGrammarSource)
     }
 
     compileTestKotlin {
+        dependsOn(generateGrammarSource)
         dependsOn(generateTestGrammarSource)
-    }
-
-    kotlinSourcesJar {
-        dependsOn(generateGrammarSource)
-    }
-
-    sourcesJar {
-        dependsOn(generateGrammarSource)
     }
 
     javadoc {

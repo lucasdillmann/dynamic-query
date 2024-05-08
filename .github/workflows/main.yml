@@ -1,11 +1,11 @@
-name: dynamic-query-pipeline
+name: dynamic-query-main-pipeline
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
-
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   quality-checks:

@@ -1,29 +1,58 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 plugins {
+    val kotlinVersion = "1.9.23"
+    val dokkaVersion = "1.9.20"
+    val sonarqubeVersion = "4.4.1.3373"
+    val detektVersion = "1.23.6"
+    val nmcpVersion = "0.0.7"
+    val springBootVersion = "3.2.3"
+    val springDependencyManagementVersion = "1.1.4"
+
     `maven-publish`
     `java-library`
     jacoco
     signing
 
     kotlin("jvm") version "1.9.10"
-    kotlin("plugin.spring") version "1.9.10" apply false
-    kotlin("plugin.jpa") version "1.9.10" apply false
+    kotlin("plugin.spring") version kotlinVersion apply false
+    kotlin("plugin.jpa") version kotlinVersion apply false
 
-    id("org.sonarqube") version "4.4.1.3373"
-    id("io.gitlab.arturbosch.detekt") version "1.23.3"
-    id("org.springframework.boot") version "3.2.3" apply false
-    id("io.spring.dependency-management") version "1.1.4" apply false
+    id("org.sonarqube") version sonarqubeVersion
+    id("io.gitlab.arturbosch.detekt") version detektVersion
+    id("com.gradleup.nmcp") version nmcpVersion
+    id("org.jetbrains.dokka") version dokkaVersion apply false
+    id("org.springframework.boot") version springBootVersion apply false
+    id("io.spring.dependency-management") version springDependencyManagementVersion apply false
 }
 
 allprojects {
+    group = "br.com.dillmann.dynamicquery"
+    version = "1.0.0"
+
     repositories {
         mavenCentral()
     }
-    
+
     sonar {
         properties {
             property("sonar.projectKey", "lucasdillmann_dynamic-query")
             property("sonar.organization", "lucasdillmann")
             property("sonar.host.url", "https://sonarcloud.io")
+        }
+    }
+}
+
+gradle.rootProject {
+    nmcp {
+        publishAggregation {
+            subprojects.forEach {
+                project(":${it.name}")
+            }
+
+            username = providers.environmentVariable("MAVEN_CENTRAL_USERNAME")
+            password = providers.environmentVariable("MAVEN_CENTRAL_PASSWORD")
+            publicationType = "USER_MANAGED"
         }
     }
 }
@@ -36,9 +65,8 @@ subprojects {
     apply(plugin = "jacoco")
     apply(plugin = "io.gitlab.arturbosch.detekt")
     apply(plugin = "org.sonarqube")
-
-    group = "br.com.dillmann.dynamicquery"
-    version = "1.0.0"
+    apply(plugin = "org.jetbrains.dokka")
+    apply(plugin = "com.gradleup.nmcp")
 
     dependencies {
         // Kotlin
@@ -70,8 +98,24 @@ subprojects {
             }
         }
 
-        withType<AbstractPublishToMaven>().forEach {
-            it.dependsOn(kotlinSourcesJar)
+        create<Jar>("dokkaJavadocJar") {
+            val dokkaJavadoc = getByName("dokkaJavadoc") as DokkaTask
+            dependsOn(dokkaJavadoc)
+
+            archiveClassifier = "javadoc"
+            from(dokkaJavadoc.outputDirectory)
+        }
+
+        afterEvaluate {
+            withType<AbstractPublishToMaven>().configureEach {
+                dependsOn(kotlinSourcesJar)
+                dependsOn(getByName("sourcesJar"))
+                dependsOn(getByName("dokkaJavadocJar"))
+            }
+
+            withType<Sign>().configureEach {
+                dependsOn(getByName("sourcesJar"))
+            }
         }
     }
 
@@ -83,8 +127,23 @@ subprojects {
     }
 
     java {
-        withJavadocJar()
         withSourcesJar()
+    }
+
+    nmcp {
+        publishAllPublications {}
+    }
+
+    signing {
+        val signingKey = providers.environmentVariable("MAVEN_CENTRAL_SIGNING_KEY")
+        val signingSecret = providers.environmentVariable("MAVEN_CENTRAL_SIGNING_SECRET")
+        if (signingKey.isPresent && signingSecret.isPresent) {
+            useInMemoryPgpKeys(signingKey.get(), signingSecret.get())
+
+            afterEvaluate {
+                sign(publishing.publications)
+            }
+        }
     }
 
     publishing {
@@ -93,9 +152,10 @@ subprojects {
                 groupId = project.group.toString()
                 artifactId = project.name
                 version = project.version.toString()
-                from(components["kotlin"])
 
+                from(components["kotlin"])
                 artifact(tasks.kotlinSourcesJar)
+                artifact(tasks.findByName("dokkaJavadocJar"))
 
                 versionMapping {
                     usage("java-api") {

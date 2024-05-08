@@ -1,7 +1,9 @@
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
-rootProject.name = "dynamic-query"
+
+rootProject.name = "dynamicquery"
+
 include("dynamic-query")
 include("dynamic-query-grammar")
 include("dynamic-query-specification")
