@@ -40,3 +40,14 @@ tasks {
         classDirectories.setFrom(filteredFiles)
     }
 }
+
+publishing {
+    publications {
+        getByName<MavenPublication>("maven") {
+            pom {
+                name = "Dynamic Query - DSL grammar"
+                description = "Dynamic Query's DSL grammar definition and parsers"
+            }
+        }
+    }
+}

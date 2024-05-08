@@ -23,3 +23,14 @@ tasks {
         mainClass = "" // even though the task is disabled, Spring plugin still requires a value to be set
     }
 }
+
+publishing {
+    publications {
+        getByName<MavenPublication>("maven") {
+            pom {
+                name = "Dynamic Query - Spring Boot Data JPA"
+                description = "Dynamic Query's abstractions for easy and simple integration with the Spring Boot Data JPA APIs"
+            }
+        }
+    }
+}

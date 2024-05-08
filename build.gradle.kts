@@ -167,14 +167,13 @@ subprojects {
                 }
 
                 pom {
-                    name = "Dynamic Query"
-                    description = "Simple and dynamic queries filters for JPA-based applications"
+                    // name and description properties must be defined by the submodules
                     url = "https://github.com/lucasdillmann/dynamic-query"
 
                     licenses {
                         license {
                             name = "MIT License"
-                            url = "https://github.com/lucasdillmann/dynamic-query/blob/main/LICENSE.md"
+                            url = "https://github.com/lucasdillmann/dynamic-query/blob/${project.version}/LICENSE.md"
                         }
                     }
 
