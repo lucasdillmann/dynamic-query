@@ -16,7 +16,6 @@ GET /api/products?query=equals(manufacturer.id, 25)%26%26equals(active, true)%26
 ## Getting started
 
 To get started, you'll need to include the Dynamic Query in your application (via Maven, Gradle, sbt, etc.).
-Dynamic Query isn't available through Maven Central yet, but the publication is in the works.
 
 ```xml
 <dependencies>
