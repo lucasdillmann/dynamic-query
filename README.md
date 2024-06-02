@@ -22,7 +22,7 @@ To get started, you'll need to include the Dynamic Query in your application (vi
     <dependency>
         <group>br.com.dillmann.dynamicquery</group>
         <artifactId>dynamic-query</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
     </dependency>
 </dependencies>
 ```
@@ -40,12 +40,12 @@ request, a null value will be provided to the controller.
     <dependency>
       <group>br.com.dillmann.dynamicquery</group>
       <artifactId>dynamic-query-spring-boot-data-jpa</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
     </dependency>
     <dependency>
       <group>br.com.dillmann.dynamicquery</group>
       <artifactId>dynamic-query-spring-boot-web</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
     </dependency>
 </dependencies>
 ```
