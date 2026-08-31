@@ -22,7 +22,7 @@ jobs:
           key: gradle-cache
           restore-keys: gradle-cache
       - name: Publish to Maven Central
-        run: ./gradlew assemble publishAggregatedPublicationToCentralPortal
+        run: ./gradlew assemble nmcpPublishAggregatedPublicationToCentralPortal
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
