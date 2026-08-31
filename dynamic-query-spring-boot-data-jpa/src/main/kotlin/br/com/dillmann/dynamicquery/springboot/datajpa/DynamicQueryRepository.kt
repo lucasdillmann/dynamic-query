@@ -15,7 +15,7 @@ import java.util.*
  * @param T Generic type of the entity
  */
 @NoRepositoryBean
-interface DynamicQueryRepository<T> : JpaSpecificationExecutor<T> {
+interface DynamicQueryRepository<T : Any> : JpaSpecificationExecutor<T> {
 
     /**
      * Queries and returns a single result using provided [Specification]
@@ -160,26 +160,4 @@ interface DynamicQueryRepository<T> : JpaSpecificationExecutor<T> {
      */
     fun exists(specification: DynamicQuerySpecification?, scopeDownSupplier: ScopeDownSupplier<T>): Boolean =
         exists(specification.toSpringSpecification(scopeDownSupplier))
-
-    /**
-     * Deletes any records that matches the provided [Specification]
-     *
-     * @param specification Dynamic Query's specification with the query predicates. If null is supplied, an empty
-     * predicate will be used with no query restrictions.
-     */
-    fun delete(specification: DynamicQuerySpecification?): Long =
-        delete(specification.toSpringSpecification())
-
-    /**
-     * Deletes any records that matches the provided [Specification] and a scope-down supplied conditions,
-     * which allows a set of fixed conditions to be placed on top of the dynamic ones
-     *
-     * @param specification Dynamic Query's specification with the query predicates. If null is supplied, an empty
-     * predicate will be used with no query restrictions.
-     * @param scopeDownSupplier Specification transformer able to customize the generated [Specification] from the
-     * Dynamic Query's predicates. Please note that the supplier provided [Specification] will be used as-is, and
-     * is your responsibility to link (with an and/or expression) your query conditions with the Dynamic Query's ones.
-     */
-    fun delete(specification: DynamicQuerySpecification?, scopeDownSupplier: ScopeDownSupplier<T>): Long =
-        delete(specification.toSpringSpecification(scopeDownSupplier))
 }

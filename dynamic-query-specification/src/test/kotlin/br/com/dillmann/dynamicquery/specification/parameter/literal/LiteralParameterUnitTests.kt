@@ -59,7 +59,7 @@ class LiteralParameterUnitTests {
         // validation
         assertEquals(result, literalExpression)
         verify { builder.literal(value) }
-        verify { ValueParsers.parse<Any>(any(), any()) wasNot Called }
+        verify(exactly = 0) { ValueParsers.parse<Any>(any(), any()) }
     }
 
     @Test

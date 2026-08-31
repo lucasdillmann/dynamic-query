@@ -28,7 +28,7 @@ class AndGroupSpecificationUnitTests {
     fun setUp() {
         every { leftSpecification.toPredicate(any(), any(), any()) } returns leftPredicate
         every { rightSpecification.toPredicate(any(), any(), any()) } returns rightPredicate
-        every { builder.and(any<Expression<Boolean>>(), any<Expression<Boolean>>()) } returns andPredicate
+        every { builder.and(*anyVararg<Predicate>()) } returns andPredicate
     }
 
     @Test
@@ -48,9 +48,7 @@ class AndGroupSpecificationUnitTests {
 
         // validation
         assertEquals(andPredicate, result)
-        verify {
-            builder.and(leftPredicate as Expression<Boolean>, rightPredicate as Expression<Boolean>)
-        }
+        verify { builder.and(leftPredicate, rightPredicate) }
     }
 
 }

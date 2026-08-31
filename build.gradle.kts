@@ -1,26 +1,25 @@
-import org.jetbrains.dokka.gradle.DokkaTask
-
 plugins {
-    val kotlinVersion = "1.9.23"
-    val dokkaVersion = "1.9.20"
-    val sonarqubeVersion = "4.4.1.3373"
-    val detektVersion = "1.23.6"
-    val nmcpVersion = "0.0.7"
-    val springBootVersion = "3.2.3"
-    val springDependencyManagementVersion = "1.1.4"
+    val kotlinVersion = "2.4.10"
+    val dokkaVersion = "2.2.0"
+    val sonarqubeVersion = "7.4.0.8496"
+    val detektVersion = "2.0.0-alpha.6"
+    val nmcpVersion = "1.6.1"
+    val springBootVersion = "4.1.1"
+    val springDependencyManagementVersion = "1.1.7"
 
     `maven-publish`
     `java-library`
     jacoco
     signing
 
-    kotlin("jvm") version "1.9.10"
+    kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion apply false
     kotlin("plugin.jpa") version kotlinVersion apply false
 
     id("org.sonarqube") version sonarqubeVersion
-    id("io.gitlab.arturbosch.detekt") version detektVersion
+    id("dev.detekt") version detektVersion
     id("com.gradleup.nmcp") version nmcpVersion
+    id("com.gradleup.nmcp.aggregation") version nmcpVersion
     id("org.jetbrains.dokka") version dokkaVersion apply false
     id("org.springframework.boot") version springBootVersion apply false
     id("io.spring.dependency-management") version springDependencyManagementVersion apply false
@@ -28,7 +27,7 @@ plugins {
 
 allprojects {
     group = "br.com.dillmann.dynamicquery"
-    version = "1.1.0"
+    version = "2.0.0"
 
     repositories {
         mavenCentral()
@@ -43,17 +42,17 @@ allprojects {
     }
 }
 
-gradle.rootProject {
-    nmcp {
-        publishAggregation {
-            subprojects.forEach {
-                project(":${it.name}")
-            }
+nmcpAggregation {
+    centralPortal {
+        username = providers.environmentVariable("MAVEN_CENTRAL_USERNAME")
+        password = providers.environmentVariable("MAVEN_CENTRAL_PASSWORD")
+        publishingType = "USER_MANAGED"
+    }
+}
 
-            username = providers.environmentVariable("MAVEN_CENTRAL_USERNAME")
-            password = providers.environmentVariable("MAVEN_CENTRAL_PASSWORD")
-            publicationType = "USER_MANAGED"
-        }
+dependencies {
+    subprojects.forEach {
+        nmcpAggregation(project(":${it.name}"))
     }
 }
 
@@ -63,7 +62,7 @@ subprojects {
     apply(plugin = "java-library")
     apply(plugin = "signing")
     apply(plugin = "jacoco")
-    apply(plugin = "io.gitlab.arturbosch.detekt")
+    apply(plugin = "dev.detekt")
     apply(plugin = "org.sonarqube")
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "com.gradleup.nmcp")
@@ -73,11 +72,11 @@ subprojects {
         testImplementation("org.jetbrains.kotlin:kotlin-test")
 
         // MockK
-        val mockkVersion: String by project
+        val mockkVersion = project.property("mockkVersion")
         testImplementation("io.mockk:mockk:$mockkVersion")
 
         // JUnit
-        val junitVersion: String by project
+        val junitVersion = project.property("junitVersion")
         testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
@@ -98,12 +97,11 @@ subprojects {
             }
         }
 
-        create<Jar>("dokkaJavadocJar") {
-            val dokkaJavadoc = getByName("dokkaJavadoc") as DokkaTask
-            dependsOn(dokkaJavadoc)
+        register<Jar>("dokkaJavadocJar") {
+            dependsOn("dokkaGeneratePublicationJavadoc")
 
             archiveClassifier = "javadoc"
-            from(dokkaJavadoc.outputDirectory)
+            from(rootProject.layout.buildDirectory.dir("dokka/javadoc"))
         }
 
         afterEvaluate {
@@ -122,16 +120,12 @@ subprojects {
     kotlin {
         jvmToolchain(17)
         compilerOptions {
-            freeCompilerArgs.add("-Xjvm-default=all")
+            freeCompilerArgs.add("-jvm-default=no-compatibility")
         }
     }
 
     java {
         withSourcesJar()
-    }
-
-    nmcp {
-        publishAllPublications {}
     }
 
     signing {

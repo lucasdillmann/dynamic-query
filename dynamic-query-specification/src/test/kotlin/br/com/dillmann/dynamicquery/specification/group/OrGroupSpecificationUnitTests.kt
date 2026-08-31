@@ -28,7 +28,7 @@ class OrGroupSpecificationUnitTests {
     fun setUp() {
         every { leftSpecification.toPredicate(any(), any(), any()) } returns leftPredicate
         every { rightSpecification.toPredicate(any(), any(), any()) } returns rightPredicate
-        every { builder.or(any<Expression<Boolean>>(), any<Expression<Boolean>>()) } returns orPredicate
+        every { builder.or(*anyVararg<Predicate>()) } returns orPredicate
     }
 
     @Test
@@ -48,9 +48,7 @@ class OrGroupSpecificationUnitTests {
 
         // validation
         assertEquals(orPredicate, result)
-        verify {
-            builder.or(leftPredicate as Expression<Boolean>, rightPredicate as Expression<Boolean>)
-        }
+        verify { builder.or(leftPredicate, rightPredicate) }
     }
 
 }

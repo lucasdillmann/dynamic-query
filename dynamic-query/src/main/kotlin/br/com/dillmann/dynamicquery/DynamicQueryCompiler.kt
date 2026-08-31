@@ -66,7 +66,7 @@ object DynamicQueryCompiler {
                 val currentPredicate = compile(child)
                 leftSpecification =
                     if (leftSpecification == null) currentPredicate
-                    else compileLogicalOperator(logicalOperatorNode!!, leftSpecification!!, currentPredicate)
+                    else compileLogicalOperator(logicalOperatorNode!!, leftSpecification, currentPredicate)
             }
         }
 
