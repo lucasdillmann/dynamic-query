@@ -15,6 +15,7 @@
 - Updated Jakarta Persistence API from 3.1.0 to 3.2.0
 - Updated ANTLR from 4.13.1 to 4.13.2
 - Updated Spring Dependency Management from 1.1.4 to 1.1.7
+- Added standalone Hibernate example application
 
 ### Breaking changes
 

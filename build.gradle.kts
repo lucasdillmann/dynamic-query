@@ -98,7 +98,7 @@ subprojects {
         }
 
         register<Jar>("dokkaJavadocJar") {
-            dependsOn("dokkaGeneratePublicationJavadoc")
+            dependsOn("dokkaGenerate")
 
             archiveClassifier = "javadoc"
             from(rootProject.layout.buildDirectory.dir("dokka/javadoc"))
