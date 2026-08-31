@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.3'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version '4.1.1'
+	id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'br.com.dillmann.dynamicquery.examples'
@@ -21,6 +21,6 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'com.h2database:h2'
 
-	implementation 'br.com.dillmann.dynamicquery:dynamic-query-spring-boot-data-jpa:1.1.0'
-	implementation 'br.com.dillmann.dynamicquery:dynamic-query-spring-boot-web:1.1.0'
+	implementation 'br.com.dillmann.dynamicquery:dynamic-query-spring-boot-data-jpa:2.0.0'
+	implementation 'br.com.dillmann.dynamicquery:dynamic-query-spring-boot-web:2.0.0'
 }

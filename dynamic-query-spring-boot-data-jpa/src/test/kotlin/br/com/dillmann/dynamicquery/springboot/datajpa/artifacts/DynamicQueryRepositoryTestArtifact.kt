@@ -4,9 +4,10 @@ import br.com.dillmann.dynamicquery.springboot.datajpa.DynamicQueryRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
+import org.springframework.data.jpa.domain.DeleteSpecification
 import org.springframework.data.jpa.domain.Specification
+import org.springframework.data.jpa.domain.UpdateSpecification
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
-import org.springframework.data.repository.query.FluentQuery
 import java.util.*
 import java.util.function.Function
 
@@ -20,13 +21,16 @@ class DynamicQueryRepositoryTestArtifact(
     private val findOneDelegate: (Specification<Any>) -> Optional<Any>,
     private val countDelegate: (Specification<Any>) -> Long,
     private val existsDelegate: (Specification<Any>) -> Boolean,
-    private val deleteDelegate: (Specification<Any>) -> Long,
+    private val deleteDelegate: (DeleteSpecification<Any>) -> Long,
 ): DynamicQueryRepository<Any> {
 
     override fun findAll(specification: Specification<Any>): List<Any> =
         findAllListDelegate(specification, null)
 
     override fun findAll(specification: Specification<Any>, pageable: Pageable): Page<Any> =
+        findAllPageDelegate(specification, pageable)
+
+    override fun findAll(specification: Specification<Any>, countSpec: Specification<Any>, pageable: Pageable): Page<Any> =
         findAllPageDelegate(specification, pageable)
 
     override fun findAll(specification: Specification<Any>, sort: Sort): List<Any> =
@@ -41,11 +45,14 @@ class DynamicQueryRepositoryTestArtifact(
     override fun exists(specification: Specification<Any>): Boolean =
         existsDelegate(specification)
 
-    override fun delete(specification: Specification<Any>): Long =
+    override fun delete(specification: DeleteSpecification<Any>): Long =
         deleteDelegate(specification)
 
-    override fun <S : Any, R : Any> findBy(
+    override fun update(specification: UpdateSpecification<Any>): Long =
+        error("Not supported")
+
+    override fun <S : Any, R> findBy(
         specification: Specification<Any>,
-        queryFunction: Function<FluentQuery.FetchableFluentQuery<S>, R>
+        queryFunction: Function<in JpaSpecificationExecutor.SpecificationFluentQuery<S>, R>
     ): R = error("Not supported")
 }

@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.Specification
  * @param T Generic type of the specification's target entity
  * @param delegate Dynamic Query's specification to be adapted to the [Specification]
  */
-class DynamicQuerySpecificationAdapter<T>(private val delegate: DynamicQuerySpecification): Specification<T> {
+class DynamicQuerySpecificationAdapter<T : Any>(private val delegate: DynamicQuerySpecification): Specification<T> {
 
     /**
      * Produces a JPA-compliant predicate using the given criteria. Every call will be delegated to the adapted

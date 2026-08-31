@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
+import org.springframework.data.jpa.domain.DeleteSpecification
 import org.springframework.data.jpa.domain.Specification
 import java.util.*
 import kotlin.reflect.KFunction
@@ -26,7 +27,7 @@ class DynamicQueryRepositoryUnitTests {
     private val findOneMock: (Specification<Any>) -> Optional<Any> = mockk()
     private val countMock: (Specification<Any>) -> Long = mockk()
     private val existsMock: (Specification<Any>) -> Boolean = mockk()
-    private val deleteMock: (Specification<Any>) -> Long = mockk()
+    private val deleteMock: (DeleteSpecification<Any>) -> Long = mockk()
     private val scopeDownSupplier: (Specification<Any>) -> Specification<Any> = mockk()
     private val specification: DynamicQuerySpecification = mockk()
     private val page: Pageable = mockk()
@@ -193,25 +194,5 @@ class DynamicQueryRepositoryUnitTests {
         // validation
         verify { specification.toSpringSpecification(scopeDownSupplier) }
         verify { existsMock(any<DynamicQuerySpecificationAdapter<Any>>()) }
-    }
-
-    @Test
-    fun `delete without a scope-down customizer should convert the specification and delegate the execution to the Spring Data`() {
-        // execution
-        repository.delete(specification)
-
-        // validation
-        verify { specification.toSpringSpecification<Any>() }
-        verify { deleteMock(any<DynamicQuerySpecificationAdapter<Any>>()) }
-    }
-
-    @Test
-    fun `delete with a scope-down customizer should convert the specification and delegate the execution to the Spring Data`() {
-        // execution
-        repository.delete(specification, scopeDownSupplier)
-
-        // validation
-        verify { specification.toSpringSpecification(scopeDownSupplier) }
-        verify { deleteMock(any<DynamicQuerySpecificationAdapter<Any>>()) }
     }
 }

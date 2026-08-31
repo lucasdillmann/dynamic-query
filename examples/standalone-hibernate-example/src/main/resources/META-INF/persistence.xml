@@ -1,0 +1,21 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+
+    <persistence-unit name="example" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>br.com.dillmann.dynamicquery.examples.hibernate.product.Product</class>
+        <class>br.com.dillmann.dynamicquery.examples.hibernate.productgroup.ProductGroup</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value="password"/>
+            <property name="hibernate.hbm2ddl.auto" value="none"/>
+            <property name="hibernate.jdbc.batch_size" value="0"/>
+        </properties>
+    </persistence-unit>
+</persistence>

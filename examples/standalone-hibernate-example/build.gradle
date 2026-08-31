@@ -1,0 +1,28 @@
+plugins {
+	id 'java'
+	id 'application'
+	id 'org.hibernate.orm' version '7.0.0.Final'
+}
+
+group = 'br.com.dillmann.dynamicquery.examples'
+version = '0.0.1-SNAPSHOT'
+
+application {
+	mainClass = 'br.com.dillmann.dynamicquery.examples.hibernate.Application'
+}
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.hibernate.orm:hibernate-core'
+	implementation 'com.h2database:h2:2.4.240'
+	implementation 'tools.jackson.core:jackson-databind:3.1.5'
+
+	implementation 'br.com.dillmann.dynamicquery:dynamic-query:2.0.0'
+}
